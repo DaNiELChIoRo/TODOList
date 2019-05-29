@@ -8,32 +8,63 @@
 
 import UIKit
 
-extension UIViewController {
+extension UIView {
     
     func topViewAutoAnchors(vista: UIView, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat){
         NSLayoutConstraint.activate([
-            (vista.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.frame.height*(topPadding/736))),
-            (vista.centerXAnchor.constraint(equalTo: view.centerXAnchor)),
-            (vista.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: heightPercentage)),
-            (vista.widthAnchor.constraint(equalTo: view.widthAnchor, constant: sidePadding*(-2)))
+            (vista.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: self.frame.height*(topPadding/736))),
+            (vista.centerXAnchor.constraint(equalTo: self.centerXAnchor)),
+            (vista.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: heightPercentage)),
+            (vista.widthAnchor.constraint(equalTo: self.widthAnchor, constant: sidePadding*(-2)))
+            ])
+    }
+    
+    func centerViewAutoAnchors(vista: UIView, heightPercentage:CGFloat, sidePadding:CGFloat){        
+        NSLayoutConstraint.activate([
+            (vista.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: self.frame.size.height * heightPercentage / 2)),
+            (vista.centerXAnchor.constraint(equalTo: self.centerXAnchor)),
+//            (vista.centerYAnchor.constraint(equalTo: view.centerYAnchor)),
+            (vista.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: heightPercentage)),
+            (vista.widthAnchor.constraint(equalTo: self.widthAnchor, constant: sidePadding*(-2)))
             ])
     }
     
     func topAutoAnchors(id:Int, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat){
         NSLayoutConstraint.activate([
-            (view.viewWithTag(id)?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.frame.height*(topPadding/736)))!,
-            (view.viewWithTag(id)?.centerXAnchor.constraint(equalTo: view.centerXAnchor))!,
-            (view.viewWithTag(id)?.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: heightPercentage))!,
-            (view.viewWithTag(id)?.widthAnchor.constraint(equalTo: view.widthAnchor, constant: sidePadding*(-2)))!
+            (self.viewWithTag(id)?.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: self.frame.height*(topPadding/736)))!,
+            (self.viewWithTag(id)?.centerXAnchor.constraint(equalTo: self.centerXAnchor))!,
+            (self.viewWithTag(id)?.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: heightPercentage))!,
+            (self.viewWithTag(id)?.widthAnchor.constraint(equalTo: self.widthAnchor, constant: sidePadding*(-2)))!
             ])
     }
     
     func AutoAnchors(id:Int, topView: Int, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat){
         NSLayoutConstraint.activate([
-            (view.viewWithTag(id)?.topAnchor.constraint(equalTo: (view.viewWithTag(topView)?.bottomAnchor)!, constant: view.frame.height*(topPadding/736)))!,
-            (view.viewWithTag(id)?.centerXAnchor.constraint(equalTo: view.centerXAnchor))!,
-            (view.viewWithTag(id)?.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: heightPercentage))!,
-            (view.viewWithTag(id)?.widthAnchor.constraint(equalTo: view.widthAnchor, constant: sidePadding*(-2)))!
+            (self.viewWithTag(id)?.topAnchor.constraint(equalTo: (self.viewWithTag(topView)?.bottomAnchor)!, constant: self.frame.height*(topPadding/736)))!,
+            (self.viewWithTag(id)?.centerXAnchor.constraint(equalTo: self.centerXAnchor))!,
+            (self.viewWithTag(id)?.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: heightPercentage))!,
+            (self.viewWithTag(id)?.widthAnchor.constraint(equalTo: self.widthAnchor, constant: sidePadding*(-2)))!
+            ])
+    }
+    
+    //Para vistas que no hayan sido creadas mediante metodos
+    func AutoAnchors(vista: UIView, topView:Int, heightPercentage:CGFloat, sidePadding:CGFloat){
+        NSLayoutConstraint.activate([
+            (vista.topAnchor.constraint(equalTo: (self.viewWithTag(topView)?.bottomAnchor)!, constant: self.frame.size.height * heightPercentage / 2)),
+            (vista.centerXAnchor.constraint(equalTo: self.centerXAnchor)),
+            //            (vista.centerYAnchor.constraint(equalTo: view.centerYAnchor)),
+            (vista.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: heightPercentage)),
+            (vista.widthAnchor.constraint(equalTo: self.widthAnchor, constant: sidePadding*(-2)))
+            ])
+    }
+    
+    //Para las vistas que hayan sido creadas mediante metodos y tienen una vista 
+    func AutoAnchors(id: Int, topView:UIView, heightPercentage:CGFloat, sidePadding:CGFloat, topPadding:CGFloat){
+        NSLayoutConstraint.activate([
+            (self.viewWithTag(id)?.topAnchor.constraint(equalTo: (topView.bottomAnchor), constant: self.frame.height*(topPadding/736)))!,
+            (self.viewWithTag(id)?.centerXAnchor.constraint(equalTo: self.centerXAnchor))!,
+            (self.viewWithTag(id)?.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: heightPercentage))!,
+            (self.viewWithTag(id)?.widthAnchor.constraint(equalTo: self.widthAnchor, constant: sidePadding*(-2)))!
             ])
     }
     

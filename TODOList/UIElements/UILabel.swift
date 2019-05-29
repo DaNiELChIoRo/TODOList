@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIViewController {
+extension UILabel {
     
     func labelCreator(id: Int, text title:String, textColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat) -> UILabel{
         let label = UILabel()
