@@ -10,13 +10,17 @@ import UIKit
 
 class TableView: UITableView, onCellTapProtocol {
     
+    let detailView = DetailViewController()
+    
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         delegate = TableViewDelegate.shared
         dataSource = TableViewDelegate.shared
         self.translatesAutoresizingMaskIntoConstraints = false
         
-            TableViewDelegate.shared.records()        
+            TableViewDelegate.shared.records()
+        
+            TableViewDelegate.shared.delegate = detailView
     }
     
     required init?(coder aDecoder: NSCoder) {

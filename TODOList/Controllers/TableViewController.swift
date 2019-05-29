@@ -32,15 +32,15 @@ class TableViewDelegate: UITableViewController {
     
     static let shared = TableViewDelegate()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//    }
  
     func records() {
         print("se escribiran las tareas al arreglo")
         
-//        detailView.delegate = self
+        
         
         let fechaPrimeraTarea:Date = dateFormatter.date(from: "05/06/19") ?? Date.distantFuture
         let tarea = Tarea(name: "Bañar al perro", description: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
@@ -111,7 +111,7 @@ class TableViewDelegate: UITableViewController {
         
         print("nombre de la tarea: \(self.taskName)")
         
-//        detailView.delegate?.displayTaskDetails(name: self.taskName, detail: self.taskDetail, date: self.taskDate)
+        delegate?.displayTaskDetails(name: self.taskName, detail: self.taskDetail, date: self.taskDate)
         
     }
     
@@ -129,8 +129,8 @@ class TableViewDelegate: UITableViewController {
     
 }
 
-//extension TableViewDelegate: tasksDisplayer{
-//    func displayTaskDetails(name: String, detail: String, date: String) {
-//            print("displayTaskDetails that should not be called")
-//    }
-//}
+extension TableViewDelegate: tasksDisplayer{
+    func displayTaskDetails(name: String, detail: String, date: String) {
+            print("displayTaskDetails that should not be called")
+    }
+}

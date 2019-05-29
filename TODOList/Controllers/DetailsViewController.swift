@@ -30,14 +30,13 @@ class DetailViewController: UIViewController, tasksDisplayer {
         susbcribeObservers()
     }
     
-
-    
-    
     func susbcribeObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: NSNotification.Name("notificationView.updateData"), object: nil)
     }
     
     func setupView(){
+        
+        delegate = self
         
         view.backgroundColor = UIColor.lightGray
         
