@@ -8,17 +8,26 @@
 
 import UIKit
 
-class TableView: UITableView {
+class TableView: UITableView, onCellTapProtocol {
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         delegate = TableViewDelegate.shared
         dataSource = TableViewDelegate.shared
         self.translatesAutoresizingMaskIntoConstraints = false
+        
+            TableViewDelegate.shared.records()        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
+    }
+    
+    func detailViewPresenter() {
+        print("deatilViewPresent function from cell?")
+        let detailView = DetailViewController()
+        self.window?.rootViewController?.present(detailView, animated: true, completion: nil)
     }
     
 }
@@ -27,16 +36,25 @@ class CellView: UITableViewCell {
     
     weak var name: UILabel!
     
+    var delegate: onCellTapProtocol!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.backgroundColor = UIColor.red
+//        self.backgroundColor = UIColor.red
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func presentView(_ sender: Any){
+        self.delegate.detailViewPresenter()
+        print("allgo")
+    }
     
-    
+}
+
+protocol onCellTapProtocol {
+    func detailViewPresenter()
 }

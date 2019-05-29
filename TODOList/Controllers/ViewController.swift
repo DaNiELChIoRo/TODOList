@@ -15,12 +15,18 @@ class ViewController: UIViewController {
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupNavBar()
         setupView()
-        
+        addObservers()
+    }
+    
+    func addObservers(){
+        NotificationCenter.default.addObserver(self, selector: #selector(newView), name: NSNotification.Name("viewNotification.changeView"), object: nil)
     }
 
     func setupView(){
@@ -30,13 +36,20 @@ class ViewController: UIViewController {
         let tableView = TableView()
         
         view.addSubview(tableView)
-        view.topViewAutoAnchors(vista: tableView, heightPercentage: 30, sidePadding: 15, topPadding: 0)
+        view.topViewAutoAnchors(vista: tableView, heightPercentage: 30, sidePadding: 0, topPadding: 0)
         
     }
     
     func setupNavBar(){
         let rightItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonHandler))
         navigationItem.rightBarButtonItem = rightItem
+    }
+    
+    @objc func newView(){
+
+        let detailView = DetailViewController()
+        self.navigationController?.pushViewController(detailView, animated: true)
+        
     }
     
     let modalView = ModalView()

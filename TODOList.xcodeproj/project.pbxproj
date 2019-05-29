@@ -23,6 +23,8 @@
 		1A35F38B229DAD9C00E59BB9 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F38A229DAD9C00E59BB9 /* TableViewController.swift */; };
 		1A35F38D229DD27F00E59BB9 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F38C229DD27F00E59BB9 /* ModalView.swift */; };
 		1A35F38F229DDA4F00E59BB9 /* UITextFlied.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F38E229DDA4F00E59BB9 /* UITextFlied.swift */; };
+		1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */; };
+		1AEB4DBC229ED5F900DA42B1 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */; };
 		A010DFA3229E13D6005BC780 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A010DFA2229E13D6005BC780 /* AddTaskView.swift */; };
 		A010DFA5229E23CA005BC780 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A010DFA4229E23CA005BC780 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +69,8 @@
 		1A35F38A229DAD9C00E59BB9 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		1A35F38C229DD27F00E59BB9 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		1A35F38E229DDA4F00E59BB9 /* UITextFlied.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFlied.swift; sourceTree = "<group>"; };
+		1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegate.swift; sourceTree = "<group>"; };
+		1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		A010DFA2229E13D6005BC780 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		A010DFA4229E23CA005BC780 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,6 +161,7 @@
 			children = (
 				1A35F34C229D873500E59BB9 /* ViewController.swift */,
 				1A35F38A229DAD9C00E59BB9 /* TableViewController.swift */,
+				1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				1A35F37D229D8E9300E59BB9 /* NavigationControllerDelegate.swift */,
+				1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -337,11 +343,13 @@
 				1A35F353229D873500E59BB9 /* TODOList.xcdatamodeld in Sources */,
 				A010DFA5229E23CA005BC780 /* UIColorExtension.swift in Sources */,
 				1A35F382229D911D00E59BB9 /* UILabel.swift in Sources */,
+				1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */,
 				1A35F38F229DDA4F00E59BB9 /* UITextFlied.swift in Sources */,
 				1A35F38D229DD27F00E59BB9 /* ModalView.swift in Sources */,
 				1A35F34D229D873500E59BB9 /* ViewController.swift in Sources */,
 				1A35F38B229DAD9C00E59BB9 /* TableViewController.swift in Sources */,
 				1A35F34B229D873500E59BB9 /* AppDelegate.swift in Sources */,
+				1AEB4DBC229ED5F900DA42B1 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,13 +525,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RPUTZQX636;
+				DEVELOPMENT_TEAM = 2ET2N66PT7;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DaNiELChIoRo.TODOList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ironbit.TODOList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,13 +543,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RPUTZQX636;
+				DEVELOPMENT_TEAM = 2ET2N66PT7;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DaNiELChIoRo.TODOList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ironbit.TODOList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
