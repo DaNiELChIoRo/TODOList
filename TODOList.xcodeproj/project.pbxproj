@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A19D545229F2F9500FEA8CB /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A19D544229F2F9500FEA8CB /* CoreData.swift */; };
+		1A19D547229F327C00FEA8CB /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A19D546229F327C00FEA8CB /* UIButton.swift */; };
 		1A35F34B229D873500E59BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F34A229D873500E59BB9 /* AppDelegate.swift */; };
 		1A35F34D229D873500E59BB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F34C229D873500E59BB9 /* ViewController.swift */; };
 		1A35F350229D873500E59BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A35F34E229D873500E59BB9 /* Main.storyboard */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A19D544229F2F9500FEA8CB /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		1A19D546229F327C00FEA8CB /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		1A35F347229D873500E59BB9 /* TODOList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A35F34A229D873500E59BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A35F34C229D873500E59BB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 			children = (
 				1A35F37D229D8E9300E59BB9 /* NavigationControllerDelegate.swift */,
 				1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */,
+				1A19D544229F2F9500FEA8CB /* CoreData.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 				1A35F385229D965F00E59BB9 /* AutolayoutHelper.swift */,
 				1A35F38E229DDA4F00E59BB9 /* UITextFlied.swift */,
 				A010DFA4229E23CA005BC780 /* UIColorExtension.swift */,
+				1A19D546229F327C00FEA8CB /* UIButton.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A19D547229F327C00FEA8CB /* UIButton.swift in Sources */,
 				1A35F37E229D8E9300E59BB9 /* NavigationControllerDelegate.swift in Sources */,
 				1A35F384229D93C300E59BB9 /* TableView.swift in Sources */,
 				1A35F386229D965F00E59BB9 /* AutolayoutHelper.swift in Sources */,
@@ -347,6 +354,7 @@
 				1A35F38F229DDA4F00E59BB9 /* UITextFlied.swift in Sources */,
 				1A35F38D229DD27F00E59BB9 /* ModalView.swift in Sources */,
 				1A35F34D229D873500E59BB9 /* ViewController.swift in Sources */,
+				1A19D545229F2F9500FEA8CB /* CoreData.swift in Sources */,
 				1A35F38B229DAD9C00E59BB9 /* TableViewController.swift in Sources */,
 				1A35F34B229D873500E59BB9 /* AppDelegate.swift in Sources */,
 				1AEB4DBC229ED5F900DA42B1 /* DetailsViewController.swift in Sources */,

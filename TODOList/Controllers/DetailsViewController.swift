@@ -11,10 +11,6 @@ import UIKit
 let fontSize:CGFloat = 18
 
 class DetailViewController: UIViewController, tasksDisplayer {
-    func displayTaskDetails(name: String, detail: String, date: String) {
-        print("displayTaskDetails")
-    }
-    
     
     var taskName:String = "Tarea"
     var taskDetail: String = "Descripción"
@@ -25,9 +21,13 @@ class DetailViewController: UIViewController, tasksDisplayer {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
+//        setupView()
         setupNavBar()
         susbcribeObservers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
     }
     
     func susbcribeObservers(){
@@ -42,17 +42,28 @@ class DetailViewController: UIViewController, tasksDisplayer {
         
         navigationItem.title = "Detail Task View"
         
-        view.addSubview(UILabel().labelCreator(id: 001, text: taskName, textColor: .black, textAlignment: .center, fontSize: fontSize))
+        view.addSubview(UILabel().labelCreator(id: 001, text: self.taskName, textColor: .black, textAlignment: .center, fontSize: fontSize))
         view.topAutoAnchors(id: 001, heightPercentage: 0.15, sidePadding: 10, topPadding: 35)
         
         
-        view.addSubview(UILabel().labelCreator(id: 002, text: taskDetail, textColor: .black, textAlignment: .center, fontSize: fontSize))
+        view.addSubview(UILabel().labelCreator(id: 002, text: self.taskDetail, textColor: .black, textAlignment: .center, fontSize: fontSize))
         view.AutoAnchors(id: 002, topView: 001, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         
-        view.addSubview(UILabel().labelCreator(id: 003, text: taskDate, textColor: .black, textAlignment: .center, fontSize: fontSize))
+        view.addSubview(UILabel().labelCreator(id: 003, text: self.taskDate, textColor: .black, textAlignment: .center, fontSize: fontSize))
         view.AutoAnchors(id: 003, topView: 002, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
+    }
+    
+    //Configuramos los datos de la vista para mostrar
+    func displayTaskDetails(name: String, detail: String, date: String) {
+        print("displayTaskDetails")
+        self.taskName = name
+        self.taskDetail = detail
+        self.taskDate = date
+        
+        print("Comprobación de datos, name: \(self.taskName)")
+
     }
     
     func setupNavBar(){

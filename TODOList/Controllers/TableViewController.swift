@@ -31,11 +31,6 @@ class TableViewDelegate: UITableViewController {
     }()
     
     static let shared = TableViewDelegate()
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//    }
  
     func records() {
         print("se escribiran las tareas al arreglo")
@@ -98,6 +93,7 @@ class TableViewDelegate: UITableViewController {
     }
     
     //Configuramos la acción al seleccionar una celda
+    //MARK:- OnRowSelect
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Se ha elegido la hilera: \(indexPath.row)")
         
@@ -107,7 +103,7 @@ class TableViewDelegate: UITableViewController {
         self.taskDetail = tareas[indexPath.row].description!
         self.taskDate = "\(tareas[indexPath.row].date!)"
         
-        NotificationCenter.default.post(name: NSNotification.Name("notificationView.updateData"), object: nil)
+//        NotificationCenter.default.post(name: NSNotification.Name("notificationView.updateData"), object: nil)
         
         print("nombre de la tarea: \(self.taskName)")
         

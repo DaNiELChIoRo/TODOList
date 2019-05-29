@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
     
@@ -15,14 +16,13 @@ class ViewController: UIViewController {
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupNavBar()
         setupView()
         addObservers()
+        CoreData()
     }
     
     func addObservers(){
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
 
         let detailView = DetailViewController()
         self.navigationController?.pushViewController(detailView, animated: true)
-        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("viewNotification.changeView"), object: nil)
     }
     
     let modalView = ModalView()

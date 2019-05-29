@@ -10,6 +10,8 @@ import UIKit
 
 class AddTaskView: UIView {
     
+    var rowId:Int? = nil ?? 1
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -66,11 +68,30 @@ class AddTaskView: UIView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyboard))
         self.addGestureRecognizer(tap)
         
+        self.addSubview(UIButton().defaultButtonCreator(id: 007, text: "Guardar", color: .red, textColor: .white, borderRound: 15, action: #selector(saveButtonHandler)))
+        self.AutoAnchors(id: 007, topView: 006, heightPercentage: 0.15, sidePadding: 40, topPadding: 10)
+        
     }
     
     //Esta funcion hace que el teclado desaparezca de la vista
     @objc func dissmisKeyboard(){
         self.endEditing(true)
+    }
+    
+    @objc func saveButtonHandler(){
+        print("saveButtonHandler has been triggered")
+        guard let taskName = self.viewWithTag(002), self.viewWithTag(004), self.viewWithTag(006) as? UITextField else { return }
+//        let taskDescription =  as? UITextField
+//        let taskDate =  as? UITextField
+        
+        taskTextValidator(id: self.rowId ,name: taskName.text,description: taskDescription.text, date:taskDate.text)
+    }
+    
+    func taskTextValidator(id: Int, name: String, description:String, date: String){
+        
+        guard let id, name, description, date else {return}
+        
+        ViewController.shared.saveRecord(id: <#T##Int#>, name: name, description: description, date: date)
     }
     
     @objc func dateFieldHandler(_ sender: UIDatePicker){
