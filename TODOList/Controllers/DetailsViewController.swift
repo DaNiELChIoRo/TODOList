@@ -10,24 +10,35 @@ import UIKit
 
 let fontSize:CGFloat = 18
 
-class DetailViewController: UIViewController, tasksDisplayer {
-    
-    var taskName:String = "Tarea"
-    var taskDetail: String = "Descripción"
-    var taskDate: String = "Fecha de realización"
+class DetailViewController: UIViewController {
     
     var delegate: tasksDisplayer!
+    
+    var taskName:String?
+    var taskDetail:String?
+    var taskDate:String?
+    
+    var taskNameLabel:UILabel = UILabel().labelCreator(id: 001, text: "tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)
+    var taskDetailLabel:UILabel?  = UILabel().labelCreator(id: 002, text: "descripción", textColor: .black, textAlignment: .center, fontSize: fontSize)
+    var taskDateLabel:UILabel?  = UILabel().labelCreator(id: 003, text: "fecha", textColor: .black, textAlignment: .center, fontSize: fontSize)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        setupView()
+        setupView()
         setupNavBar()
-        susbcribeObservers()
+//        susbcribeObservers()
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        setupView()
+    init(taskName:String, taskDetail:String, taskDate:String) {
+        self.taskName = taskName
+        self.taskDetail = taskDetail
+        self.taskDate = taskDate
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func susbcribeObservers(){
@@ -35,36 +46,25 @@ class DetailViewController: UIViewController, tasksDisplayer {
     }
     
     func setupView(){
-        
-        delegate = self
+        TableViewDelegate.shared.delegate = self
         
         view.backgroundColor = UIColor.lightGray
         
         navigationItem.title = "Detail Task View"
         
-        view.addSubview(UILabel().labelCreator(id: 001, text: self.taskName, textColor: .black, textAlignment: .center, fontSize: fontSize))
+        view.addSubview(taskNameLabel)
         view.topAutoAnchors(id: 001, heightPercentage: 0.15, sidePadding: 10, topPadding: 35)
         
         
-        view.addSubview(UILabel().labelCreator(id: 002, text: self.taskDetail, textColor: .black, textAlignment: .center, fontSize: fontSize))
+        view.addSubview(taskDetailLabel!)
         view.AutoAnchors(id: 002, topView: 001, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         
-        view.addSubview(UILabel().labelCreator(id: 003, text: self.taskDate, textColor: .black, textAlignment: .center, fontSize: fontSize))
+        view.addSubview(taskDateLabel!)
         view.AutoAnchors(id: 003, topView: 002, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
     }
     
-    //Configuramos los datos de la vista para mostrar
-    func displayTaskDetails(name: String, detail: String, date: String) {
-        print("displayTaskDetails")
-        self.taskName = name
-        self.taskDetail = detail
-        self.taskDate = date
-        
-        print("Comprobación de datos, name: \(self.taskName)")
-
-    }
     
     func setupNavBar(){
         
@@ -81,6 +81,7 @@ class DetailViewController: UIViewController, tasksDisplayer {
     
     @objc func trashBarButtonHanlder(){
         print("Trash Bar Button Handler has been triggered")
+        taskNameLabel.text = "jajaja cambio"
     }
     
     @objc func editBarButtonHandler(){
@@ -89,6 +90,14 @@ class DetailViewController: UIViewController, tasksDisplayer {
     
 }
 
-protocol tasksDisplayer {
-    func displayTaskDetails(name: String, detail:String, date: String)
+extension DetailViewController: tasksDisplayer {
+    
+    //Configuramos los datos de la vista para mostrar
+    //MARK:- displayTaskDetails
+    func displayTaskDetails(name: String, detail: String, date: String) {
+        print("displayTaskDetails")
+//        print("task name from view: \(name) \ntask detail from view: \(detail)")
+        taskNameLabel.text = "cambia el text"
+    }
+    
 }

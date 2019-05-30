@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
     
+    var taskDelegate:tasksDisplayer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -23,6 +25,10 @@ class ViewController: UIViewController {
         setupView()
         addObservers()
         CoreData()
+        
+        
+        TableViewDelegate.shared.delegate = DetailViewController()
+        
     }
     
     func addObservers(){
@@ -50,6 +56,8 @@ class ViewController: UIViewController {
         let detailView = DetailViewController()
         self.navigationController?.pushViewController(detailView, animated: true)
 //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("viewNotification.changeView"), object: nil)
+        taskDelegate?.displayTaskDetails(name: "some name", detail: "some detail", date: "some date")
+        
     }
     
     let modalView = ModalView()
@@ -91,4 +99,10 @@ class ViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 
+}
+
+extension ViewController: tasksDisplayer{
+    func displayTaskDetails(name: String, detail: String, date: String) {
+        print("Another code sniped that should not be call")
+    }
 }

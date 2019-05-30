@@ -19,7 +19,6 @@ class TableViewDelegate: UITableViewController {
     
     let tableViewController = UITableViewController()
     
-    
     var tareas = [Tarea]()
     
     var delegate: tasksDisplayer!
@@ -34,8 +33,6 @@ class TableViewDelegate: UITableViewController {
  
     func records() {
         print("se escribiran las tareas al arreglo")
-        
-        
         
         let fechaPrimeraTarea:Date = dateFormatter.date(from: "05/06/19") ?? Date.distantFuture
         let tarea = Tarea(name: "Bañar al perro", description: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
@@ -93,11 +90,11 @@ class TableViewDelegate: UITableViewController {
     }
     
     //Configuramos la acción al seleccionar una celda
-    //MARK:- OnRowSelect
+    //#MARK:- Cuando seleccionamos la hilera
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Se ha elegido la hilera: \(indexPath.row)")
         
-        NotificationCenter.default.post(name: NSNotification.Name("viewNotification.changeView"), object: nil)
+        
         
         self.taskName = tareas[indexPath.row].name!
         self.taskDetail = tareas[indexPath.row].description!
@@ -107,7 +104,9 @@ class TableViewDelegate: UITableViewController {
         
         print("nombre de la tarea: \(self.taskName)")
         
-        delegate?.displayTaskDetails(name: self.taskName, detail: self.taskDetail, date: self.taskDate)
+//        delegate?.displayTaskDetails(name: self.taskName, detail: self.taskDetail, date: self.taskDate)
+        
+        NotificationCenter.default.post(name: NSNotification.Name("viewNotification.changeView"), object: nil)
         
     }
     
@@ -123,6 +122,10 @@ class TableViewDelegate: UITableViewController {
         
     }
     
+}
+
+protocol tasksDisplayer {
+    func displayTaskDetails(name: String, detail:String, date: String)
 }
 
 extension TableViewDelegate: tasksDisplayer{

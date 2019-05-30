@@ -80,18 +80,19 @@ class AddTaskView: UIView {
     
     @objc func saveButtonHandler(){
         print("saveButtonHandler has been triggered")
-        guard let taskName = self.viewWithTag(002), self.viewWithTag(004), self.viewWithTag(006) as? UITextField else { return }
-//        let taskDescription =  as? UITextField
-//        let taskDate =  as? UITextField
+        guard let taskName = self.viewWithTag(002) as? UITextField else { return }
+        guard let taskDescription = self.viewWithTag(004) as? UITextField else { return }
+        guard let taskDate = self.viewWithTag(006) as? UITextField else { return }
+        guard let id = self.rowId else { return }
         
-        taskTextValidator(id: self.rowId ,name: taskName.text,description: taskDescription.text, date:taskDate.text)
+//        taskTextValidator(id: id ,name: taskName!.text,description: taskDescription?.text, date:taskDate?.text)
     }
     
     func taskTextValidator(id: Int, name: String, description:String, date: String){
         
-        guard let id, name, description, date else {return}
+//        guard let id, name, description, date else {return}
         
-        ViewController.shared.saveRecord(id: <#T##Int#>, name: name, description: description, date: date)
+//        ViewController.shared.saveRecord(id: <#T##Int#>, name: name, description: description, date: date)
     }
     
     @objc func dateFieldHandler(_ sender: UIDatePicker){
