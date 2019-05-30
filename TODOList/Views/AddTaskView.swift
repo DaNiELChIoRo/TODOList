@@ -7,14 +7,11 @@
 //
 
 import UIKit
+import Foundation
 
 class AddTaskView: UIView {
     
-    var rowId:Int? = nil ?? 1
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var rowId:Int?
     
     let DatePicker:UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -25,7 +22,17 @@ class AddTaskView: UIView {
         return datePicker
     }()
     
+    let dateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter
+    }()
+    
     let fontSize:CGFloat = 18
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,8 +64,6 @@ class AddTaskView: UIView {
         self.addSubview(UITextField().textFliedCreator(id: 006, text: "dd/MM/YYYY", borderColor: .iosBlue, textAlignment: .center, fontSize: fontSize, radius: 8))
         
         let datePicker = self.DatePicker
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
         
         let dateTextField = self.viewWithTag(006) as! UITextField
         dateTextField.inputView = datePicker
@@ -83,16 +88,30 @@ class AddTaskView: UIView {
         guard let taskName = self.viewWithTag(002) as? UITextField else { return }
         guard let taskDescription = self.viewWithTag(004) as? UITextField else { return }
         guard let taskDate = self.viewWithTag(006) as? UITextField else { return }
-        guard let id = self.rowId else { return }
+        let id = Int(NSDate().timeIntervalSince1970)
         
-//        taskTextValidator(id: id ,name: taskName!.text,description: taskDescription?.text, date:taskDate?.text)
+        let name = taskName.text
+        let description = taskDescription.text
+        let date = taskDate.text
+        
+        taskTextValidator(id: id, name: name!, description: description!, date: date!)
     }
     
     func taskTextValidator(id: Int, name: String, description:String, date: String){
         
-//        guard let id, name, description, date else {return}
+        if name != "", description != "", date != "" {
+            guard let fecha = dateFormatter.date(from: date) else { return }
+            ViewController.shared.saveRecord(id: id, name: name, description: description, date: fecha)            
+            TableViewDelegate.shared.updateRecods()
+            DispatchQueue.main.async {
+                TableViewDelegate.shared.tableView.reloadData()
+            }
+            NotificationCenter.default.post(name: NSNotification.Name("viewNotification.removeAddView"), object: nil)
+        } else {
+            NotificationCenter.default.post(name: NSNotification.Name("viewNotification.displayAlert"), object: nil)
+            
+        }
         
-//        ViewController.shared.saveRecord(id: <#T##Int#>, name: name, description: description, date: date)
     }
     
     @objc func dateFieldHandler(_ sender: UIDatePicker){

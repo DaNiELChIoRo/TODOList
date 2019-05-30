@@ -6,6 +6,7 @@
 //  Copyright © 2019 Daniel.Meneses. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import CoreData
 
@@ -18,6 +19,15 @@ class ViewController: UIViewController {
     
     var taskDelegate:tasksDisplayer!
     
+    let modalView = ModalView()
+    let addTaskView = AddTaskView()
+    
+    let dataFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MMM/yyyy hh:mm"
+        return formatter
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,13 +36,15 @@ class ViewController: UIViewController {
         addObservers()
         CoreData()
         
-        
-        TableViewDelegate.shared.delegate = DetailViewController()
-        
+        self.taskDelegate = DetailViewController.shared
     }
     
     func addObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(newView), name: NSNotification.Name("viewNotification.changeView"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("viewNotification.displayAlert"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tapHandler), name: NSNotification.Name("viewNotification.removeAddView"), object: nil)
+        
+        TableViewDelegate.shared.delegate = DetailViewController.shared
     }
 
     func setupView(){
@@ -51,17 +63,23 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightItem
     }
     
-    @objc func newView(){
-
-        let detailView = DetailViewController()
+    //MARK:- presentDetailView
+    @objc func newView(notification: Notification){
+        print("datos: \(notification.userInfo)")
+        guard let id = notification.userInfo?["id"] as? Int,
+            let name = notification.userInfo?["name"] as? String,
+            let detail = notification.userInfo?["detail"] as? String,
+            let date = notification.userInfo?["date"] as? String,
+            let rowIndex = notification.userInfo?["rowIndex"] as? Int
+            else { return }
+        
+//        guard let fecha = dataFormatter.date(from: date) else { return }
+//            let fechaToString = dataFormatter.string(from: date)
+        
+        let detailView = DetailViewController(id: id, name: name, detail: detail, date: date, rowIndex: rowIndex)
         self.navigationController?.pushViewController(detailView, animated: true)
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("viewNotification.changeView"), object: nil)
-        taskDelegate?.displayTaskDetails(name: "some name", detail: "some detail", date: "some date")
         
     }
-    
-    let modalView = ModalView()
-    let addTaskView = AddTaskView()
     
     @objc func rightBarButtonHandler(){
         print("right action")
@@ -87,6 +105,22 @@ class ViewController: UIViewController {
         
     }
     
+    //MARK:- presentAlert
+    @objc func presentAlert(){
+        print("presentAlert Handler hass been trigered!")
+        let alert = UIAlertController(title: "Mensaje de Alerta", message: "No se han llenado todos los campos", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Entendido", style: .destructive, handler: nil))
+        
+        //Removiendo las UIViews de la vista principal
+        self.modalView.removeFromSuperview()
+        self.addTaskView.removeFromSuperview()
+        
+        //Volviendo a habilitar el botón para añadir tareas
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func tapHandler(){
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -102,7 +136,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: tasksDisplayer{
-    func displayTaskDetails(name: String, detail: String, date: String) {
-        print("Another code sniped that should not be call")
+    func displayTaskDetails(id: Int, name: String, detail: String, date: String) {
+        print("this code sniped does not supoused to be call")
     }
 }
