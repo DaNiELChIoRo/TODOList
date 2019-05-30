@@ -24,9 +24,7 @@ class DetailViewController: UIViewController {
         self.rowIndex = rowIndex
         super.init(nibName: nil, bundle: nil)
     }
-    
-    var delegate: tasksDisplayer!
-    
+        
     var taskName:String?
     var taskDetail:String?
     var taskDate:String?
@@ -70,7 +68,6 @@ class DetailViewController: UIViewController {
     }
     
     func setupView(){
-        TableViewDelegate.shared.delegate = self
         
         view.backgroundColor = UIColor.lightGray
         
@@ -163,15 +160,15 @@ class DetailViewController: UIViewController {
     
 }
 
-extension DetailViewController: tasksDisplayer {
-    
-    //Configuramos los datos de la vista para mostrar
-    //MARK:- displayTaskDetails
-    func displayTaskDetails(id:Int, name: String, detail: String, date: String) {
-        print("displayTaskDetails")
-//        print("task name from view: \(name) \ntask detail from view: \(detail)")
-        self.taskId = id
-        taskNameLabel.text = "cambia el text"
-    }
-    
-}
+//extension DetailViewController: tasksDisplayer {
+//
+//    //Configuramos los datos de la vista para mostrar
+//    //MARK:- displayTaskDetails
+//    func displayTaskDetails(id:Int, name: String, detail: String, date: String) {
+//        print("displayTaskDetails")
+////        print("task name from view: \(name) \ntask detail from view: \(detail)")
+//        self.taskId = id
+//        taskNameLabel.text = "cambia el text"
+//    }
+//
+//}

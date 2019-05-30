@@ -16,8 +16,10 @@ class TableView: UITableView {
         dataSource = TableViewDelegate.shared
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        TableViewDelegate.shared.records()
-//        TableViewDelegate.shared.delegate = detailView
+        TableViewDelegate.shared.records()        
+        
+        AddTaskView.shared.rowAdderDelegate = TableViewDelegate.shared
+        
     }
     
 //    let TaskDisplayerdelegate: tasksDisplayer!

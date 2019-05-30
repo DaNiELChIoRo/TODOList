@@ -9,11 +9,17 @@
 import UIKit
 import Foundation
 
-class TableViewDelegate: UITableViewController {
+class TableViewDelegate: UITableViewController, rowAdder {
+    func addRow(id: Int64, name: String, detail: String, date: String) {
+        print("Alfin!!")
+    }
+    
     
     var taskName:String = ""
     var taskDetail: String = ""
     var taskDate: String = ""
+    
+    var rowAddDelegate: rowAdder!
     
     let detailView = DetailViewController()
     
@@ -21,11 +27,9 @@ class TableViewDelegate: UITableViewController {
     
     var tareas = [Task]()
     
-    var delegate: tasksDisplayer!
-    
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy"
+        formatter.dateFormat = "dd/MM/yy hh:mm"
         return formatter
     }()
     
@@ -35,14 +39,21 @@ class TableViewDelegate: UITableViewController {
     func records() {
         print("se escribiran las tareas al arreglo")
         tareas = ViewController.shared.fetchData()
+//        AddTaskView.shared.rowAdderDelegate = self
     }
     
-    func updateRecods(){
+    func updateRecods(tarea: Task){
         //limpiamos el arreglo de celdas
-        tareas = [Task]()
-        //agregamos los datos de nuevo
-        tareas = ViewController.shared.fetchData()
+        tareas.append(tarea)
+//        tareas = ViewController.shared.fetchData()
         
+        self.tableView.beginUpdates()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        self.tableView.endUpdates()
+        
+    
     }
     
     //Configuramos el numero de celdas por fila
@@ -91,7 +102,7 @@ class TableViewDelegate: UITableViewController {
     }
     
     //Configuramos la acción al seleccionar una celda
-    //#MARK:- Cuando seleccionamos la hilera
+    //#MARK:- OnTap Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Se ha elegido la hilera: \(indexPath.row)")
         
@@ -102,7 +113,6 @@ class TableViewDelegate: UITableViewController {
         
         print("nombre de la tarea: \(self.taskName)")
         
-//        NotificationCenter.default.post(name: NSNotification.Name("viewNotification.changeView"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name("viewNotification.changeView"), object: nil,
                                         userInfo: ["id" : id,
                                                    "name": self.taskName,
@@ -110,20 +120,7 @@ class TableViewDelegate: UITableViewController {
                                                    "date": self.taskDate,
                                                    "rowIndex": indexPath.row])
         
-        delegate?.displayTaskDetails(id:Int(tareas[indexPath.row].id), name: self.taskName, detail: self.taskDetail, date: self.taskDate)
-
-        
     }
     
     
-}
-
-protocol tasksDisplayer {
-    func displayTaskDetails(id:Int, name: String, detail:String, date: String)
-}
-
-extension TableViewDelegate: tasksDisplayer{
-    func displayTaskDetails(id:Int, name: String, detail: String, date: String) {
-            print("displayTaskDetails that should not be called")
-    }
 }

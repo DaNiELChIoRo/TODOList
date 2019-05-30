@@ -16,11 +16,11 @@ class ViewController: UIViewController {
     let width = UIScreen.main.bounds.width - 40
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
-    
-    var taskDelegate:tasksDisplayer!
-    
+        
     let modalView = ModalView()
     let addTaskView = AddTaskView()
+    
+    var rowAdderDelegate: rowAdder!
     
     let dataFormatter:DateFormatter = {
         let formatter = DateFormatter()
@@ -36,15 +36,13 @@ class ViewController: UIViewController {
         addObservers()
         CoreData()
         
-        self.taskDelegate = DetailViewController.shared
+//        AddTaskView.shared.rowAdderDelegate = TableViewDelegate.shared
     }
     
     func addObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(newView), name: NSNotification.Name("viewNotification.changeView"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("viewNotification.displayAlert"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(tapHandler), name: NSNotification.Name("viewNotification.removeAddView"), object: nil)
-        
-        TableViewDelegate.shared.delegate = DetailViewController.shared
+        NotificationCenter.default.addObserver(self, selector: #selector(tapHandler), name: NSNotification.Name("viewNotification.removeAddView"), object: nil)                
     }
 
     func setupView(){
@@ -129,14 +127,20 @@ class ViewController: UIViewController {
                     self.modalView.removeFromSuperview()
                     self.addTaskView.removeFromSuperview()
         })
+                
         
         self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 
 }
 
-extension ViewController: tasksDisplayer{
-    func displayTaskDetails(id: Int, name: String, detail: String, date: String) {
-        print("this code sniped does not supoused to be call")
+extension ViewController: rowAdder{
+    func addRow(id: Int64, name: String, detail: String, date: String) {
+        print("this code snipped should be executed!")
+        
+        DispatchQueue.main.async {
+            TableViewDelegate.shared.tableView.reloadData()
+        }
+        
     }
 }

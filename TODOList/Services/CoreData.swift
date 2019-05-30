@@ -61,7 +61,7 @@ extension ViewController {
         return Tasks
     }
     
-    func saveRecord(id: Int, name: String, description: String, date: Date){
+    func saveRecord(id: Int64, name: String, description: String, date: Date){
      
         print("Salvando los registros id:\(id), name: \(name), description: \(description), date: \(date) en memoria")
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
