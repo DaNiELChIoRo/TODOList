@@ -10,11 +10,6 @@ import UIKit
 
 class TableView: UITableView {
     
-    
-    let detailView = DetailViewController()
-    
-   
-    
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         delegate = TableViewDelegate.shared
@@ -34,27 +29,7 @@ class TableView: UITableView {
     
 }
 
-class CellView: UITableViewCell {
-    
-    weak var name: UILabel!
-    
-    static let shared = CellView()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-//        self.backgroundColor = UIColor.red
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-//    @objc func presentView(_ sender: Any){
-//        delegate?.detailViewPresenter()
-//    }
-    
-}
+
 
 protocol onCellTapProtocol {
     func detailViewPresenter()
