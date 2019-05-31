@@ -112,9 +112,11 @@ class AddTaskView: UIView {
              
             ViewController.shared.saveRecord(id: id, name: name, description: description, date: fecha)
             
-            let tarea = Tarea(name: name, descripcion: description, date: fecha)
+            let ide = Int(id)
             
-            var viewController = ViewController.shared
+            let tarea = Tarea(id:ide, name: name, descripcion: description, date: fecha)
+            
+            let viewController = ViewController.shared
             
             viewController.updateRecods(tarea: tarea)
 
