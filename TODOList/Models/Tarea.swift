@@ -11,12 +11,12 @@ import UIKit
 
 struct Tarea {
     var name: String?
-    var description: String?
+    var descripcion: String?
     var date: Date?
     
-    init(name: String, description: String, date: Date){
+    init(name: String, descripcion: String, date: Date){
         self.name = name
-        self.description = description
+        self.descripcion = descripcion
         self.date = date
     }
     

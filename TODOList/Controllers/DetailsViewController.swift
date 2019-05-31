@@ -114,7 +114,7 @@ class DetailViewController: UIViewController {
             //Eliminando la tarea de la memoria
             guard let id = self.taskId as? Int, let index = self.rowIndex else { return }
             ViewController.shared.deleteRecord(id: id)
-            TableViewDelegate.shared.tareas.remove(at: index)
+//            TableView.shared.deleteRecord(at: index)            
         
             //Regresando a las tareas
             self.navigationController?.popViewController(animated: true)

@@ -9,50 +9,43 @@
 import UIKit
 import Foundation
 
-class TableViewDelegate: UITableViewController, rowAdder {
-    func addRow(id: Int64, name: String, detail: String, date: String) {
-        print("Alfin!!")
-    }
-    
-    
-    var taskName:String = ""
-    var taskDetail: String = ""
-    var taskDate: String = ""
-    
-    var rowAddDelegate: rowAdder!
-    
-    let detailView = DetailViewController()
-    
-    let tableViewController = UITableViewController()
-    
-    var tareas = [Task]()
-    
-    let dateFormatter:DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy hh:mm"
-        return formatter
-    }()
-    
-    static let shared = TableViewDelegate()
+//class TableViewDelegate:NSObject, UITableViewDelegate, UITableViewDataSource {
+extension ViewController {
+
+//    static let shared = TableViewDelegate()
  
     //MARK:- escribiendo los registros falsos
     func records() {
         print("se escribiran las tareas al arreglo")
-        tareas = ViewController.shared.fetchData()
+        let fechaPrimeraTarea:Date = dateFormatter.date(from: "05/06/19") ?? Date.distantFuture
+        let tarea = Tarea(name: "Bañar al perro", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
+        tareas.append(tarea)
+        
+        let tarea2 = Tarea(name: "Bañar al gato", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
+        tareas.append(tarea2)
+        
+        let tarea3 = Tarea(name: "Bañarse", descripcion: "Bañarse para que no holer feo", date: fechaPrimeraTarea)
+        tareas.append(tarea3)
+//        tareas = ViewController.shared.fetchData()
 //        AddTaskView.shared.rowAdderDelegate = self
     }
     
-    func updateRecods(tarea: Task){
+    func updateRecods(tarea: Tarea){
+        print("Updating records")
         //limpiamos el arreglo de celdas
+                
         tareas.append(tarea)
-//        tareas = ViewController.shared.fetchData()
         
-        self.tableView.beginUpdates()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        let indexPath = IndexPath(row: tareas.count-1, section: 0)
+        
+        tableView.insertRows(at: [indexPath], with: .automatic)
+
+        
+        
+        
+        for tarea in tareas {
+            print(tarea)
         }
-        self.tableView.endUpdates()
-        
     
     }
     
@@ -74,14 +67,20 @@ class TableViewDelegate: UITableViewController, rowAdder {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         //MARK:- DELETE ACTION
-        let remove = UITableViewRowAction(style: .normal, title: "Remove") { action, index in
+        let remove = UITableViewRowAction(style: .destructive, title: "Remove") { action, index in
             print("remove button tapped of the cell in the positio \(index.row)")
-            ViewController.shared.deleteRecord(id:  Int(self.tareas[indexPath.row].id))
-            self.tareas.remove(at: index.row)
+//            ViewController.shared.deleteRecord(id:  Int(self.tareas[indexPath.row].id))
+            self.tareas.remove(at: indexPath.row)
+//            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+//            print(" records: \(self.tareas)")
+            tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            print(" records: \(self.tareas)")
+            tableView.endUpdates()
+            
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }            
         }
-        remove.backgroundColor = .red
         
         return [remove]
         
@@ -109,12 +108,13 @@ class TableViewDelegate: UITableViewController, rowAdder {
         self.taskName = tareas[indexPath.row].name!
         self.taskDetail = tareas[indexPath.row].descripcion!
         self.taskDate = "\(tareas[indexPath.row].date!)"
-        let id = Int(tareas[indexPath.row].id)
+//        let id = Int(tareas[indexPath.row].id)
         
         print("nombre de la tarea: \(self.taskName)")
         
         NotificationCenter.default.post(name: NSNotification.Name("viewNotification.changeView"), object: nil,
-                                        userInfo: ["id" : id,
+                                        userInfo: [
+//                                                   "id" : id,
                                                    "name": self.taskName,
                                                    "detail": self.taskDetail,
                                                    "date": self.taskDate,

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class ViewController: UIViewController {
+class ViewController: UITableViewController {
     
     let height:CGFloat = UIScreen.main.bounds.height * 0.5
     let width = UIScreen.main.bounds.width - 40
@@ -22,11 +22,18 @@ class ViewController: UIViewController {
     
     var rowAdderDelegate: rowAdder!
     
-    let dataFormatter:DateFormatter = {
+    var tareas = [Tarea]()
+    
+    var taskName:String = ""
+    var taskDetail: String = ""
+    var taskDate: String = ""
+    
+    let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MMM/yyyy hh:mm"
         return formatter
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +42,7 @@ class ViewController: UIViewController {
         setupView()
         addObservers()
         CoreData()
-        
+        self.records()
 //        AddTaskView.shared.rowAdderDelegate = TableViewDelegate.shared
     }
     
@@ -48,12 +55,6 @@ class ViewController: UIViewController {
     func setupView(){
         view.backgroundColor = UIColor.lightGray
         navigationItem.title = "TODO List"
-        
-        let tableView = TableView()
-        
-        view.addSubview(tableView)
-        view.topViewAutoAnchors(vista: tableView, heightPercentage: 30, sidePadding: 0, topPadding: 0)
-        
     }
     
     func setupNavBar(){
@@ -137,10 +138,7 @@ class ViewController: UIViewController {
 extension ViewController: rowAdder{
     func addRow(id: Int64, name: String, detail: String, date: String) {
         print("this code snipped should be executed!")
-        
-        DispatchQueue.main.async {
-            TableViewDelegate.shared.tableView.reloadData()
-        }
+    
         
     }
 }

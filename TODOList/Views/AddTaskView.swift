@@ -112,14 +112,13 @@ class AddTaskView: UIView {
              
             ViewController.shared.saveRecord(id: id, name: name, description: description, date: fecha)
             
-//            let tarea = Task()
-//            tarea.id = id
-//            tarea.name = name
-//            tarea.descripcion = description
-//            tarea.date = NSDate()
+            let tarea = Tarea(name: name, descripcion: description, date: fecha)
             
-            TableViewDelegate.shared.updateRecods(tarea: tarea)
-                        
+            var viewController = ViewController.shared
+            
+            viewController.updateRecods(tarea: tarea)
+
+            
             NotificationCenter.default.post(name: NSNotification.Name("viewNotification.removeAddView"), object: nil)
         } else {
             NotificationCenter.default.post(name: NSNotification.Name("viewNotification.displayAlert"), object: nil)
