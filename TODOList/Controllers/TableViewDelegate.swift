@@ -12,7 +12,6 @@ import Foundation
 //class TableViewDelegate:NSObject, UITableViewDelegate, UITableViewDataSource {
 extension ViewController {
 
-//    static let shared = TableViewDelegate()
  
     //MARK:- escribiendo los registros falsos
     func records() {
@@ -26,27 +25,21 @@ extension ViewController {
         
         let tarea3 = Tarea(name: "Bañarse", descripcion: "Bañarse para que no holer feo", date: fechaPrimeraTarea)
         tareas.append(tarea3)
-//        tareas = ViewController.shared.fetchData()
-//        AddTaskView.shared.rowAdderDelegate = self
+
     }
     
     func updateRecods(tarea: Tarea){
         print("Updating records")
-        //limpiamos el arreglo de celdas
-                
+        
         tareas.append(tarea)
+        
+        print("Se ha añadido al arrelo la tarea: \(tareas[tareas.count-1])")
         
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         
         tableView.insertRows(at: [indexPath], with: .automatic)
 
         
-        
-        
-        for tarea in tareas {
-            print(tarea)
-        }
-    
     }
     
     //Configuramos el numero de celdas por fila
@@ -69,17 +62,10 @@ extension ViewController {
         //MARK:- DELETE ACTION
         let remove = UITableViewRowAction(style: .destructive, title: "Remove") { action, index in
             print("remove button tapped of the cell in the positio \(index.row)")
-//            ViewController.shared.deleteRecord(id:  Int(self.tareas[indexPath.row].id))
             self.tareas.remove(at: indexPath.row)
-//            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-//            print(" records: \(self.tareas)")
-            tableView.beginUpdates()
+
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            tableView.endUpdates()
             
-            DispatchQueue.main.async {
-                tableView.reloadData()
-            }            
         }
         
         return [remove]
