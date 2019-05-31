@@ -17,13 +17,13 @@ extension ViewController {
     func records() {
         print("se escribiran las tareas al arreglo")
         let fechaPrimeraTarea:Date = dateFormatter.date(from: "05/06/19") ?? Date.distantFuture
-        let tarea = Tarea(name: "Bañar al perro", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
+        let tarea = Tarea(id: 001, name: "Bañar al perro", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
         tareas.append(tarea)
         
-        let tarea2 = Tarea(name: "Bañar al gato", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
+        let tarea2 = Tarea(id: 002, name: "Bañar al gato", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
         tareas.append(tarea2)
         
-        let tarea3 = Tarea(name: "Bañarse", descripcion: "Bañarse para que no holer feo", date: fechaPrimeraTarea)
+        let tarea3 = Tarea(id: 003, name: "Bañarse", descripcion: "Bañarse para que no holer feo", date: fechaPrimeraTarea)
         tareas.append(tarea3)
 
     }
@@ -94,19 +94,12 @@ extension ViewController {
         self.taskName = tareas[indexPath.row].name!
         self.taskDetail = tareas[indexPath.row].descripcion!
         self.taskDate = "\(tareas[indexPath.row].date!)"
-//        let id = Int(tareas[indexPath.row].id)
+        guard let id = tareas[indexPath.row].id else { return }
         
         print("nombre de la tarea: \(self.taskName)")
         
-        NotificationCenter.default.post(name: NSNotification.Name("viewNotification.changeView"), object: nil,
-                                        userInfo: [
-//                                                   "id" : id,
-                                                   "name": self.taskName,
-                                                   "detail": self.taskDetail,
-                                                   "date": self.taskDate,
-                                                   "rowIndex": indexPath.row])
+        self.newView(rowIndex: indexPath.row, id: id)
         
     }
-    
     
 }

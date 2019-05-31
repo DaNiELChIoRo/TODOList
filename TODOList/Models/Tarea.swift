@@ -10,14 +10,19 @@ import Foundation
 import UIKit
 
 struct Tarea {
+    
+    var id:Int?
+    var date: Date?
     var name: String?
     var descripcion: String?
-    var date: Date?
     
-    init(name: String, descripcion: String, date: Date){
+    
+    init(id:Int?, name: String, descripcion: String, date: Date){
+        self.id = id
         self.name = name
         self.descripcion = descripcion
         self.date = date
+        
     }
     
 }

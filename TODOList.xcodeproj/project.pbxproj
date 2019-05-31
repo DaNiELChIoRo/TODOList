@@ -17,7 +17,6 @@
 		1A35F358229D873600E59BB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A35F356229D873600E59BB9 /* LaunchScreen.storyboard */; };
 		1A35F363229D873600E59BB9 /* TODOListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F362229D873600E59BB9 /* TODOListTests.swift */; };
 		1A35F36E229D873600E59BB9 /* TODOListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F36D229D873600E59BB9 /* TODOListUITests.swift */; };
-		1A35F37E229D8E9300E59BB9 /* NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F37D229D8E9300E59BB9 /* NavigationControllerDelegate.swift */; };
 		1A35F382229D911D00E59BB9 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F381229D911D00E59BB9 /* UILabel.swift */; };
 		1A35F384229D93C300E59BB9 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F383229D93C300E59BB9 /* TableView.swift */; };
 		1A35F386229D965F00E59BB9 /* AutolayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F385229D965F00E59BB9 /* AutolayoutHelper.swift */; };
@@ -68,7 +67,6 @@
 		1A35F369229D873600E59BB9 /* TODOListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TODOListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A35F36D229D873600E59BB9 /* TODOListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOListUITests.swift; sourceTree = "<group>"; };
 		1A35F36F229D873600E59BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A35F37D229D8E9300E59BB9 /* NavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		1A35F381229D911D00E59BB9 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		1A35F383229D93C300E59BB9 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		1A35F385229D965F00E59BB9 /* AutolayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutHelper.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				1A35F34C229D873500E59BB9 /* ViewController.swift */,
-				1A35F38A229DAD9C00E59BB9 /* TableViewDelegate.swift */,
 				1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */,
 			);
 			path = Controllers;
@@ -181,7 +178,7 @@
 		1A35F37C229D8E7700E59BB9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1A35F37D229D8E9300E59BB9 /* NavigationControllerDelegate.swift */,
+				1A35F38A229DAD9C00E59BB9 /* TableViewDelegate.swift */,
 				1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */,
 				1A19D544229F2F9500FEA8CB /* CoreData.swift */,
 			);
@@ -351,7 +348,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A19D547229F327C00FEA8CB /* UIButton.swift in Sources */,
-				1A35F37E229D8E9300E59BB9 /* NavigationControllerDelegate.swift in Sources */,
 				1A35F384229D93C300E59BB9 /* TableView.swift in Sources */,
 				1A35F386229D965F00E59BB9 /* AutolayoutHelper.swift in Sources */,
 				A010DFA3229E13D6005BC780 /* AddTaskView.swift in Sources */,
@@ -545,13 +541,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RPUTZQX636;
+				DEVELOPMENT_TEAM = 2ET2N66PT7;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DaNiELChIoRo.TODOList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ironbit.TODOList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -563,13 +559,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RPUTZQX636;
+				DEVELOPMENT_TEAM = 2ET2N66PT7;
 				INFOPLIST_FILE = TODOList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DaNiELChIoRo.TODOList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ironbit.TODOList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

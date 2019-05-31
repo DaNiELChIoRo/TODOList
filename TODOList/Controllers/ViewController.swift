@@ -47,7 +47,7 @@ class ViewController: UITableViewController {
     }
     
     func addObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(newView), name: NSNotification.Name("viewNotification.changeView"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(newView), name: NSNotification.Name("viewNotification.changeView"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("viewNotification.displayAlert"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(tapHandler), name: NSNotification.Name("viewNotification.removeAddView"), object: nil)                
     }
@@ -63,19 +63,10 @@ class ViewController: UITableViewController {
     }
     
     //MARK:- presentDetailView
-    @objc func newView(notification: Notification){
-        print("datos: \(notification.userInfo)")
-        guard let id = notification.userInfo?["id"] as? Int,
-            let name = notification.userInfo?["name"] as? String,
-            let detail = notification.userInfo?["detail"] as? String,
-            let date = notification.userInfo?["date"] as? String,
-            let rowIndex = notification.userInfo?["rowIndex"] as? Int
-            else { return }
+    @objc func newView(rowIndex: Int, id: Int){
+
         
-//        guard let fecha = dataFormatter.date(from: date) else { return }
-//            let fechaToString = dataFormatter.string(from: date)
-        
-        let detailView = DetailViewController(id: id, name: name, detail: detail, date: date, rowIndex: rowIndex)
+        let detailView = DetailViewController(id: id, name: self.taskName, detail: self.taskDetail, date: self.taskDate, rowIndex: rowIndex)
         self.navigationController?.pushViewController(detailView, animated: true)
         
     }
