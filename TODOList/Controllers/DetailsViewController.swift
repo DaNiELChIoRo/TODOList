@@ -24,22 +24,19 @@ class DetailViewController: UIViewController {
         self.rowIndex = rowIndex
         super.init(nibName: nil, bundle: nil)
     }
-        
-    var taskName:String?
-    var taskDetail:String?
-    var taskDate:String?
-    var rowIndex:Int?
-    var taskId:Int?
     
     let height:CGFloat = UIScreen.main.bounds.height * 0.5
     let width = UIScreen.main.bounds.width - 40
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
     
-    let modalView = ModalView()
-    let addTaskView = AddTaskView()
-    
     static let shared = DetailViewController()
+    
+    var taskName:String?
+    var taskDetail:String?
+    var taskDate:String?
+    var rowIndex:Int?
+    var taskId:Int?
     
     var taskNameLabel:UILabel = UILabel().labelCreator(id: 001, text: "tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)
     var taskDetailLabel:UILabel?  = UILabel().labelCreator(id: 002, text: "descripción", textColor: .black, textAlignment: .center, fontSize: fontSize)
@@ -63,7 +60,7 @@ class DetailViewController: UIViewController {
         taskDateLabel?.text = date
     }
     
-    func susbcribeObservers(){
+    func susbcribeObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: NSNotification.Name("notificationView.updateData"), object: nil)
     }
     
@@ -100,7 +97,7 @@ class DetailViewController: UIViewController {
         print("notification Data: ")
     }
     
-    @objc func trashBarButtonHanlder(){
+    @objc func trashBarButtonHanlder() {
         print("Trash Bar Button Handler has been triggered")
 //        taskNameLabel.text = "jajaja cambio"
         print("El id de la tarea a borrar es: \(self.taskId)")
@@ -123,52 +120,26 @@ class DetailViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func editBarButtonHandler(){
+    @objc func editBarButtonHandler() {
         print("Edit Bar Button Handler has been triggered")
-        if let window = UIApplication.shared.keyWindow {
-            window.addSubview(modalView)
-            modalView.frame = view.frame
-            
-            window.addSubview(addTaskView)
-            self.addTaskView.frame = CGRect(x: centerY, y: totalHeight, width: width, height: height)
-            print("view height: \(UIScreen.main.bounds.height) taskView height: \(self.addTaskView.frame.size.height)")
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.modalView.alpha = 1
-                self.addTaskView.frame = CGRect(x: self.centerY, y: (self.totalHeight - self.height)/2, width: self.addTaskView.frame.width, height: self.addTaskView.frame.height)
-            }, completion: nil)
-            
-            let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
-            modalView.addGestureRecognizer(tap)
-        }
         
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        let modalView = ModalViewController.shared
+        modalView.modalPresentationStyle = .overCurrentContext
+        present(modalView, animated: true)
         
-    }
-    
-    @objc func tapHandler(){
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.addTaskView.frame = CGRect(x: self.centerY, y: self.totalHeight, width: self.width, height: self.height)
-        }, completion: { (Bool) in
-            self.modalView.removeFromSuperview()
-            self.addTaskView.removeFromSuperview()
-        })
-        
-        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
 }
 
-//extension DetailViewController: tasksDisplayer {
-//
-//    //Configuramos los datos de la vista para mostrar
-//    //MARK:- displayTaskDetails
-//    func displayTaskDetails(id:Int, name: String, detail: String, date: String) {
-//        print("displayTaskDetails")
-////        print("task name from view: \(name) \ntask detail from view: \(detail)")
-//        self.taskId = id
-//        taskNameLabel.text = "cambia el text"
-//    }
-//
-//}
+protocol taskEditor {
+    func pushTaskToMemoryAndTable(tarea: Tarea)
+}
+
+extension DetailViewController: taskEditor {
+
+    //Configuramos los datos de la vista para mostrar
+    //MARK:- displayTaskDetails
+    func pushTaskToMemoryAndTable(tarea: Tarea) {
+        print("A code snippet that should not be called!")
+     }
+}

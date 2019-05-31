@@ -33,6 +33,7 @@ extension ViewController {
         
         tareas.append(tarea)
         
+        print(tareas)
         print("Se ha añadido al arrelo la tarea: \(tareas[tareas.count-1])")
         
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
@@ -72,15 +73,6 @@ extension ViewController {
         
     }
     
-    //Configurammos la altura de todas las celdas
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(tareas.count != 0){
-            return 65
-        } else {
-            return UIScreen.main.bounds.height
-        }
-    }
-    
     //Habilitamos la edición de celdas por el usuario
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -98,8 +90,7 @@ extension ViewController {
         
         print("nombre de la tarea: \(self.taskName)")
         
-        self.newView(rowIndex: indexPath.row, id: id)
-        
+        newView(rowIndex: indexPath.row, id: id)
     }
     
 }
