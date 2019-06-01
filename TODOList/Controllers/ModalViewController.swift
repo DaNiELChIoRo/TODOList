@@ -31,12 +31,31 @@ class ModalViewController: UIViewController {
     var taskDetail:String?
     var taskDate: String?
     
+    var taskView:modalViewEnum?
+    
     var rowAdderDelegate: rowAdder!
-  
+    
+    convenience init(){
+        self.init(taskId: nil, taskName:nil, taskDetail:nil, taskDate:nil)
+    }
+    
+    init(taskId:Int64?, taskName: String?, taskDetail:String?, taskDate:String?){
+        self.taskId = taskId
+        self.taskName = taskName
+        self.taskDetail = taskDetail
+        self.taskDate = taskDate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         subscribeToObservers()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +78,8 @@ class ModalViewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
         view.addGestureRecognizer(tap)
+        
+        if let name = taskName
         
         let addTaskView = AddTaskView(frame: CGRect(x: centerY, y: (totalHeight - height)/2, width: width, height: height))
         view.addSubview(addTaskView)
@@ -117,6 +138,11 @@ class ModalViewController: UIViewController {
         
     }
     
+}
+
+enum modalViewEnum{
+    case addTask
+    case editTask
 }
 
 extension ModalViewController: rowAdder {

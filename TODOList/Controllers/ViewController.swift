@@ -74,7 +74,7 @@ extension ViewController: rowAdder {
         tareas.append(tarea)
         
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
-        tableView.insertRows(at: [ ], with: .automatic)
+        tableView.insertRows(at: [indexPath], with: .automatic)
         
     }
 }
