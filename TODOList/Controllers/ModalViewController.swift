@@ -21,7 +21,7 @@ class ModalViewController: UIViewController {
     
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.dateFormat = "dd/MMM/yyyy"
         return formatter
     }()
     
@@ -79,7 +79,7 @@ class ModalViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
         view.addGestureRecognizer(tap)
         
-        if let name = taskName
+        if let name = taskName { }
         
         let addTaskView = AddTaskView(frame: CGRect(x: centerY, y: (totalHeight - height)/2, width: width, height: height))
         view.addSubview(addTaskView)
@@ -118,19 +118,19 @@ class ModalViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("modalView.createTask"), object: nil)
         
-        print("validación de datos: id: \(taskId), name: \(taskName)")
+        print("validación de datos: id: \(taskId), name: \(taskName), detail: \(taskDetail), date: \(taskDate)")
         
-        let id = Int(taskId!)
+        let id = taskId! as? Int64
         let name = taskName!
         let detail = taskDetail!
         let fecha = taskDate!
-        let date = dateFormatter.date(from: fecha)!
-        
-        
-        let tarea = Tarea(id: id, name: name, descripcion: detail, date: date)
-        
-        rowAdderDelegate?.addRow(tarea: tarea)
-        
+        if let date = dateFormatter.date(from: fecha) {
+            let tarea = Tarea(id: id, name: name, descripcion: detail, date: date)
+            
+            rowAdderDelegate?.addRow(tarea: tarea)
+        } else {
+            print("Somethig went wrong while trying to unwrap the date value! Error:")
+        }
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.dismiss(animated: true)

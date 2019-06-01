@@ -16,7 +16,7 @@ extension ViewController {
     //MARK:- escribiendo los registros falsos
     func records() {
         print("se escribiran las tareas al arreglo")
-        let fechaPrimeraTarea:Date = dateFormatter.date(from: "05/06/19") ?? Date.distantFuture
+        let fechaPrimeraTarea:Date = dateFormatter.date(from: "05/Jun/2019") ?? Date.distantFuture
         let tarea = Tarea(id: 001, name: "Bañar al perro", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
         tareas.append(tarea)
         

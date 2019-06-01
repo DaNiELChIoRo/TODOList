@@ -23,7 +23,7 @@ class AddTaskView: UIView {
         
     var taskNameInput:UITextField = UITextField().textFliedCreator(id: 002, text: "Nombre de la tarea", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     var taskDetailInput:UITextField = UITextField().textFliedCreator(id: 004, text: "Descripción de la tarea", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
-    var taskDateInput:UITextField = UITextField().textFliedCreator(id: 006, text: "dd/MM/YYYY", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    var taskDateInput:UITextField = UITextField().textFliedCreator(id: 006, text: "dd/MMM/yyyy", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,7 +78,7 @@ class AddTaskView: UIView {
     @objc func dateFieldHandler(_ sender: UIDatePicker) {
         print("Se sea cambiar la fecha")
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.dateFormat = "dd/MMM/yyyy"
         let dateTextField = self.viewWithTag(006) as! UITextField
         dateTextField.text = dateFormatter.string(from: sender.date)
     }

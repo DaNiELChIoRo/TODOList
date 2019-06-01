@@ -16,7 +16,7 @@ class DetailViewController: UIViewController {
         self.init(id: nil, name: nil, detail: nil, date: nil, rowIndex: nil)
     }
     
-    init(id: Int?, name: String?, detail: String?, date: String?, rowIndex:Int?) {
+    init(id: Int64?, name: String?, detail: String?, date: String?, rowIndex:Int?) {
         self.taskId = id
         self.taskName = name
         self.taskDetail = detail
@@ -32,11 +32,13 @@ class DetailViewController: UIViewController {
     
     static let shared = DetailViewController()
     
+    var taskEditorDelegate: taskEditor?
+    
     var taskName:String?
     var taskDetail:String?
     var taskDate:String?
     var rowIndex:Int?
-    var taskId:Int?
+    var taskId:Int64?
     
     var taskNameLabel:UILabel = UILabel().labelCreator(id: 001, text: "tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)
     var taskDetailLabel:UILabel?  = UILabel().labelCreator(id: 002, text: "descripción", textColor: .black, textAlignment: .center, fontSize: fontSize)
@@ -60,10 +62,6 @@ class DetailViewController: UIViewController {
         taskDateLabel?.text = date
     }
     
-    func susbcribeObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateData), name: NSNotification.Name("notificationView.updateData"), object: nil)
-    }
-    
     func setupView(){
         
         view.backgroundColor = UIColor.lightGray
@@ -71,7 +69,7 @@ class DetailViewController: UIViewController {
         navigationItem.title = "Detail Task View"
         
         view.addSubview(taskNameLabel)
-        view.topAutoAnchors(id: 001, heightPercentage: 0.15, sidePadding: 10, topPadding: 35)
+        view.topAutoAnchors(id: 001, heightPercentage: 0.15, sidePadding: 25, topPadding: 35)
         
         
         view.addSubview(taskDetailLabel!)
@@ -92,9 +90,12 @@ class DetailViewController: UIViewController {
         
     }
     
-    @objc func updateData(){
-//        print("notification Data: \(notification)")
-        print("notification Data: ")
+    func taskDeleter(){
+        guard let id = self.taskId,
+            let index = self.rowIndex
+            else { return }
+        taskEditorDelegate?.deleteTaskFromMemoryAndView(indexPath: index, id: id)
+//            TableView.shared.deleteRecord(at: index)
     }
     
     @objc func trashBarButtonHanlder() {
@@ -109,12 +110,10 @@ class DetailViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Aceptar", style: .destructive, handler: { (action) in
             print("Se borrarán los datos")
             //Eliminando la tarea de la memoria
-            guard let id = self.taskId as? Int, let index = self.rowIndex else { return }
-            ViewController.shared.deleteRecord(id: id)
-//            TableView.shared.deleteRecord(at: index)            
+            self.taskDeleter()
         
-            //Regresando a las tareas
-            self.navigationController?.popViewController(animated: true)
+            //Regresando a la vista principal
+//            self.navigationController?.popViewController(animated: true)
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
@@ -133,13 +132,17 @@ class DetailViewController: UIViewController {
 
 protocol taskEditor {
     func pushTaskToMemoryAndTable(tarea: Tarea)
+    
+    func deleteTaskFromMemoryAndView(indexPath: Int, id:Int64)
 }
 
 extension DetailViewController: taskEditor {
+    
+    func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
+       
+    }
 
-    //Configuramos los datos de la vista para mostrar
-    //MARK:- displayTaskDetails
     func pushTaskToMemoryAndTable(tarea: Tarea) {
-        print("A code snippet that should not be called!")
+        
      }
 }

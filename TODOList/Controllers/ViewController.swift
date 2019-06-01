@@ -34,10 +34,8 @@ class ViewController: UITableViewController {
         setupView()
         CoreData()
         records()
-        ModalViewController.shared.rowAdderDelegate = self
+        delegateSubscriptions()
     }
-    
-    
 
     func setupView() {
         view.backgroundColor = UIColor.white
@@ -49,8 +47,13 @@ class ViewController: UITableViewController {
         navigationItem.rightBarButtonItem = rightItem
     }
     
+    func delegateSubscriptions() {
+        ModalViewController.shared.rowAdderDelegate = self
+        DetailViewController.shared.taskEditorDelegate = self
+    }
+    
     //MARK:- presentDetailView
-    @objc func newView(rowIndex: Int, id: Int) {
+    @objc func newView(rowIndex: Int, id: Int64) {
 
         let detailView = DetailViewController(id: id, name: self.taskName, detail: self.taskDetail, date: self.taskDate, rowIndex: rowIndex)
         navigationController?.pushViewController(detailView, animated: true)
@@ -69,7 +72,7 @@ class ViewController: UITableViewController {
 
 extension ViewController: rowAdder {
     func addRow(tarea: Tarea) {
-        print("this code snipped should be executed!")
+        print("rowAdder Delegate fired from ViewController")
         
         tareas.append(tarea)
         
@@ -77,4 +80,21 @@ extension ViewController: rowAdder {
         tableView.insertRows(at: [indexPath], with: .automatic)
         
     }
+}
+
+extension ViewController: taskEditor {
+    
+    func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
+        print("taskEditor deleteTaskFromMemory Delegate fired from ViewController")
+        tareas.remove(at: indexPath)
+        
+        let indexPath = IndexPath(row: indexPath, section: 0)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    func pushTaskToMemoryAndTable(tarea: Tarea) {
+        print("taskEditor pushTaskToMemory Delegate fired from ViewController")
+        
+    }
+    
 }

@@ -11,13 +11,13 @@ import UIKit
 
 struct Tarea {
     
-    var id:Int?
+    var id:Int64?
     var date: Date?
     var name: String?
     var descripcion: String?
     
     
-    init(id:Int?, name: String, descripcion: String, date: Date){
+    init(id:Int64?, name: String, descripcion: String, date: Date){
         self.id = id
         self.name = name
         self.descripcion = descripcion
