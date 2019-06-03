@@ -21,6 +21,8 @@ class ViewController: UITableViewController {
     var taskDetail: String = ""
     var taskDate: String = ""
     
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
@@ -36,8 +38,13 @@ class ViewController: UITableViewController {
         setupView()
         CoreData()
         records()
-        delegateSubscriptions()
         
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        CoreData()
     }
 
     func setupView() {
@@ -48,10 +55,6 @@ class ViewController: UITableViewController {
         navigationItem.title = "TODO List"
         let rightItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonHandler))
         navigationItem.rightBarButtonItem = rightItem
-    }
-    
-    func delegateSubscriptions() {
-        ModalViewController.shared.rowAdderDelegate = self
     }
     
     //MARK:- presentDetailView
@@ -82,31 +85,43 @@ extension ViewController: rowAdder {
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         
+        saveRecord()
+        
     }
 }
 
 extension ViewController: taskEditor {
     
-    func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
+    func deleteTaskFromMemoryAndView(rowIndex: Int, id: Int64) {
         print("taskEditor deleteTaskFromMemory Delegate fired from ViewController")
-        DetailViewController.shared.taskEditorDelegate = self
-        tareas.remove(at: indexPath)
         
-        let indexPath = IndexPath(row: indexPath, section: 0)
+        tareas.remove(at: rowIndex)
+        
+        deleteRecord(id: id)
+        
+        let indexPath = IndexPath(row: rowIndex, section: 0)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
-    func pushTaskToMemoryAndTable(tarea: Task) {
+    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {
         print("taskEditor pushTaskToMemory Delegate fired from ViewController")
+        
+        updateRecord(id: id, task: tarea)
+        
         var counter:Int = 0
         for task in tareas{
-            if task.id == tarea.id{
-                tareas.remove(at: counter)
-                tareas.insert(tarea, at: counter)
+            if task.id == tarea.id {                
+                tareas[counter].name = tarea.name
+                tareas[counter].descripcion = tarea.descripcion
+                tareas[counter].date = tarea.date as NSDate?
             }
             counter += 1
         }
-        
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    
     }
     
 }

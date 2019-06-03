@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Foundation
+import CoreData
 
 class ModalViewController: UIViewController {
     
@@ -68,12 +69,12 @@ class ModalViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("modalView.createTask"), object: nil)
     }
     
-    func subscribeToObservers(){
+    func subscribeToObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("modalView.displayAlert"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(createTask(notification:)), name: NSNotification.Name("modalView.createTask"), object: nil)
     }
     
-    func setupView(){
+    func setupView() {
         
         view.backgroundColor = UIColor(white: 0.3, alpha: 0.8)
         
@@ -98,7 +99,7 @@ class ModalViewController: UIViewController {
     }
     
     //MARK:- Dissmis View
-    @objc func tapHandler(){
+    @objc func tapHandler() {
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.dismiss(animated: true)
@@ -114,7 +115,7 @@ class ModalViewController: UIViewController {
     }
     
     //MARK:- presentAlert
-    @objc func presentAlert(){
+    @objc func presentAlert() {
         print("presentAlert Handler hass been trigered!")
         
         let alert = UIAlertController(title: "Mensaje de Alerta", message: "No se han llenado todos los campos", preferredStyle: .alert)
@@ -137,12 +138,18 @@ class ModalViewController: UIViewController {
             
             let fecha = dateFormatter.date(from: date)!
             
-            let tarea = ViewController.shared.createTask(id, name, detail, fecha)//Task(id: id, name: name, descripcion: detail, date: fecha)
-            
             if taskView == modalViewEnum.editTask {
-                taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea)
+                
+                let tarea = Tarea(id: id, name: name, descripcion: detail, date: fecha)
+                
+                taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea, id:id)
+                
             } else {
+                
+                let tarea = ViewController.shared.createTask(id, name, detail, fecha)
+                
                 rowAdderDelegate?.addRow(tarea: tarea)
+            
             }
             
         } else {
@@ -163,10 +170,10 @@ enum modalViewEnum{
 }
 
 extension ModalViewController: taskEditor {
-    func pushTaskToMemoryAndTable(tarea: Task) {
+    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {
     }
     
-    func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
+    func deleteTaskFromMemoryAndView(rowIndex: Int, id:Int64) {
     }
     
 }

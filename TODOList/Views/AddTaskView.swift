@@ -105,7 +105,7 @@ class AddTaskView: UIView {
             let name = taskNameInput.text!
             let description = taskDetailInput.text!
             let date = taskDateInput.text!
-            print("Input date: \(date)")
+//            print("Input date: \(date)")
             taskTextValidator(id: id, name: name, description: description, date: date)
         } else {
             let id = Int64(NSDate().timeIntervalSince1970)

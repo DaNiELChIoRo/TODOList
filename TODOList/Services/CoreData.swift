@@ -12,12 +12,12 @@ import CoreData
 
 extension ViewController {
     
+    
+    
     static let shared = ViewController()
     
     func CoreData(){
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
-        
+        if let context = appDelegate?.persistentContainer.viewContext{
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         
         do {
@@ -33,13 +33,14 @@ extension ViewController {
         } catch {
             print("Failed")
         }
+        }
         
     }
     
     func fetchData() -> [Task]{
         var Tasks = [Task]()
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let context = appDelegate.persistentContainer.viewContext
+        
+        if let context = appDelegate?.persistentContainer.viewContext {
             
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
             
@@ -57,38 +58,27 @@ extension ViewController {
             } catch {
                 print("Failed")
             }
+        
         }
         return Tasks
+        
     }
     
-    func saveRecord(id: Int64, name: String, description: String, date: Date){
-     
-        print("Salvando los registros id:\(id), name: \(name), description: \(description), date: \(date) en memoria")
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
+    func saveRecord(){
+       
+        if let context = appDelegate?.persistentContainer.viewContext{
         
-        if let taskEntity = NSEntityDescription.entity(forEntityName: "Task", in: context){
-            
-            let task = NSManagedObject(entity: taskEntity, insertInto: context)
-            task.setValue(id, forKey: "id")
-            task.setValue(name, forKey: "name")
-            task.setValue(description, forKey: "descripcion")
-            task.setValue(date, forKey: "date")
-            
             do{
                 try context.save()
                 print("Se han salvado los registros de manera exitosa")
             } catch {
                 print("Algo salío mal al intantar guardar los datos")
             }
-            
-        } else {
-            print("error al intentar hacer el parse de la entidad con los datos proporcionados")
         }
         
     }
     
-    func deleteRecord(id: Int){
+    func deleteRecord(id: Int64){
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
@@ -117,6 +107,41 @@ extension ViewController {
         
     }
     
+    func updateRecord(id: Int64, task:Tarea){
+        print("updateRecord method called")
+  
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Task>(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", "\(id)")
+        
+        CoreData()
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                let result = results[0]
+                result.name = task.name
+                result.descripcion = task.descripcion
+                result.date = task.date as NSDate?
+                do {
+                    try context.save()
+                } catch {
+                    print("Error al salvar los cambios, Error: \(error)")
+                }
+            } else {
+                print("No existen registros con esa referencia!")
+            }
+            
+        } catch {
+            print("Failed do to: \(error)")
+        }
+        
+        
+    }
+    
     func createTask(_ id:Int64, _ name: String, _ description:String, _ date: Date) -> Task{
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             let context = appDelegate.persistentContainer.viewContext
@@ -131,10 +156,6 @@ extension ViewController {
                 
                 return task
             }
-            
-            
-            
-           
         }
         return Task()
     }

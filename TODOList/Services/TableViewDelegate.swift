@@ -65,8 +65,8 @@ extension ViewController {
         //MARK:- DELETE ACTION
         let remove = UITableViewRowAction(style: .destructive, title: "Remove") { action, index in
             print("remove button tapped of the cell in the positio \(index.row)")
+            self.deleteRecord(id: self.tareas[indexPath.row].id)
             self.tareas.remove(at: indexPath.row)
-
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         }
@@ -91,7 +91,7 @@ extension ViewController {
         self.taskDate = date
         let id = tareas[indexPath.row].id //else { return }
         
-        print("nombre de la tarea: \(self.taskName)")
+        print("nombre de la tarea: \(self.taskName), indexPath: \(indexPath.row)")
         
         newView(rowIndex: indexPath.row, id: id)
     }

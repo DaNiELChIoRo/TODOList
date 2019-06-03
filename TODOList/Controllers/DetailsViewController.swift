@@ -108,7 +108,7 @@ class DetailViewController: UIViewController {
     func taskDeleter(){
         if let id = self.taskId,
             let index = self.rowIndex {
-                taskEditorDelegate?.deleteTaskFromMemoryAndView(indexPath: index, id: id)
+                taskEditorDelegate?.deleteTaskFromMemoryAndView(rowIndex: index, id: id)
         }
     }
     
@@ -126,8 +126,6 @@ class DetailViewController: UIViewController {
         
             //Regresando a la vista principal
             self.navigationController?.popViewController(animated: true)
-//            self.navigationController?.dismiss(animated: true, completion: nil)
-//            self.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -147,25 +145,26 @@ class DetailViewController: UIViewController {
 }
 
 protocol taskEditor {
-    func pushTaskToMemoryAndTable(tarea: Task)
-    func deleteTaskFromMemoryAndView(indexPath: Int, id:Int64)
+    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64)
+    func deleteTaskFromMemoryAndView(rowIndex: Int, id:Int64)
 }
 
 extension DetailViewController: taskEditor {
     
-    func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
+    func deleteTaskFromMemoryAndView(rowIndex: Int, id: Int64) {
        print("deleteTaskFromMemotyAndView method from DetailViewController")
     }
 
-    func pushTaskToMemoryAndTable(tarea: Task) {
+    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {
         print("pushTaskToMemoryAndTable method from DetailViewController")
         
         taskNameLabel.text = tarea.name
         taskDetailLabel.text = tarea.descripcion
         let date = dateFormatter.string(from: tarea.date! as Date)
         taskDateLabel.text = date
-        
-        taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea)
+        if let taskID = self.taskId {
+            taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea, id:taskID)
+        }
         
      }
 }
