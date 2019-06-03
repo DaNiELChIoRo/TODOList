@@ -23,7 +23,8 @@ class ViewController: UITableViewController {
     
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MMM/yyyy hh:mm"
+        formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
+        formatter.locale = Locale(identifier: "es_MX")
         return formatter
     }()
     
@@ -36,6 +37,7 @@ class ViewController: UITableViewController {
         CoreData()
         records()
         delegateSubscriptions()
+        
     }
 
     func setupView() {
@@ -96,6 +98,14 @@ extension ViewController: taskEditor {
     
     func pushTaskToMemoryAndTable(tarea: Tarea) {
         print("taskEditor pushTaskToMemory Delegate fired from ViewController")
+        var counter:Int = 0
+        for task in tareas{
+            if task.id == tarea.id{
+                tareas.remove(at: counter)
+                tareas.insert(tarea, at: counter)
+            }
+            counter += 1
+        }
         
     }
     

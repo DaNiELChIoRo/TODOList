@@ -20,13 +20,21 @@ class AddTaskView: UIView {
         datePicker.addTarget(self, action: #selector(dateFieldHandler), for: .valueChanged)
         return datePicker
     }()
-        
+    
+    let dateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
+        formatter.locale = Locale(identifier: "es_MX")
+        return formatter
+    }()
+    
     var taskNameInput:UITextField = UITextField().textFliedCreator(id: 002, text: "Nombre de la tarea", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     var taskDetailInput:UITextField = UITextField().textFliedCreator(id: 004, text: "Descripción de la tarea", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     var taskDateInput:UITextField = UITextField().textFliedCreator(id: 006, text: "dd/MMM/yyyy", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     
     var taskView:modalViewEnum?
     var taskId:Int64?
+    var taskDate:Date?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,10 +88,9 @@ class AddTaskView: UIView {
     
     @objc func dateFieldHandler(_ sender: UIDatePicker) {
         print("Se sea cambiar la fecha")
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MMM/yyyy"
         let dateTextField = self.viewWithTag(006) as! UITextField
         dateTextField.text = dateFormatter.string(from: sender.date)
+        taskDate = sender.date
     }
     
     //MARK:- Task SAVE
@@ -95,11 +102,11 @@ class AddTaskView: UIView {
                 print("boddy you forgot to pass the task id!")
                 return
             }
-            let name = taskNameInput.text
-            let description = taskDetailInput.text
-            let date = taskDateInput.text
-            
-            taskTextValidator(id: id, name: name!, description: description!, date: date!)
+            let name = taskNameInput.text!
+            let description = taskDetailInput.text!
+            let date = taskDateInput.text!
+            print("Input date: \(date)")
+            taskTextValidator(id: id, name: name, description: description, date: date)
         } else {
             let id = Int64(NSDate().timeIntervalSince1970)
             let name = taskNameInput.text
@@ -115,13 +122,13 @@ class AddTaskView: UIView {
         print("taskTextValidator has been called!")
         if name != "", description != "", date != "" {
             
-            let modalView = ModalViewController.shared
-            modalView.taskId = id
-            modalView.taskName = name
-            modalView.taskDetail = description
-            modalView.taskDate = date
+            NotificationCenter.default.post(name: NSNotification.Name("modalView.createTask"), object: nil, userInfo: [
+                "id": id,
+                "name": name,
+                "description": description,
+                "date": date
+                ])
             
-            NotificationCenter.default.post(name: NSNotification.Name("modalView.createTask"), object: nil)
         } else {
             NotificationCenter.default.post(name: NSNotification.Name("modalView.displayAlert"), object: nil)
             

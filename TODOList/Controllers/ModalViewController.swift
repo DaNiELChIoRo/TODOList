@@ -21,7 +21,8 @@ class ModalViewController: UIViewController {
     
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MMM/yyyy"
+        formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
+        formatter.locale = Locale(identifier: "es_MX")
         return formatter
     }()
     
@@ -69,7 +70,7 @@ class ModalViewController: UIViewController {
     
     func subscribeToObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("modalView.displayAlert"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(createTask), name: NSNotification.Name("modalView.createTask"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(createTask(notification:)), name: NSNotification.Name("modalView.createTask"), object: nil)
     }
     
     func setupView(){
@@ -84,7 +85,8 @@ class ModalViewController: UIViewController {
             let name = taskName,
             let detail = taskDetail,
             let date = taskDate {
-//                addTaskView.task
+                addTaskView.taskView = taskView
+                addTaskView.taskId = id
                 addTaskView.taskNameInput.text = name
                 addTaskView.taskDetailInput.text = detail
                 addTaskView.taskDateInput.text = date
@@ -122,21 +124,23 @@ class ModalViewController: UIViewController {
     }
     
     //MARK:- PARSING DATA AND CREATING TASK
-    @objc func createTask(){
+    @objc func createTask(notification: Notification){
+        
         print("createTask Handler hass been trigered!")
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("modalView.createTask"), object: nil)
         
-        print("validación de datos: id: \(taskId), name: \(taskName), detail: \(taskDetail), date: \(taskDate)")
-        
-        let id = taskId! as? Int64
-        let name = taskName!
-        let detail = taskDetail!
-        let fecha = taskDate!
-        if let date = dateFormatter.date(from: fecha) {
-            let tarea = Tarea(id: id, name: name, descripcion: detail, date: date)
+        if let id = notification.userInfo?["id"] as? Int64,
+        let name = notification.userInfo?["name"] as? String,
+        let detail = notification.userInfo?["description"] as? String,
+        let date = notification.userInfo?["date"] as? String {
             
-            rowAdderDelegate?.addRow(tarea: tarea)
+            let fecha = dateFormatter.date(from: date)!
+            
+            let tarea = Tarea(id: id, name: name, descripcion: detail, date: fecha)
+            
+            taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea)
+            
         } else {
             print("Somethig went wrong while trying to unwrap the date value! Error:")
         }

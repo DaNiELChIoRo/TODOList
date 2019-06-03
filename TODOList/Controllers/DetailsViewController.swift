@@ -25,6 +25,13 @@ class DetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    let dateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
+        formatter.locale = Locale(identifier: "es_MX")
+        return formatter
+    }()
+    
     let height:CGFloat = UIScreen.main.bounds.height * 0.5
     let width = UIScreen.main.bounds.width - 40
     let centerY:CGFloat = 20
@@ -42,7 +49,7 @@ class DetailViewController: UIViewController {
     
     var taskNameTitle:UILabel = UILabel().labelCreator(id: 001, text: "Tarea:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
     var taskNameLabel:UILabel = UILabel().labelCreator(id: 002, text: "tarea", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
-    var taskDetailTitle:UILabel  = UILabel().labelCreator(id: 003, text: "Descripción:", backgroundColor: .lightGray, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
+    var taskDetailTitle:UILabel  = UILabel().labelCreator(id: 003, text: "Descripción:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
     var taskDetailLabel:UILabel  = UILabel().labelCreator(id: 004, text: "descripción",  backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
     var taskDateTitle:UILabel  = UILabel().labelCreator(id: 005, text: "Fecha:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
     var taskDateLabel:UILabel  = UILabel().labelCreator(id: 006, text: "fecha", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
@@ -132,6 +139,7 @@ class DetailViewController: UIViewController {
         let modalView = ModalViewController(taskId: taskId, taskName: taskName, taskDetail: taskDetail, taskDate: taskDate)
         modalView.taskView = modalViewEnum.editTask
         modalView.modalPresentationStyle = .overCurrentContext
+        modalView.taskEditorDelegate = self
         present(modalView, animated: true)
         
     }
@@ -151,5 +159,13 @@ extension DetailViewController: taskEditor {
 
     func pushTaskToMemoryAndTable(tarea: Tarea) {
         print("pushTaskToMemoryAndTable method from DetailViewController")
+        
+        taskNameLabel.text = tarea.name
+        taskDetailLabel.text = tarea.descripcion
+        let date = dateFormatter.string(from: tarea.date!)
+        taskDateLabel.text = date
+        
+        taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea)
+        
      }
 }
