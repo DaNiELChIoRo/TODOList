@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
     
     static let shared = DetailViewController()
     
-    var taskEditorDelegate: taskEditor?
+    var taskEditorDelegate: taskEditor!
     
     var taskName:String?
     var taskDetail:String?
@@ -40,9 +40,12 @@ class DetailViewController: UIViewController {
     var rowIndex:Int?
     var taskId:Int64?
     
-    var taskNameLabel:UILabel = UILabel().labelCreator(id: 001, text: "tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)
-    var taskDetailLabel:UILabel?  = UILabel().labelCreator(id: 002, text: "descripción", textColor: .black, textAlignment: .center, fontSize: fontSize)
-    var taskDateLabel:UILabel?  = UILabel().labelCreator(id: 003, text: "fecha", textColor: .black, textAlignment: .center, fontSize: fontSize)
+    var taskNameTitle:UILabel = UILabel().labelCreator(id: 001, text: "Tarea:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
+    var taskNameLabel:UILabel = UILabel().labelCreator(id: 002, text: "tarea", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
+    var taskDetailTitle:UILabel  = UILabel().labelCreator(id: 003, text: "Descripción:", backgroundColor: .lightGray, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
+    var taskDetailLabel:UILabel  = UILabel().labelCreator(id: 004, text: "descripción",  backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
+    var taskDateTitle:UILabel  = UILabel().labelCreator(id: 005, text: "Fecha:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
+    var taskDateLabel:UILabel  = UILabel().labelCreator(id: 006, text: "fecha", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -53,31 +56,36 @@ class DetailViewController: UIViewController {
         setupView()
         setupNavBar()
         viewDetails()
+        
     }
     
     func viewDetails(){
         guard let name = taskName, let detail = taskDetail, let date = taskDate  else { return }
         taskNameLabel.text = name
-        taskDetailLabel?.text = detail
-        taskDateLabel?.text = date
+        taskDetailLabel.text = detail
+        taskDateLabel.text = date
     }
     
     func setupView(){
         
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = UIColor.white
         
         navigationItem.title = "Detail Task View"
         
+        let heightPercentage:CGFloat = 0.06
+        
+        view.addSubview(taskNameTitle)
+        view.topAutoAnchors(id: 001, heightPercentage: heightPercentage, sidePadding: 25, topPadding: 35)
         view.addSubview(taskNameLabel)
-        view.topAutoAnchors(id: 001, heightPercentage: 0.15, sidePadding: 25, topPadding: 35)
-        
-        
-        view.addSubview(taskDetailLabel!)
-        view.AutoAnchors(id: 002, topView: 001, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
-        
-        
-        view.addSubview(taskDateLabel!)
-        view.AutoAnchors(id: 003, topView: 002, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
+        view.AutoAnchors(id: 002, topView: 001, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
+        view.addSubview(taskDetailTitle)
+        view.AutoAnchors(id: 003, topView: 002, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
+        view.addSubview(taskDetailLabel)
+        view.AutoAnchors(id: 004, topView: 003, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
+        view.addSubview(taskDateTitle)
+        view.AutoAnchors(id: 005, topView: 004, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
+        view.addSubview(taskDateLabel)
+        view.AutoAnchors(id: 006, topView: 005, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
         
     }
     
@@ -91,17 +99,14 @@ class DetailViewController: UIViewController {
     }
     
     func taskDeleter(){
-        guard let id = self.taskId,
-            let index = self.rowIndex
-            else { return }
-        taskEditorDelegate?.deleteTaskFromMemoryAndView(indexPath: index, id: id)
-//            TableView.shared.deleteRecord(at: index)
+        if let id = self.taskId,
+            let index = self.rowIndex {
+                taskEditorDelegate?.deleteTaskFromMemoryAndView(indexPath: index, id: id)
+        }
     }
     
     @objc func trashBarButtonHanlder() {
         print("Trash Bar Button Handler has been triggered")
-//        taskNameLabel.text = "jajaja cambio"
-        print("El id de la tarea a borrar es: \(self.taskId)")
         
         let alert = UIAlertController(title: "Alerta de Cambio", message: "Estas apunto de borrar la tarea.\n¿Estas seguro?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
@@ -113,16 +118,19 @@ class DetailViewController: UIViewController {
             self.taskDeleter()
         
             //Regresando a la vista principal
-//            self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+//            self.navigationController?.dismiss(animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
+    //MARK:- EDITOR MODAL VIEW PRESENTER
     @objc func editBarButtonHandler() {
         print("Edit Bar Button Handler has been triggered")
         
-        let modalView = ModalViewController.shared
+        let modalView = ModalViewController(taskId: taskId, taskName: taskName, taskDetail: taskDetail, taskDate: taskDate)
+        modalView.taskView = modalViewEnum.editTask
         modalView.modalPresentationStyle = .overCurrentContext
         present(modalView, animated: true)
         
@@ -132,17 +140,16 @@ class DetailViewController: UIViewController {
 
 protocol taskEditor {
     func pushTaskToMemoryAndTable(tarea: Tarea)
-    
     func deleteTaskFromMemoryAndView(indexPath: Int, id:Int64)
 }
 
 extension DetailViewController: taskEditor {
     
     func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
-       
+       print("deleteTaskFromMemotyAndView method from DetailViewController")
     }
 
     func pushTaskToMemoryAndTable(tarea: Tarea) {
-        
+        print("pushTaskToMemoryAndTable method from DetailViewController")
      }
 }

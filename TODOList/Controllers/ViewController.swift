@@ -13,6 +13,7 @@ import CoreData
 class ViewController: UITableViewController {
     
     var rowAdderDelegate: rowAdder!
+    var taskEditorDelegate: taskEditor!
     
     var tareas = [Tarea]()
     
@@ -49,19 +50,19 @@ class ViewController: UITableViewController {
     
     func delegateSubscriptions() {
         ModalViewController.shared.rowAdderDelegate = self
-        DetailViewController.shared.taskEditorDelegate = self
+        
     }
     
     //MARK:- presentDetailView
     @objc func newView(rowIndex: Int, id: Int64) {
 
         let detailView = DetailViewController(id: id, name: self.taskName, detail: self.taskDetail, date: self.taskDate, rowIndex: rowIndex)
+        detailView.taskEditorDelegate = self
         navigationController?.pushViewController(detailView, animated: true)
     }
     
     @objc func rightBarButtonHandler() {
         print("right action")
-       
         
         let addView = ModalViewController.shared
         addView.modalPresentationStyle = .overCurrentContext
@@ -86,6 +87,7 @@ extension ViewController: taskEditor {
     
     func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
         print("taskEditor deleteTaskFromMemory Delegate fired from ViewController")
+        DetailViewController.shared.taskEditorDelegate = self
         tareas.remove(at: indexPath)
         
         let indexPath = IndexPath(row: indexPath, section: 0)

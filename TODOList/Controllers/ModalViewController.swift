@@ -34,6 +34,7 @@ class ModalViewController: UIViewController {
     var taskView:modalViewEnum?
     
     var rowAdderDelegate: rowAdder!
+    var taskEditorDelegate: taskEditor!
     
     convenience init(){
         self.init(taskId: nil, taskName:nil, taskDetail:nil, taskDate:nil)
@@ -55,7 +56,6 @@ class ModalViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         subscribeToObservers()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,9 +79,18 @@ class ModalViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
         view.addGestureRecognizer(tap)
         
-        if let name = taskName { }
-        
         let addTaskView = AddTaskView(frame: CGRect(x: centerY, y: (totalHeight - height)/2, width: width, height: height))
+        if let id = taskId,
+            let name = taskName,
+            let detail = taskDetail,
+            let date = taskDate {
+//                addTaskView.task
+                addTaskView.taskNameInput.text = name
+                addTaskView.taskDetailInput.text = detail
+                addTaskView.taskDateInput.text = date
+        } else {
+            print("the modalView either where called from the ViewController or it haven't get the data!")
+        }
         view.addSubview(addTaskView)
         
     }
@@ -145,9 +154,17 @@ enum modalViewEnum{
     case editTask
 }
 
+extension ModalViewController: taskEditor {
+    func pushTaskToMemoryAndTable(tarea: Tarea) {
+    }
+    
+    func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
+    }
+    
+}
+
 extension ModalViewController: rowAdder {
     func addRow(tarea: Tarea) {
-        
     }
 }
 

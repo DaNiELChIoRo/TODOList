@@ -25,6 +25,9 @@ class AddTaskView: UIView {
     var taskDetailInput:UITextField = UITextField().textFliedCreator(id: 004, text: "Descripción de la tarea", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     var taskDateInput:UITextField = UITextField().textFliedCreator(id: 006, text: "dd/MMM/yyyy", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     
+    var taskView:modalViewEnum?
+    var taskId:Int64?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -87,12 +90,25 @@ class AddTaskView: UIView {
     @objc func saveButtonHandler() {
         print("saveButtonHandler has been triggered")
         
-        let id = Int64(NSDate().timeIntervalSince1970)
-        let name = taskNameInput.text
-        let description = taskDetailInput.text
-        let date = taskDateInput.text
+        if taskView == modalViewEnum.editTask {
+            guard let id = taskId as? Int64 else {
+                print("boddy you forgot to pass the task id!")
+                return
+            }
+            let name = taskNameInput.text
+            let description = taskDetailInput.text
+            let date = taskDateInput.text
+            
+            taskTextValidator(id: id, name: name!, description: description!, date: date!)
+        } else {
+            let id = Int64(NSDate().timeIntervalSince1970)
+            let name = taskNameInput.text
+            let description = taskDetailInput.text
+            let date = taskDateInput.text
+            
+            taskTextValidator(id: id, name: name!, description: description!, date: date!)
+        }
         
-        taskTextValidator(id: id, name: name!, description: description!, date: date!)
     }
     
     func taskTextValidator(id: Int64, name: String, description:String, date: String){
