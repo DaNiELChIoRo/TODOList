@@ -15,7 +15,7 @@ class ViewController: UITableViewController {
     var rowAdderDelegate: rowAdder!
     var taskEditorDelegate: taskEditor!
     
-    var tareas = [Tarea]()
+    var tareas = [Task]()
     
     var taskName:String = ""
     var taskDetail: String = ""
@@ -52,7 +52,6 @@ class ViewController: UITableViewController {
     
     func delegateSubscriptions() {
         ModalViewController.shared.rowAdderDelegate = self
-        
     }
     
     //MARK:- presentDetailView
@@ -67,6 +66,7 @@ class ViewController: UITableViewController {
         print("right action")
         
         let addView = ModalViewController.shared
+        addView.rowAdderDelegate = self  
         addView.modalPresentationStyle = .overCurrentContext
         self.present(addView, animated: true)
     }
@@ -74,7 +74,7 @@ class ViewController: UITableViewController {
 }
 
 extension ViewController: rowAdder {
-    func addRow(tarea: Tarea) {
+    func addRow(tarea: Task) {
         print("rowAdder Delegate fired from ViewController")
         
         tareas.append(tarea)
@@ -96,7 +96,7 @@ extension ViewController: taskEditor {
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
-    func pushTaskToMemoryAndTable(tarea: Tarea) {
+    func pushTaskToMemoryAndTable(tarea: Task) {
         print("taskEditor pushTaskToMemory Delegate fired from ViewController")
         var counter:Int = 0
         for task in tareas{

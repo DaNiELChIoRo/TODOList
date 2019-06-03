@@ -137,9 +137,13 @@ class ModalViewController: UIViewController {
             
             let fecha = dateFormatter.date(from: date)!
             
-            let tarea = Tarea(id: id, name: name, descripcion: detail, date: fecha)
+            let tarea = ViewController.shared.createTask(id, name, detail, fecha)//Task(id: id, name: name, descripcion: detail, date: fecha)
             
-            taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea)
+            if taskView == modalViewEnum.editTask {
+                taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea)
+            } else {
+                rowAdderDelegate?.addRow(tarea: tarea)
+            }
             
         } else {
             print("Somethig went wrong while trying to unwrap the date value! Error:")
@@ -159,7 +163,7 @@ enum modalViewEnum{
 }
 
 extension ModalViewController: taskEditor {
-    func pushTaskToMemoryAndTable(tarea: Tarea) {
+    func pushTaskToMemoryAndTable(tarea: Task) {
     }
     
     func deleteTaskFromMemoryAndView(indexPath: Int, id: Int64) {
@@ -168,10 +172,10 @@ extension ModalViewController: taskEditor {
 }
 
 extension ModalViewController: rowAdder {
-    func addRow(tarea: Tarea) {
+    func addRow(tarea: Task) {
     }
 }
 
 protocol rowAdder {
-    func addRow(tarea: Tarea)
+    func addRow(tarea: Task)
 }

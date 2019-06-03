@@ -16,19 +16,21 @@ extension ViewController {
     //MARK:- escribiendo los registros falsos
     func records() {
         print("se escribiran las tareas al arreglo")
-        let fechaPrimeraTarea:Date = Date()
-        let tarea = Tarea(id: 001, name: "Bañar al perro", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
-        tareas.append(tarea)
-        
-        let tarea2 = Tarea(id: 002, name: "Bañar al gato", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
-        tareas.append(tarea2)
-        
-        let tarea3 = Tarea(id: 003, name: "Bañarse", descripcion: "Bañarse para que no holer feo", date: fechaPrimeraTarea)
-        tareas.append(tarea3)
+//        let fechaPrimeraTarea:Date = Date()
+//        let tarea = Tarea(id: 001, name: "Bañar al perro", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
+//        tareas.append(tarea)
+//
+//        let tarea2 = Tarea(id: 002, name: "Bañar al gato", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
+//        tareas.append(tarea2)
+//
+//        let tarea3 = Tarea(id: 003, name: "Bañarse", descripcion: "Bañarse para que no holer feo", date: fechaPrimeraTarea)
+//        tareas.append(tarea3)
 
+        tareas = fetchData()
+        
     }
     
-    func updateRecods(tarea: Tarea){
+    func updateRecods(tarea: Task){
         print("Updating records")
         
         tareas.append(tarea)
@@ -85,9 +87,9 @@ extension ViewController {
         
         self.taskName = tareas[indexPath.row].name!
         self.taskDetail = tareas[indexPath.row].descripcion!
-        let date = dateFormatter.string(from: tareas[indexPath.row].date!)
+        let date = dateFormatter.string(from: tareas[indexPath.row].date! as Date)
         self.taskDate = date
-        guard let id = tareas[indexPath.row].id else { return }
+        let id = tareas[indexPath.row].id //else { return }
         
         print("nombre de la tarea: \(self.taskName)")
         

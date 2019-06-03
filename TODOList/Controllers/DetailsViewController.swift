@@ -147,7 +147,7 @@ class DetailViewController: UIViewController {
 }
 
 protocol taskEditor {
-    func pushTaskToMemoryAndTable(tarea: Tarea)
+    func pushTaskToMemoryAndTable(tarea: Task)
     func deleteTaskFromMemoryAndView(indexPath: Int, id:Int64)
 }
 
@@ -157,12 +157,12 @@ extension DetailViewController: taskEditor {
        print("deleteTaskFromMemotyAndView method from DetailViewController")
     }
 
-    func pushTaskToMemoryAndTable(tarea: Tarea) {
+    func pushTaskToMemoryAndTable(tarea: Task) {
         print("pushTaskToMemoryAndTable method from DetailViewController")
         
         taskNameLabel.text = tarea.name
         taskDetailLabel.text = tarea.descripcion
-        let date = dateFormatter.string(from: tarea.date!)
+        let date = dateFormatter.string(from: tarea.date! as Date)
         taskDateLabel.text = date
         
         taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea)
