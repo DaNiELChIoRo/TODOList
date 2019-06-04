@@ -68,4 +68,9 @@ extension UIView {
             ])
     }
     
+    func LayoutWithVisualFormat(visualFormat: String, alignment: NSLayoutConstraint.FormatOptions, view: [String: Any]) -> [NSLayoutConstraint] {
+        return NSLayoutConstraint.constraints(withVisualFormat: visualFormat, options: alignment, metrics: nil, views: view)
+        
+        
+    }
 }

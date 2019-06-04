@@ -9,24 +9,18 @@
 import UIKit
 import Foundation
 
-//class TableViewDelegate:NSObject, UITableViewDelegate, UITableViewDataSource {
 extension ViewController {
 
  
     //MARK:- escribiendo los registros falsos
     func records() {
         print("se escribiran las tareas al arreglo")
-//        let fechaPrimeraTarea:Date = Date()
-//        let tarea = Tarea(id: 001, name: "Bañar al perro", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
-//        tareas.append(tarea)
-//
-//        let tarea2 = Tarea(id: 002, name: "Bañar al gato", descripcion: "Bañar al perro en el jardin para que no huela feo", date: fechaPrimeraTarea)
-//        tareas.append(tarea2)
-//
-//        let tarea3 = Tarea(id: 003, name: "Bañarse", descripcion: "Bañarse para que no holer feo", date: fechaPrimeraTarea)
-//        tareas.append(tarea3)
 
+        tableView.register(CellView.self, forCellReuseIdentifier: "cellView")
+        
         tareas = fetchData()
+        
+        sortTasks()
         
     }
     
@@ -53,9 +47,13 @@ extension ViewController {
     //Configuramos las celdas que se regresaran por fila
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = CellView(style: .default, reuseIdentifier: "cellView")
-        cell.textLabel?.text = tareas[indexPath.row].name
-        
+//        let cell = CellView(style: .default, reuseIdentifier: "cellView")
+
+//
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellView", for: indexPath) as! CellView
+        cell.name.text = tareas[indexPath.row].name
+        let fecha = dateFormatter.string(from: (tareas[indexPath.row].date as? Date)!)
+        cell.date.text = fecha
         return cell
     }
     

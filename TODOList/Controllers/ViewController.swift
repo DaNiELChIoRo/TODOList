@@ -77,6 +77,18 @@ class ViewController: UITableViewController {
 }
 
 extension ViewController: rowAdder {
+    
+    func sortTasks(){
+        print("the task are about to be sorted!")
+        tareas = tareas.sorted { (Task, Task1) -> Bool in
+            let date1 = Task.date! as Date
+            let date2 = Task1.date! as Date
+            if date1 > date2 { return true } else { return false }
+        }
+        
+        tableView.reloadData()
+    }
+    
     func addRow(tarea: Task) {
         print("rowAdder Delegate fired from ViewController")
         
@@ -84,6 +96,8 @@ extension ViewController: rowAdder {
         
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+        
+        sortTasks()
         
         saveRecord()
         
@@ -107,6 +121,8 @@ extension ViewController: taskEditor {
         print("taskEditor pushTaskToMemory Delegate fired from ViewController")
         
         updateRecord(id: id, task: tarea)
+        
+        sortTasks()
         
         var counter:Int = 0
         for task in tareas{
