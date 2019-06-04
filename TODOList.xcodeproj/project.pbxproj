@@ -24,6 +24,7 @@
 		1A35F38F229DDA4F00E59BB9 /* UITextFlied.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F38E229DDA4F00E59BB9 /* UITextFlied.swift */; };
 		1A8CE9E822A095DF003E3590 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */; };
 		1A8CE9E922A095DF003E3590 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */; };
+		1AC4D5A022A6E72900430522 /* UIToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4D59F22A6E72900430522 /* UIToolBar.swift */; };
 		1AD5D26B22A18C0300536610 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5D26A22A18C0300536610 /* AddTaskView.swift */; };
 		1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE98D1E22A017AC00AFD6D6 /* CellView.swift */; };
 		1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */; };
@@ -73,6 +74,7 @@
 		1A35F38E229DDA4F00E59BB9 /* UITextFlied.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFlied.swift; sourceTree = "<group>"; };
 		1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "TODOList/Models/Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "TODOList/Models/Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1AC4D59F22A6E72900430522 /* UIToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIToolBar.swift; sourceTree = "<group>"; };
 		1AD5D26A22A18C0300536610 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		1AE98D1E22A017AC00AFD6D6 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				1A35F38E229DDA4F00E59BB9 /* UITextFlied.swift */,
 				A010DFA4229E23CA005BC780 /* UIColorExtension.swift */,
 				1A19D546229F327C00FEA8CB /* UIButton.swift */,
+				1AC4D59F22A6E72900430522 /* UIToolBar.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */,
 				1A35F38F229DDA4F00E59BB9 /* UITextFlied.swift in Sources */,
 				1A35F34D229D873500E59BB9 /* ViewController.swift in Sources */,
+				1AC4D5A022A6E72900430522 /* UIToolBar.swift in Sources */,
 				1A19D545229F2F9500FEA8CB /* CoreData.swift in Sources */,
 				1A35F38B229DAD9C00E59BB9 /* TableViewDelegate.swift in Sources */,
 				1A35F34B229D873500E59BB9 /* AppDelegate.swift in Sources */,

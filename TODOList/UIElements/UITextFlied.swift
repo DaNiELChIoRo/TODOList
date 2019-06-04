@@ -20,6 +20,7 @@ extension UITextField {
         textField.layer.masksToBounds = true
         textField.layer.cornerRadius = cornerRadius
 //        textField.layer.borderColor = color.cgColor
+        textField.returnKeyType = .continue
         textField.layer.borderWidth = 1.0
         textField.tag = id
         textField.translatesAutoresizingMaskIntoConstraints = false

@@ -17,6 +17,7 @@ class AddTaskView: UIView {
         let datePicker = UIDatePicker()
         datePicker.timeZone = NSTimeZone.local
         datePicker.backgroundColor = UIColor.white
+        datePicker.minimumDate = Date()
         datePicker.addTarget(self, action: #selector(dateFieldHandler), for: .valueChanged)
         return datePicker
     }()
@@ -70,10 +71,17 @@ class AddTaskView: UIView {
         
         self.addSubview(taskDateInput)
         
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmisKeyboard))
+        toolbar.setItems([doneButton], animated: true)
+        
         let datePicker = DatePicker
         
         let dateTextField = self.viewWithTag(006) as! UITextField
         dateTextField.inputView = datePicker
+        dateTextField.inputAccessoryView = toolbar
         self.AutoAnchors(id: 006, topView: 005, heightPercentage: 0.1, sidePadding: 25, topPadding: 5)
         
         self.addSubview(UIButton().defaultButtonCreator(id: 007, text: "Guardar", color: .red, textColor: .white, borderRound: 15, action: #selector(saveButtonHandler)))

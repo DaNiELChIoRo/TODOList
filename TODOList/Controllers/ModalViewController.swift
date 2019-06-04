@@ -20,6 +20,8 @@ class ModalViewController: UIViewController {
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
     
+    var addTaskView:AddTaskView?
+    
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
@@ -32,6 +34,8 @@ class ModalViewController: UIViewController {
     var taskName:String?
     var taskDetail:String?
     var taskDate: String?
+    
+    var keyboardIsShown:Bool = false
     
     var taskView:modalViewEnum?
     
@@ -72,6 +76,8 @@ class ModalViewController: UIViewController {
     func subscribeToObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(presentAlert), name: NSNotification.Name("modalView.displayAlert"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(createTask(notification:)), name: NSNotification.Name("modalView.createTask"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisapear), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func setupView() {
@@ -81,20 +87,21 @@ class ModalViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
         view.addGestureRecognizer(tap)
         
-        let addTaskView = AddTaskView(frame: CGRect(x: centerY, y: (totalHeight - height)/2, width: width, height: height))
+        addTaskView = AddTaskView(frame: CGRect(x: centerY, y: (totalHeight - height)/2, width: width, height: height))
+        
         if let id = taskId,
             let name = taskName,
             let detail = taskDetail,
             let date = taskDate {
-                addTaskView.taskView = taskView
-                addTaskView.taskId = id
-                addTaskView.taskNameInput.text = name
-                addTaskView.taskDetailInput.text = detail
-                addTaskView.taskDateInput.text = date
+                addTaskView?.taskView = taskView
+                addTaskView?.taskId = id
+                addTaskView?.taskNameInput.text = name
+                addTaskView?.taskDetailInput.text = detail
+                addTaskView?.taskDateInput.text = date
         } else {
             print("the modalView either where called from the ViewController or it haven't get the data!")
         }
-        view.addSubview(addTaskView)
+        view.addSubview(addTaskView!)
         
     }
     
@@ -118,7 +125,7 @@ class ModalViewController: UIViewController {
     @objc func presentAlert() {
         print("presentAlert Handler hass been trigered!")
         
-        let alert = UIAlertController(title: "Mensaje de Alerta", message: "No se han llenado todos los campos", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Tarea Vacia", message: "No se han llenado todos los campos", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Entendido", style: .destructive, handler: nil))
         
         present(alert, animated: true, completion: nil)

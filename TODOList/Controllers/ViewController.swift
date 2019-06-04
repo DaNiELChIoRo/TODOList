@@ -44,7 +44,7 @@ class ViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        CoreData()
+        sortTasks()
     }
 
     func setupView() {
@@ -83,7 +83,8 @@ extension ViewController: rowAdder {
         tareas = tareas.sorted { (Task, Task1) -> Bool in
             let date1 = Task.date! as Date
             let date2 = Task1.date! as Date
-            if date1 > date2 { return true } else { return false }
+            //Arregla las fechas de la más proxima a las más lejanas
+            if date1 < date2 { return true } else { return false }
         }
         
         tableView.reloadData()
