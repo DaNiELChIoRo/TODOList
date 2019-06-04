@@ -63,10 +63,11 @@ extension ViewController {
         //MARK:- DELETE ACTION
         let remove = UITableViewRowAction(style: .destructive, title: "Remove") { action, index in
             print("remove button tapped of the cell in the positio \(index.row)")
-            self.deleteRecord(id: self.tareas[indexPath.row].id)
+            let id = self.tareas[indexPath.row].id
+            self.deleteRecord(id: id)
             self.tareas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            
+            UserNotificationService.shared.removeNotification(identifier: String(id))
         }
         
         return [remove]

@@ -25,6 +25,8 @@
 		1A8CE9E822A095DF003E3590 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */; };
 		1A8CE9E922A095DF003E3590 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */; };
 		1AC4D5A022A6E72900430522 /* UIToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4D59F22A6E72900430522 /* UIToolBar.swift */; };
+		1AC4D5A222A7064100430522 /* UserNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4D5A122A7064000430522 /* UserNotificationService.swift */; };
+		1AC4D5A422A707D800430522 /* NotificationCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC4D5A322A707D700430522 /* NotificationCategory.swift */; };
 		1AD5D26B22A18C0300536610 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5D26A22A18C0300536610 /* AddTaskView.swift */; };
 		1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE98D1E22A017AC00AFD6D6 /* CellView.swift */; };
 		1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */; };
@@ -75,6 +77,8 @@
 		1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "TODOList/Models/Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "TODOList/Models/Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1AC4D59F22A6E72900430522 /* UIToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIToolBar.swift; sourceTree = "<group>"; };
+		1AC4D5A122A7064000430522 /* UserNotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserNotificationService.swift; path = ../../../push_notifications_app/push_notifications_app/Services/UserNotifications/UserNotificationService.swift; sourceTree = "<group>"; };
+		1AC4D5A322A707D700430522 /* NotificationCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationCategory.swift; path = ../../../push_notifications_app/push_notifications_app/Services/UserNotifications/NotificationCategory.swift; sourceTree = "<group>"; };
 		1AD5D26A22A18C0300536610 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		1AE98D1E22A017AC00AFD6D6 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 		1A35F37C229D8E7700E59BB9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1AC4D5A122A7064000430522 /* UserNotificationService.swift */,
+				1AC4D5A322A707D700430522 /* NotificationCategory.swift */,
 				1A35F38A229DAD9C00E59BB9 /* TableViewDelegate.swift */,
 				1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */,
 				1A19D544229F2F9500FEA8CB /* CoreData.swift */,
@@ -349,6 +355,7 @@
 			files = (
 				1A19D547229F327C00FEA8CB /* UIButton.swift in Sources */,
 				1A35F386229D965F00E59BB9 /* AutolayoutHelper.swift in Sources */,
+				1AC4D5A422A707D800430522 /* NotificationCategory.swift in Sources */,
 				A010DFA3229E13D6005BC780 /* ModalViewController.swift in Sources */,
 				1A35F389229DA37C00E59BB9 /* Tarea.swift in Sources */,
 				1AD5D26B22A18C0300536610 /* AddTaskView.swift in Sources */,
@@ -362,6 +369,7 @@
 				1A35F34D229D873500E59BB9 /* ViewController.swift in Sources */,
 				1AC4D5A022A6E72900430522 /* UIToolBar.swift in Sources */,
 				1A19D545229F2F9500FEA8CB /* CoreData.swift in Sources */,
+				1AC4D5A222A7064100430522 /* UserNotificationService.swift in Sources */,
 				1A35F38B229DAD9C00E59BB9 /* TableViewDelegate.swift in Sources */,
 				1A35F34B229D873500E59BB9 /* AppDelegate.swift in Sources */,
 				1A8CE9E922A095DF003E3590 /* Task+CoreDataProperties.swift in Sources */,

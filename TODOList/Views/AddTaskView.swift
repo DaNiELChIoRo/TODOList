@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 
 class AddTaskView: UIView {
@@ -92,7 +93,7 @@ class AddTaskView: UIView {
         
     }
     
-    //MARK:- Keyboard Dissmis
+    
     @objc func dissmisKeyboard() {
         endEditing(true)
     }
@@ -103,7 +104,20 @@ class AddTaskView: UIView {
         taskDateInput.text = ""
     }
     
-    //MARK:-
+    fileprivate func createNotification(id: Int64) {
+        
+        let name = taskNameInput.text!
+        let description = taskDetailInput.text!
+        let fecha = taskDateInput.text!
+        let date = dateFormatter.date(from: fecha)
+        
+        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date!)
+        
+        //creamos la notifación apartir de nuestro servicio de notificiaciones
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        UserNotificationService.shared.defaultNotificationRequest(id:id, title: "Recordatorio: \(name)", body: description, sound: .defaultCritical, category: NotificationCategory.date, trigger: trigger)
+    }
+    
     @objc func dateFieldHandler(_ sender: UIDatePicker) {
         print("Se va a cambiar la fecha")
         let dateTextField = self.viewWithTag(006) as! UITextField
@@ -123,14 +137,12 @@ class AddTaskView: UIView {
             let name = taskNameInput.text!
             let description = taskDetailInput.text!
             let date = taskDateInput.text!
-//            print("Input date: \(date)")
             taskTextValidator(id: id, name: name, description: description, date: date)
         } else {
             let id = Int64(NSDate().timeIntervalSince1970)
             let name = taskNameInput.text
             let description = taskDetailInput.text
             let date = taskDateInput.text
-            
             taskTextValidator(id: id, name: name!, description: description!, date: date!)
         }
         
@@ -146,12 +158,13 @@ class AddTaskView: UIView {
                 "description": description,
                 "date": date
                 ])
+            //Creamos o actualizamos la tarea
+            createNotification(id: id)
             
             viewCleaner()
             
         } else {
             NotificationCenter.default.post(name: NSNotification.Name("modalView.displayAlert"), object: nil)
-            
         }
         
     }

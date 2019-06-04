@@ -47,11 +47,16 @@ class ViewController: UITableViewController {
         sortTasks()
     }
 
-    func setupView() {
+    fileprivate func setupView() {
         view.backgroundColor = UIColor.white
     }
     
-    func setupNavBar() {
+    //MARK:- Application Permisions Setup
+    fileprivate func requestPermisions(){
+        UserNotificationService.shared.authorize()
+    }
+    
+    fileprivate func setupNavBar() {
         navigationItem.title = "TODO List"
         let rightItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonHandler))
         navigationItem.rightBarButtonItem = rightItem
@@ -116,6 +121,8 @@ extension ViewController: taskEditor {
         
         let indexPath = IndexPath(row: rowIndex, section: 0)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+        
+        UserNotificationService.shared.removeNotification(identifier: String(id))
     }
     
     func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {

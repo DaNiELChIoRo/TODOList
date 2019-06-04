@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     //Creando oriencación del dispositivo permitida
     var orientationLock = UIInterfaceOrientationMask.portrait
-
+    //Creamos la instancia del centro de notificaciones local
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,6 +29,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         
         return true
+    }
+    
+    func registerForPushNotifications() {
+        notificationCenter
+            .requestAuthorization(options: [.alert, .sound]) { // declaramos el tipo de notificaciones que se utilizaran
+                [weak self] granted, error in
+                guard granted else { return }
+                self?.getNotificationSettings()
+                print("Permission granted: \(granted)") // 3
+        }
+    }
+    //accediendo a la configuración actual del usuario sobre los permisos de nuestra applicación
+    func getNotificationSettings() {
+        notificationCenter.getNotificationSettings { settings in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { print (" no se han autorizado las notificaciones por el usuario! ");return }
+            //Solicitud al servidor para notificaciones remotas
+            //            DispatchQueue.main.async {
+            //                UIApplication.shared.registerForRemoteNotifications()
+            //            }
+        }
     }
     
     //Configurando la oriencación del dispositivo permitida
