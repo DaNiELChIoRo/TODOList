@@ -13,18 +13,39 @@ class TextFieldDelegate: NSObject, UITextFieldDelegate {
     override init () {}
     
     static let shared = TextFieldDelegate()
+    
+    let dateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
+        formatter.locale = Locale(identifier: "es_MX")
+        return formatter
+    }()
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print("Se empezara a editar en el campo \(textField.description)")
-        
+        let fecha = Date()
+        let date = dateFormatter.string(from: fecha)
+        textField.text = date
+    }
+    
+}
+extension AddTaskView: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("textField Will return")
+        let nextTextField = textField.tag + 2
+        if let nextResponder = textField.superview?.viewWithTag(nextTextField) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            endEditing(true)
+        }
+            
+        return true
     }
     
 }
 
-
 extension ModalViewController {
-    
-   
     
     @objc func keyboardWillShow(notification: Notification) {
         print("keyboard will be show!")

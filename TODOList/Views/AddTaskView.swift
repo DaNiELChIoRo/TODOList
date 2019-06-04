@@ -58,18 +58,21 @@ class AddTaskView: UIView {
         self.topAutoAnchors(id: 001, heightPercentage: 0.15, sidePadding: 10, topPadding: 15)
         
         self.addSubview(taskNameInput)
+        taskNameInput.delegate = self
         self.AutoAnchors(id: 002, topView: 001, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         self.addSubview(UILabel().labelCreator(id: 003, text: "Descripción", textColor: .black, textAlignment: .center, fontSize: fontSize))
         self.AutoAnchors(id: 003, topView: 002, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         self.addSubview(taskDetailInput)
+        taskDetailInput.delegate = self
         self.AutoAnchors(id: 004, topView: 003, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         self.addSubview(UILabel().labelCreator(id: 005, text: "Fecha de realización", textColor: .black, textAlignment: .center, fontSize: fontSize))
         self.AutoAnchors(id: 005, topView: 004, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         self.addSubview(taskDateInput)
+        taskDateInput.delegate = TextFieldDelegate.shared
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -94,8 +97,15 @@ class AddTaskView: UIView {
         endEditing(true)
     }
     
+    func viewCleaner() {
+        taskNameInput.text = ""
+        taskDetailInput.text = ""
+        taskDateInput.text = ""
+    }
+    
+    //MARK:-
     @objc func dateFieldHandler(_ sender: UIDatePicker) {
-        print("Se sea cambiar la fecha")
+        print("Se va a cambiar la fecha")
         let dateTextField = self.viewWithTag(006) as! UITextField
         dateTextField.text = dateFormatter.string(from: sender.date)
         taskDate = sender.date
@@ -136,6 +146,8 @@ class AddTaskView: UIView {
                 "description": description,
                 "date": date
                 ])
+            
+            viewCleaner()
             
         } else {
             NotificationCenter.default.post(name: NSNotification.Name("modalView.displayAlert"), object: nil)
