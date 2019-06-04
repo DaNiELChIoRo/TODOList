@@ -38,6 +38,7 @@ class ViewController: UITableViewController {
         setupView()
         CoreData()
         records()
+        requestPermisions() 
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
