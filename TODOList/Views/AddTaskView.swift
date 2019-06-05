@@ -6,6 +6,7 @@
 //  Copyright © 2019 Daniel.Meneses. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import UserNotifications
 
@@ -38,10 +39,31 @@ class AddTaskView: UIView {
     var taskId:Int64?
     var taskDate:Date?
     
+    var timer: Timer?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        
+        datePickerUpdater()
+        
     }
+    
+    func datePickerUpdater () {
+        let date = Date()
+        var components = DateComponents()
+        components.setValue(1, for: .minute)
+        let expirationDate = Calendar.current.date(byAdding: components, to: date)!
+        let timeIntervar = Date().timeIntervalSince(expirationDate)
+        timer = Timer.scheduledTimer(timeInterval: timeIntervar, target: self, selector: #selector(resetMinumDateOfDatePicker), userInfo: nil, repeats: false)
+    }
+    
+    @objc func resetMinumDateOfDatePicker() {
+        DatePicker.minimumDate = Date()
+        let date = dateFormatter.string(from: Date())
+        taskDateInput.text = date
+        datePickerUpdater()
+    } 
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

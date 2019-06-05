@@ -8,6 +8,12 @@
 
 import UIKit
 
+
+protocol taskEditor {
+    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64)
+    func deleteTaskFromMemoryAndView(rowIndex: Int, id:Int64)
+}
+
 let fontSize:CGFloat = 18
 
 class DetailViewController: UIViewController {
@@ -145,10 +151,6 @@ class DetailViewController: UIViewController {
     
 }
 
-protocol taskEditor {
-    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64)
-    func deleteTaskFromMemoryAndView(rowIndex: Int, id:Int64)
-}
 
 extension DetailViewController: taskEditor {
     

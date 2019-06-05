@@ -11,6 +11,15 @@ import CoreData
 import Foundation
 import CoreData
 
+enum modalViewEnum{
+    case addTask
+    case editTask
+}
+
+protocol rowAdder {
+    func addRow(tarea: Task)
+}
+
 class ModalViewController: UIViewController {
     
     static let shared = ModalViewController()
@@ -171,25 +180,7 @@ class ModalViewController: UIViewController {
     
 }
 
-enum modalViewEnum{
-    case addTask
-    case editTask
-}
-
-extension ModalViewController: taskEditor {
-    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {
-    }
-    
-    func deleteTaskFromMemoryAndView(rowIndex: Int, id:Int64) {
-    }
-    
-}
-
 extension ModalViewController: rowAdder {
     func addRow(tarea: Task) {
     }
-}
-
-protocol rowAdder {
-    func addRow(tarea: Task)
 }
