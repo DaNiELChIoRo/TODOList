@@ -21,6 +21,8 @@ class ViewController: UITableViewController {
     var taskDetail: String = ""
     var taskDate: String = ""
     
+    var vista:NoTasksView?
+    
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     let dateFormatter:DateFormatter = {
@@ -30,13 +32,12 @@ class ViewController: UITableViewController {
         return formatter
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupNavBar()
         setupView()
-        CoreData()
+//        CoreData()
         records()
         requestPermisions() 
         
@@ -45,7 +46,7 @@ class ViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        sortTasks()
+        recordChecker()        
     }
 
     fileprivate func setupView() {
@@ -75,7 +76,7 @@ class ViewController: UITableViewController {
         print("right action")
         
         let addView = ModalViewController.shared
-        addView.rowAdderDelegate = self  
+        addView.rowAdderDelegate = self
         addView.modalPresentationStyle = .overCurrentContext
         self.present(addView, animated: true)
     }
@@ -99,14 +100,14 @@ extension ViewController: rowAdder {
     func addRow(tarea: Task) {
         print("rowAdder Delegate fired from ViewController")
         
-        tareas.append(tarea)
+        tareas.append(tarea) 
         
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         
-        sortTasks()
-        
         saveRecord()
+        
+        recordChecker()
         
     }
 }
@@ -122,6 +123,8 @@ extension ViewController: taskEditor {
         
         let indexPath = IndexPath(row: rowIndex, section: 0)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+        
+        recordChecker()
         
         UserNotificationService.shared.removeNotification(identifier: String(id))
     }

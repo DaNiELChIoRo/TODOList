@@ -15,12 +15,42 @@ extension ViewController {
     //MARK:- escribiendo los registros falsos
     func records() {
         print("se escribiran las tareas al arreglo")
-
-        tableView.register(CellView.self, forCellReuseIdentifier: "cellView")
         
         tareas = fetchData()
         
-        sortTasks()
+        tableView.register(CellView.self, forCellReuseIdentifier: "cellView")
+        
+        recordChecker()
+        
+    }
+    
+    func recordChecker() {
+        print("recordChecker function has been called!")
+        
+        let size = UIScreen.main.bounds
+        let anotherBarHeight = UIApplication.shared.statusBarFrame.size.height
+        guard let barHeight = navigationController?.navigationBar.frame.height else { return }        
+        vista = NoTasksView(frame: CGRect(x: 0, y: barHeight + anotherBarHeight, width: size.width, height: size.height))
+        vista?.tag = 001
+        
+        
+        
+        if tareas.count > 0 {
+            
+            sortTasks()
+            
+            for v in (navigationController?.view!.subviews)! {
+                if(v.isKind(of: NoTasksView.self)){
+                    navigationController?.view.viewWithTag(001)?.removeFromSuperview()
+                }
+            }
+
+            
+        } else {
+            
+            navigationController?.view.addSubview(vista!)
+            
+        }
         
     }
     
@@ -68,6 +98,7 @@ extension ViewController {
             self.tareas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             UserNotificationService.shared.removeNotification(identifier: String(id))
+            self.recordChecker()
         }
         
         return [remove]

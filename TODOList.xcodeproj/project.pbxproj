@@ -31,6 +31,7 @@
 		1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE98D1E22A017AC00AFD6D6 /* CellView.swift */; };
 		1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */; };
 		1AEB4DBC229ED5F900DA42B1 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */; };
+		1AF309F222A9719B004B9CBA /* NoTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF309F122A9719B004B9CBA /* NoTasksView.swift */; };
 		A010DFA3229E13D6005BC780 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A010DFA2229E13D6005BC780 /* ModalViewController.swift */; };
 		A010DFA5229E23CA005BC780 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A010DFA4229E23CA005BC780 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		1AE98D1E22A017AC00AFD6D6 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegate.swift; sourceTree = "<group>"; };
 		1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		1AF309F122A9719B004B9CBA /* NoTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTasksView.swift; sourceTree = "<group>"; };
 		A010DFA2229E13D6005BC780 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		A010DFA4229E23CA005BC780 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,6 +199,7 @@
 			children = (
 				1AE98D1E22A017AC00AFD6D6 /* CellView.swift */,
 				1AD5D26A22A18C0300536610 /* AddTaskView.swift */,
+				1AF309F122A9719B004B9CBA /* NoTasksView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				A010DFA5229E23CA005BC780 /* UIColorExtension.swift in Sources */,
 				1A8CE9E822A095DF003E3590 /* Task+CoreDataClass.swift in Sources */,
 				1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */,
+				1AF309F222A9719B004B9CBA /* NoTasksView.swift in Sources */,
 				1A35F382229D911D00E59BB9 /* UILabel.swift in Sources */,
 				1A2B1AB322A71D330086FA45 /* NotificationCategory.swift in Sources */,
 				1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */,
