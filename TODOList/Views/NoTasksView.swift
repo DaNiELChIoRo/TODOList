@@ -34,10 +34,4 @@ class NoTasksView: UIView{
        
     }
     
-    func removeView(){        
-        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-            navigationController.removeFromParent()
-        }
-    }
-    
 }
