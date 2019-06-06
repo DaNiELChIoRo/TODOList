@@ -43,10 +43,8 @@ class AddTaskView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupView()
-        
-        datePickerUpdater()
-        
     }
     
     func datePickerUpdater () {
@@ -61,7 +59,11 @@ class AddTaskView: UIView {
     @objc func resetMinumDateOfDatePicker() {
         DatePicker.minimumDate = Date()
         let date = dateFormatter.string(from: Date())
-        taskDateInput.text = date
+        if let datePickerDate = dateFormatter.date(from: taskDateInput.text!){
+            if datePickerDate < Date() {
+                taskDateInput.text = date
+            }
+        }
         datePickerUpdater()
     } 
     
@@ -142,8 +144,7 @@ class AddTaskView: UIView {
     
     @objc func dateFieldHandler(_ sender: UIDatePicker) {
         print("Se va a cambiar la fecha")
-        let dateTextField = self.viewWithTag(006) as! UITextField
-        dateTextField.text = dateFormatter.string(from: sender.date)
+        taskDateInput.text = dateFormatter.string(from: sender.date)
         taskDate = sender.date
     }
     

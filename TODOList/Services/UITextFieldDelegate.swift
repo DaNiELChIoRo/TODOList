@@ -30,6 +30,10 @@ class TextFieldDelegate: NSObject, UITextFieldDelegate {
     
 }
 extension AddTaskView: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        datePickerUpdater()
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("textField Will return")

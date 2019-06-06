@@ -121,11 +121,9 @@ class ModalViewController: UIViewController {
             self.dismiss(animated: true)
         }, completion: nil)
         
-        let addTaskView = AddTaskView.shared
-        addTaskView.taskNameInput.text = ""
-        addTaskView.taskDetailInput.text = ""
-        addTaskView.taskDateInput.text = ""
-        
+        addTaskView?.taskNameInput.text = ""
+        addTaskView?.taskDetailInput.text = ""
+        addTaskView?.taskDateInput.text = ""
 
         //TODO algo para enviar la información de regreso a ViewController ....
     }
