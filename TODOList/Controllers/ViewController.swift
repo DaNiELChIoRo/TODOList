@@ -75,7 +75,7 @@ class ViewController: UITableViewController {
     @objc func rightBarButtonHandler() {
         print("right action")
         
-        let addView = ModalViewController.shared
+        let addView = ModalViewController()
         addView.rowAdderDelegate = self
         addView.modalPresentationStyle = .overCurrentContext
         self.present(addView, animated: true)

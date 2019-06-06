@@ -29,7 +29,7 @@ class ModalViewController: UIViewController {
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
     
-    var addTaskView:AddTaskView?
+    var addTaskView:AddTaskView? = AddTaskView(frame: CGRect(x: 20, y: (UIScreen.main.bounds.height - UIScreen.main.bounds.height * 0.5)/2, width: UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.height * 0.5))
     
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
@@ -96,7 +96,6 @@ class ModalViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
         view.addGestureRecognizer(tap)
         
-        addTaskView = AddTaskView(frame: CGRect(x: centerY, y: (totalHeight - height)/2, width: width, height: height))
         
         if let id = taskId,
             let name = taskName,
@@ -121,11 +120,10 @@ class ModalViewController: UIViewController {
             self.dismiss(animated: true)
         }, completion: nil)
         
-        addTaskView?.taskNameInput.text = ""
-        addTaskView?.taskDetailInput.text = ""
-        addTaskView?.taskDateInput.text = ""
-
-        //TODO algo para enviar la información de regreso a ViewController ....
+        addTaskView = nil
+//        addTaskView?.taskNameInput.text = ""
+//        addTaskView?.taskDetailInput.text = ""
+//        addTaskView?.taskDateInput.text = ""
     }
     
     //MARK:- presentAlert

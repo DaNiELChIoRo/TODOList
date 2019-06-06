@@ -31,9 +31,9 @@ class AddTaskView: UIView {
         return formatter
     }()
     
-    var taskNameInput:UITextField = UITextField().textFliedCreator(id: 002, text: "Nombre de la tarea", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
-    var taskDetailInput:UITextField = UITextField().textFliedCreator(id: 004, text: "Descripción de la tarea", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
-    var taskDateInput:UITextField = UITextField().textFliedCreator(id: 006, text: "dd/MMM/yyyy", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    var taskNameInput:UITextField = UITextField().textFliedCreator(id: 002, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    var taskDetailInput:UITextField = UITextField().textFliedCreator(id: 004, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    var taskDateInput:UITextField = UITextField().textFliedCreator(id: 006, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     
     var taskView:modalViewEnum?
     var taskId:Int64?
@@ -192,4 +192,8 @@ class AddTaskView: UIView {
         
     }
     
+    deinit {
+        viewCleaner()
+    }
+     
 }
