@@ -39,6 +39,14 @@ extension AddTaskView: UITextFieldDelegate {
         print("textField Will return")
         let nextTextField = textField.tag + 2
         if let nextResponder = textField.superview?.viewWithTag(nextTextField) {
+            if(textField.text == ""){
+                if let inputTitle = self.viewWithTag(textField.tag - 1) as? UILabel{
+                    if let title = inputTitle.text {
+                        inputTitle.text = title+"*"
+                    }
+                    inputTitle.textColor = UIColor.red
+                }
+            }
             nextResponder.becomeFirstResponder()
         } else {
             endEditing(true)
