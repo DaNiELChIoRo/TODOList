@@ -121,9 +121,6 @@ class ModalViewController: UIViewController {
         }, completion: nil)
         
         addTaskView = nil
-//        addTaskView?.taskNameInput.text = ""
-//        addTaskView?.taskDetailInput.text = ""
-//        addTaskView?.taskDateInput.text = ""
     }
     
     //MARK:- presentAlert
