@@ -8,31 +8,19 @@
 
 import UIKit
 
-class TextFieldDelegate: NSObject, UITextFieldDelegate {
-   
-    override init () {}
-    
-    static let shared = TextFieldDelegate()
-    
-    let dateFormatter:DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
-        formatter.locale = Locale(identifier: "es_MX")
-        return formatter
-    }()
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("Se empezara a editar en el campo \(textField.description)")
-        let fecha = Date()
-        let date = dateFormatter.string(from: fecha)
-        textField.text = date
-    }
-    
-}
 extension AddTaskView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        datePickerUpdater()
+        
+        if textField.tag == 006 {
+            print("the textInputField is the Date TextField!")
+            let fecha = Date()
+            let date = dateFormatter.string(from: fecha)
+            textField.text = date
+            datePickerUpdater()
+        }
+        
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

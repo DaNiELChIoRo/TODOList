@@ -103,9 +103,9 @@ class ModalViewController: UIViewController {
             let date = taskDate {
                 addTaskView?.taskView = taskView
                 addTaskView?.taskId = id
-                addTaskView?.taskNameInput.text = name
-                addTaskView?.taskDetailInput.text = detail
-                addTaskView?.taskDateInput.text = date
+                addTaskView?.taskNameInput?.text = name
+                addTaskView?.taskDetailInput?.text = detail
+                addTaskView?.taskDateInput?.text = date
         } else {
             print("the modalView either where called from the ViewController or it haven't get the data!")
         }
