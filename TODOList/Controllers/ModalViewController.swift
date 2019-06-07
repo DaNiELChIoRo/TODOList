@@ -29,7 +29,7 @@ class ModalViewController: UIViewController {
     let centerY:CGFloat = 20
     let totalHeight = UIScreen.main.bounds.height
     
-    var addTaskView:AddTaskView? = AddTaskView(frame: CGRect(x: 20, y: (UIScreen.main.bounds.height - UIScreen.main.bounds.height * 0.5)/2, width: UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.height * 0.5))
+    weak var addTaskView:AddTaskView? = AddTaskView(frame: CGRect(x: 20, y: (UIScreen.main.bounds.height - UIScreen.main.bounds.height * 0.5)/2, width: UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.height * 0.5))
     
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
@@ -80,6 +80,7 @@ class ModalViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("modalView.displayAlert"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("modalView.createTask"), object: nil)
+        addTaskView = nil
     }
     
     func subscribeToObservers() {
@@ -119,8 +120,6 @@ class ModalViewController: UIViewController {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.dismiss(animated: true)
         }, completion: nil)
-        
-        addTaskView = nil
     }
     
     //MARK:- presentAlert

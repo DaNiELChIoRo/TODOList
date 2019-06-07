@@ -10,7 +10,7 @@ import UIKit
 
 extension UITextField {
     
-    func textFliedCreator(id:Int, text title:String, borderColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat, radius cornerRadius: CGFloat) -> UITextField{
+    func textFliedCreator(id:Int, text title:String, borderColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat, radius cornerRadius: CGFloat) -> UITextField {
         let attributedText = NSAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor: color])
         let textField = UITextField()
 //        textField.attributedPlaceholder = attributedText
@@ -27,7 +27,7 @@ extension UITextField {
         return textField
     }
     
-    func textFliedCreatorWithAction(id:Int, text title:String, borderColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat, radius cornerRadius: CGFloat, action: Selector) -> UITextField{
+    func textFliedCreatorWithAction(id:Int, text title:String, borderColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat, radius cornerRadius: CGFloat, action: Selector) -> UITextField {
         let tap = UITapGestureRecognizer(target: self, action: action)
         let attributedText = NSAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor: color])
         let textField = UITextField()

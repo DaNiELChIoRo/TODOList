@@ -10,7 +10,7 @@ import UIKit
 
 extension UILabel {
     
-    func labelCreator(id: Int, text title:String, textColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat) -> UILabel{
+    public func defaultLabelCreator(id: Int, text title:String, textColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat) -> UILabel {
         let label = UILabel()
         label.text = title
         label.textColor = color
@@ -22,7 +22,7 @@ extension UILabel {
         return label
     }
     
-    func labelCreator(id: Int, text title:String, backgroundColor: UIColor, textColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat) -> UILabel{
+    func labelCreator(id: Int, text title:String, backgroundColor: UIColor, textColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat) -> UILabel {
         let label = UILabel()
         label.text = title
         label.backgroundColor = backgroundColor
@@ -35,7 +35,7 @@ extension UILabel {
         return label
     }
     
-    func labelCreator(id: Int, text title:String, backgroundColor: UIColor, textColor color: UIColor, textStyle: UIFont.Weight, textAlignment alignment: NSTextAlignment, fontSize: CGFloat) -> UILabel{
+    func labelCreator(id: Int, text title:String, backgroundColor: UIColor, textColor color: UIColor, textStyle: UIFont.Weight, textAlignment alignment: NSTextAlignment, fontSize: CGFloat) -> UILabel {
         let label = UILabel()
         let attributedText = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize, weight: textStyle) ])
         label.attributedText = attributedText

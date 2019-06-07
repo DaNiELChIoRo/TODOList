@@ -13,17 +13,6 @@ import UserNotifications
 
 class AddTaskView: UIView {
     
-    static let shared = AddTaskView()
-    
-    let DatePicker:UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.timeZone = NSTimeZone.local
-        datePicker.backgroundColor = UIColor.white
-        datePicker.minimumDate = Date()
-        datePicker.addTarget(self, action: #selector(dateFieldHandler), for: .valueChanged)
-        return datePicker
-    }()
-    
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
@@ -38,7 +27,11 @@ class AddTaskView: UIView {
         return formatter
     }()
     
-    weak var taskNameInput:UITextField? = UITextField().textFliedCreator(id: 002, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    var datePicker:UIDatePicker? = DatePicker()
+    var taskNameTitle:UILabel? = UILabel().defaultLabelCreator(id: 001, text: "Tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)
+    var taskDetailTitle:UILabel? = UILabel().defaultLabelCreator(id: 003, text: "Descripción", textColor: .black, textAlignment: .center, fontSize: fontSize)
+    var taskDateTitle:UILabel? = UILabel().defaultLabelCreator(id: 005, text: "Fecha de realización", textColor: .black, textAlignment: .center, fontSize: fontSize)
+    weak var taskNameInput:UITextField? = UITextField().textFliedCreator(id: 002, text: "aç", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     weak var taskDetailInput:UITextField? = UITextField().textFliedCreator(id: 004, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     weak var taskDateInput:UITextField? = UITextField().textFliedCreator(id: 006, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     
@@ -54,18 +47,22 @@ class AddTaskView: UIView {
         setupView()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func datePickerUpdater () {
         let date = Date()
-        var descompouser = Calendar.current
+        let descompouser = Calendar.current
         let seconds = descompouser.component(.second, from: date)
         let timeToNextMinute = 60 - seconds
         print("seconds to next minute: \(timeToNextMinute)")
-        timer = Timer.scheduledTimer(timeInterval: TimeInterval(timeToNextMinute), target: self, selector: #selector(resetMinumDateOfDatePicker), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(resetMinumDateOfDatePicker), userInfo: nil, repeats: false)
     }
     
     @objc func resetMinumDateOfDatePicker() {
         print("the minimun date of the date picker is going to be reset!")
-        DatePicker.minimumDate = Date()
+        datePicker?.minimumDate = Date()
         let date = dateFormatter.string(from: Date())
         if let dateText = taskDateInput?.text!{
             if let datePickerDate = dateFormatter.date(from: dateText){
@@ -77,11 +74,9 @@ class AddTaskView: UIView {
         datePickerUpdater()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    func setupView() {
+    
+    fileprivate func setupView() {
         
         backgroundColor = UIColor.white
         layer.cornerRadius = self.frame.height / 12
@@ -89,21 +84,21 @@ class AddTaskView: UIView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyboard))
         addGestureRecognizer(tap)
         
-        self.addSubview(UILabel().labelCreator(id: 001, text: "Tarea", textColor: .black, textAlignment: .center, fontSize: fontSize))
+        self.addSubview(taskNameTitle!)
         self.topAutoAnchors(id: 001, heightPercentage: 0.15, sidePadding: 10, topPadding: 15)
         
         self.addSubview(taskNameInput!)
         taskNameInput?.delegate = self
         self.AutoAnchors(id: 002, topView: 001, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
-        self.addSubview(UILabel().labelCreator(id: 003, text: "Descripción", textColor: .black, textAlignment: .center, fontSize: fontSize))
+        self.addSubview(taskDetailTitle!)
         self.AutoAnchors(id: 003, topView: 002, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         self.addSubview(taskDetailInput!)
         taskDetailInput?.delegate = self
         self.AutoAnchors(id: 004, topView: 003, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
-        self.addSubview(UILabel().labelCreator(id: 005, text: "Fecha de realización", textColor: .black, textAlignment: .center, fontSize: fontSize))
+        self.addSubview(taskDateTitle!)
         self.AutoAnchors(id: 005, topView: 004, heightPercentage: 0.12, sidePadding: 25, topPadding: 5)
         
         self.addSubview(taskDateInput!)
@@ -111,20 +106,17 @@ class AddTaskView: UIView {
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dissmisKeyboard))
         toolbar.setItems([doneButton], animated: true)
         
-        let datePicker = DatePicker
-        
-        let dateTextField = self.viewWithTag(006) as! UITextField
-        dateTextField.inputView = datePicker
-        dateTextField.inputAccessoryView = toolbar
+        datePicker?.addTarget(self, action: #selector(dateFieldHandler), for: .valueChanged)
+        taskDateInput?.inputView = datePicker
+        taskDateInput?.inputAccessoryView = toolbar
         self.AutoAnchors(id: 006, topView: 005, heightPercentage: 0.1, sidePadding: 25, topPadding: 5)
         
         self.addSubview(UIButton().defaultButtonCreator(id: 007, text: "Guardar", color: .red, textColor: .white, borderRound: 15, action: #selector(saveButtonHandler)))
         self.AutoAnchors(id: 007, topView: 006, heightPercentage: 0.12, sidePadding: 40, topPadding: 20)
-        
+
     }
     
     
@@ -136,6 +128,13 @@ class AddTaskView: UIView {
         taskNameInput?.text = ""
         taskDetailInput?.text = ""
         taskDateInput?.text = ""
+    }
+    
+    fileprivate func stopTimer() {
+        if timer != nil {
+            timer?.invalidate()
+            timer =  nil
+        }
     }
     
     fileprivate func createNotification(id: Int64) {
@@ -203,7 +202,7 @@ class AddTaskView: UIView {
     
     deinit {
         viewCleaner()
-        timer = nil
+        stopTimer()
     }
      
 }

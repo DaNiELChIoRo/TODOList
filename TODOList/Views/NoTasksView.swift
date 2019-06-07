@@ -12,7 +12,7 @@ class NoTasksView: UIView{
     
     static let shared = NoTasksView()
     
-    var label:UILabel = UILabel().labelCreator(id: 001, text: "No existen pendientes acutalmente", textColor: .black, textAlignment: .center, fontSize: 30)
+    var label:UILabel = UILabel().defaultLabelCreator(id: 001, text: "No existen pendientes acutalmente", textColor: .black, textAlignment: .center, fontSize: 30)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
