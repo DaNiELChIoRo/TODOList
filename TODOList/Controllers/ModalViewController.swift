@@ -11,7 +11,7 @@ import CoreData
 import Foundation
 import CoreData
 
-enum modalViewEnum{
+enum modalViewEnum {
     case addTask
     case editTask
 }
@@ -51,11 +51,11 @@ class ModalViewController: UIViewController {
     var rowAdderDelegate: rowAdder!
     var taskEditorDelegate: taskEditor!
     
-    convenience init(){
+    convenience init() {
         self.init(taskId: nil, taskName:nil, taskDetail:nil, taskDate:nil)
     }
     
-    init(taskId:Int64?, taskName: String?, taskDetail:String?, taskDate:String?){
+    init(taskId:Int64?, taskName: String?, taskDetail:String?, taskDate:String?) {
         self.taskId = taskId
         self.taskName = taskName
         self.taskDetail = taskDetail

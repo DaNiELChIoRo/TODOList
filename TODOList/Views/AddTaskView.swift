@@ -18,7 +18,7 @@ class AddTaskView: UIView {
         formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
         formatter.locale = Locale(identifier: "es_MX")
         return formatter
-    }()    
+    }()
     
     var datePicker:UIDatePicker? = DatePicker()
     var taskNameTitle:UILabel? = UILabel().defaultLabelCreator(id: 001, text: "Tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)
@@ -36,7 +36,6 @@ class AddTaskView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
     }
     
@@ -44,7 +43,7 @@ class AddTaskView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func datePickerUpdater () {
+    func datePickerUpdater() {
         let date = Date()
         let descompouser = Calendar.current
         let seconds = descompouser.component(.second, from: date)
@@ -155,18 +154,15 @@ class AddTaskView: UIView {
     //MARK:- Task SAVE
     @objc func saveButtonHandler() {
         print("saveButtonHandler has been triggered")
-        
         if taskView == modalViewEnum.editTask {
-            guard let id = taskId as? Int64 else {
+            guard let id = taskId,
+            let name = taskNameInput?.text!,
+            let description = taskDetailInput?.text!,
+            let date = taskDateInput?.text! else  {
                 print("boddy you forgot to pass the task id!")
                 return
             }
-            if let name = taskNameInput?.text!,
-                let description = taskDetailInput?.text!,
-                let date = taskDateInput?.text! {
-                    taskTextValidator(id: id, name: name, description: description, date: date)
-            }
-            
+                taskTextValidator(id: id, name: name, description: description, date: date)            
         } else {
             let id = Int64(NSDate().timeIntervalSince1970)
             let name = taskNameInput?.text
@@ -177,7 +173,7 @@ class AddTaskView: UIView {
         
     }
     
-    func taskTextValidator(id: Int64, name: String, description:String, date: String){
+    func taskTextValidator(id: Int64, name: String, description:String, date: String) {
         print("taskTextValidator has been called!")
         if name != "", description != "", date != "" {
             
