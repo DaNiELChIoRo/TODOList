@@ -125,17 +125,11 @@ extension ViewController: taskEditor {
     
     func deleteTaskFromMemoryAndView(rowIndex: Int, id: Int64) {
         print("taskEditor deleteTaskFromMemory Delegate fired from ViewController")
-        
         tareas.remove(at: rowIndex)
-        
-        
         coreData?.deleteRecord(id: id)
-        
         let indexPath = IndexPath(row: rowIndex, section: 0)
         tableView.deleteRows(at: [indexPath], with: .automatic)
-        
-        recordChecker()
-        
+        recordChecker()        
         UserNotificationService.shared.removeNotification(identifier: String(id))
     }
     

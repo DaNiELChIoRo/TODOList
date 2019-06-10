@@ -77,8 +77,7 @@ extension ViewController {
         let remove = UITableViewRowAction(style: .destructive, title: "Remove") { action, index in
             print("remove button tapped of the cell in the positio \(index.row)")
             let id = self.tareas[indexPath.row].id!
-            let coreData = CoreData(container: self.container)
-            coreData.deleteRecord(id: id)
+            self.coreData?.deleteRecord(id: id)
             self.tareas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             UserNotificationService.shared.removeNotification(identifier: String(id))

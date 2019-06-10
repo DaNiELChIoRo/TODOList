@@ -15,39 +15,10 @@ class CoreData {
     lazy var backgroundContext: NSManagedObjectContext = {
         return container.newBackgroundContext()
     }()
-//
-//    lazy var persistentContainer: NSPersistentContainer = {
-//        let container = NSPersistentContainer(name: "TODOList")
-//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-//            if let error = error as NSError? {
-//
-//                fatalError("Unresolved error \(error), \(error.userInfo)")
-//            }
-//        })
-//        return container
-//    }()
     
     init(container: NSPersistentContainer) {
         self.container = container
     }
-    
-//    func CoreData(){
-//        let context = persistentContainer.viewContext
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-//        do {
-//            let result = try context.fetch(fetchRequest)
-//            if result.count == 0 {
-//                print("No existen registros en la base de datos")
-//            } else {
-//                for data in result as! [NSManagedObject] {
-//                    print("tarea id: \(data.value(forKey: "id")!)")
-//                    print("nombre de la tarea: \(data.value(forKey: "name")!)")
-//                }
-//            }
-//        } catch {
-//            print("Failed")
-//        }
-//    }
     
     fileprivate func save() {
         if backgroundContext.hasChanges {
@@ -90,7 +61,7 @@ class CoreData {
     
     fileprivate func fetchRecord(id: Int64) -> Task? {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        let predicate = NSPredicate(format: "id = $0", "\(id)")
+        let predicate = NSPredicate(format: "id = %@", "\(id)")
         fetchRequest.predicate = predicate
         do {
             let results = try backgroundContext.fetch(fetchRequest)
