@@ -18,14 +18,7 @@ class AddTaskView: UIView {
         formatter.dateFormat = "EEE d, MMM yyyy h:mm a"
         formatter.locale = Locale(identifier: "es_MX")
         return formatter
-    }()
-    
-    let preciseDate:DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE d, MMM h:mm:ss a"
-        formatter.locale = Locale(identifier: "es_MX")
-        return formatter
-    }()
+    }()    
     
     var datePicker:UIDatePicker? = DatePicker()
     var taskNameTitle:UILabel? = UILabel().defaultLabelCreator(id: 001, text: "Tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)

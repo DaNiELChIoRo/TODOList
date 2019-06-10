@@ -12,8 +12,6 @@ import CoreData
 
 extension ViewController {
     
-    
-    
     static let shared = ViewController()
     
     func CoreData(){

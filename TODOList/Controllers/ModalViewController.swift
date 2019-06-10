@@ -91,32 +91,30 @@ class ModalViewController: UIViewController {
     }
     
     func setupView() {
-        
         view.backgroundColor = UIColor(white: 0.3, alpha: 0.8)
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
         view.addGestureRecognizer(tap)
-        
-        
+        setupSubView()
+        view.addSubview(addTaskView!)
+    }
+    
+    func setupSubView() {
         if let id = taskId,
             let name = taskName,
             let detail = taskDetail,
             let date = taskDate {
-                addTaskView?.taskView = taskView
-                addTaskView?.taskId = id
-                addTaskView?.taskNameInput?.text = name
-                addTaskView?.taskDetailInput?.text = detail
-                addTaskView?.taskDateInput?.text = date
+            addTaskView?.taskView = taskView
+            addTaskView?.taskId = id
+            addTaskView?.taskNameInput?.text = name
+            addTaskView?.taskDetailInput?.text = detail
+            addTaskView?.taskDateInput?.text = date
         } else {
             print("the modalView either where called from the ViewController or it haven't get the data!")
         }
-        view.addSubview(addTaskView!)
-        
     }
     
     //MARK:- Dissmis View
     @objc func tapHandler() {
-        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             for v in self.view.subviews {
                 if (v.isKind(of: AddTaskView.self)) {
@@ -140,46 +138,29 @@ class ModalViewController: UIViewController {
     }
     
     //MARK:- PARSING DATA AND CREATING TASK
-    @objc func createTask(notification: Notification){
-        
+    @objc func createTask(notification: Notification) {
         print("createTask Handler hass been trigered!")
-        
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("modalView.createTask"), object: nil)
-        
         if let id = notification.userInfo?["id"] as? Int64,
-        let name = notification.userInfo?["name"] as? String,
-        let detail = notification.userInfo?["description"] as? String,
-        let date = notification.userInfo?["date"] as? String {
-            
+            let name = notification.userInfo?["name"] as? String,
+            let detail = notification.userInfo?["description"] as? String,
+            let date = notification.userInfo?["date"] as? String {
+        
             let fecha = dateFormatter.date(from: date)!
-            
             if taskView == modalViewEnum.editTask {
-                
                 let tarea = Tarea(id: id, name: name, descripcion: detail, date: fecha)
-                
                 taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea, id:id)
-                
             } else {
-                
                 let tarea = ViewController.shared.createTask(id, name, detail, fecha)
-                
                 rowAdderDelegate?.addRow(tarea: tarea)
-            
             }
-            
         } else {
             print("Somethig went wrong while trying to unwrap the date value! Error:")
         }
-        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.dismiss(animated: true)
         }, completion: nil)
         
     }
     
-}
-
-extension ModalViewController: rowAdder {
-    func addRow(tarea: Task) {
-    }
 }
