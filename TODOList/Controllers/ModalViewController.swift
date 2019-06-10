@@ -17,7 +17,7 @@ enum modalViewEnum {
 }
 
 protocol rowAdder {
-    func addRow(tarea: Task)
+    func addRow(tarea: Tarea)
 }
 
 class ModalViewController: UIViewController {
@@ -151,7 +151,7 @@ class ModalViewController: UIViewController {
                 let tarea = Tarea(id: id, name: name, descripcion: detail, date: fecha)
                 taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea, id:id)
             } else {
-                let tarea = ViewController.shared.createTask(id, name, detail, fecha)
+                let tarea = Tarea(id: id, name: name, descripcion: detail, date: fecha)
                 rowAdderDelegate?.addRow(tarea: tarea)
             }
         } else {

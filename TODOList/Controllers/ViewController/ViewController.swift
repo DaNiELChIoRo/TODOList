@@ -10,12 +10,22 @@ import Foundation
 import UIKit
 import CoreData
 
+protocol CoreDataContainer {
+    var container: NSPersistentContainer { get }
+}
+
+extension UIViewController: CoreDataContainer {
+    var container: NSPersistentContainer {
+        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    }
+}
+
 class ViewController: UITableViewController {
     
     var rowAdderDelegate: rowAdder!
     var taskEditorDelegate: taskEditor!
     
-    var tareas = [Task]()
+    var tareas = [Tarea]()
     
     var taskName:String = ""
     var taskDetail: String = ""
@@ -24,6 +34,7 @@ class ViewController: UITableViewController {
     var vista:NoTasksView?
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    var coreData: CoreData?
     
     let dateFormatter:DateFormatter = {
         let formatter = DateFormatter()
@@ -42,7 +53,6 @@ class ViewController: UITableViewController {
         requestPermisions() 
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,10 +61,11 @@ class ViewController: UITableViewController {
 
     fileprivate func setupView() {
         view.backgroundColor = UIColor.white
+        coreData = CoreData(container: self.container)
     }
     
     //MARK:- Application Permisions Setup
-    fileprivate func requestPermisions(){
+    fileprivate func requestPermisions() {
         UserNotificationService.shared.authorize()
     }
     
@@ -66,7 +77,6 @@ class ViewController: UITableViewController {
     
     //MARK:- presentDetailView
     @objc func newView(rowIndex: Int, id: Int64) {
-
         let detailView = DetailViewController(id: id, name: self.taskName, detail: self.taskDetail, date: self.taskDate, rowIndex: rowIndex)
         detailView.taskEditorDelegate = self
         navigationController?.pushViewController(detailView, animated: true)
@@ -93,11 +103,10 @@ extension ViewController: rowAdder {
             //Arregla las fechas de la más proxima a las más lejanas
             if date1 < date2 { return true } else { return false }
         }
-        
         tableView.reloadData()
     }
     
-    func addRow(tarea: Task) {
+    func addRow(tarea: Tarea) {
         print("rowAdder Delegate fired from ViewController")
         
         tareas.append(tarea) 
@@ -105,7 +114,7 @@ extension ViewController: rowAdder {
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         
-        saveRecord()
+        coreData?.addTask(tarea.id!, tarea.name!, tarea.descripcion!, tarea.date!)
         
         recordChecker()
         
@@ -119,7 +128,8 @@ extension ViewController: taskEditor {
         
         tareas.remove(at: rowIndex)
         
-        deleteRecord(id: id)
+        
+        coreData?.deleteRecord(id: id)
         
         let indexPath = IndexPath(row: rowIndex, section: 0)
         tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -132,8 +142,7 @@ extension ViewController: taskEditor {
     func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {
         print("taskEditor pushTaskToMemory Delegate fired from ViewController")
         
-        updateRecord(id: id, task: tarea)
-        
+        coreData?.updateRecord(id: id, task: tarea)
         sortTasks()
         
         var counter:Int = 0
@@ -141,7 +150,7 @@ extension ViewController: taskEditor {
             if task.id == tarea.id {                
                 tareas[counter].name = tarea.name
                 tareas[counter].descripcion = tarea.descripcion
-                tareas[counter].date = tarea.date as NSDate?
+                tareas[counter].date = tarea.date
             }
             counter += 1
         }

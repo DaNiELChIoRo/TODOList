@@ -14,7 +14,8 @@ extension ViewController {
     //MARK:- escribiendo los registros falsos
     func records() {
         print("se escribiran las tareas al arreglo")
-        tareas = fetchData()
+        let coreData = CoreData(container: self.container)
+        tareas = coreData.fetchAllRecords()!
         tableView.register(CellView.self, forCellReuseIdentifier: "cellView")
         recordChecker()
         
@@ -43,14 +44,13 @@ extension ViewController {
         } else {
             addNoTaskView()
         }
-        
     }
     
-    func updateRecods(tarea: Task){
+    func updateRecods(tarea: Tarea){
         print("Updating records")
         tareas.append(tarea)
-        print(tareas)
-        print("Se ha añadido al arrelo la tarea: \(tareas[tareas.count-1])")        
+        print("Se ha añadido al arrelo la tarea: \(tareas[tareas.count-1])")
+        
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
@@ -65,7 +65,7 @@ extension ViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellView", for: indexPath) as! CellView
         cell.name.text = tareas[indexPath.row].name
-        let fecha = dateFormatter.string(from: (tareas[indexPath.row].date as? Date)!)
+        let fecha = dateFormatter.string(from: (tareas[indexPath.row].date as Date?)!)
         cell.date.text = fecha
         return cell
     }
@@ -76,8 +76,9 @@ extension ViewController {
         //MARK:- DELETE ACTION
         let remove = UITableViewRowAction(style: .destructive, title: "Remove") { action, index in
             print("remove button tapped of the cell in the positio \(index.row)")
-            let id = self.tareas[indexPath.row].id
-            self.deleteRecord(id: id)
+            let id = self.tareas[indexPath.row].id!
+            let coreData = CoreData(container: self.container)
+            coreData.deleteRecord(id: id)
             self.tareas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             UserNotificationService.shared.removeNotification(identifier: String(id))
@@ -99,7 +100,7 @@ extension ViewController {
         self.taskDetail = tareas[indexPath.row].descripcion!
         let date = dateFormatter.string(from: tareas[indexPath.row].date! as Date)
         self.taskDate = date
-        let id = tareas[indexPath.row].id //else { return }
+        let id = tareas[indexPath.row].id!
         print("nombre de la tarea: \(self.taskName), indexPath: \(indexPath.row)")
         newView(rowIndex: indexPath.row, id: id)
     }

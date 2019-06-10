@@ -12,7 +12,7 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     //Creando oriencación del dispositivo permitida
     var orientationLock = UIInterfaceOrientationMask.portrait

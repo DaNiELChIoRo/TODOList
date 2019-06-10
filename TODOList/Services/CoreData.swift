@@ -7,128 +7,118 @@
 //
 
 import Foundation
-import UIKit
 import CoreData
 
-extension ViewController {
+class CoreData {
     
-    static let shared = ViewController()
+    private let container: NSPersistentContainer
+    lazy var backgroundContext: NSManagedObjectContext = {
+        return container.newBackgroundContext()
+    }()
+//
+//    lazy var persistentContainer: NSPersistentContainer = {
+//        let container = NSPersistentContainer(name: "TODOList")
+//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+//            if let error = error as NSError? {
+//
+//                fatalError("Unresolved error \(error), \(error.userInfo)")
+//            }
+//        })
+//        return container
+//    }()
     
-    func CoreData(){
-        if let context = appDelegate?.persistentContainer.viewContext{
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-        
-        do {
-            let result = try context.fetch(fetchRequest)
-            if result.count == 0 {
-                print("No existen registros en la base de datos")
-            } else {
-                for data in result as! [NSManagedObject] {
-                    print("tarea id: \(data.value(forKey: "id")!)")
-                    print("nombre de la tarea: \(data.value(forKey: "name")!)")
-                }
-            }
-        } catch {
-            print("Failed")
-        }
-        }
-        
+    init(container: NSPersistentContainer) {
+        self.container = container
     }
     
-    func fetchData() -> [Task]{
-        var Tasks = [Task]()
-        
-        if let context = appDelegate?.persistentContainer.viewContext {
-            
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-            
+//    func CoreData(){
+//        let context = persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+//        do {
+//            let result = try context.fetch(fetchRequest)
+//            if result.count == 0 {
+//                print("No existen registros en la base de datos")
+//            } else {
+//                for data in result as! [NSManagedObject] {
+//                    print("tarea id: \(data.value(forKey: "id")!)")
+//                    print("nombre de la tarea: \(data.value(forKey: "name")!)")
+//                }
+//            }
+//        } catch {
+//            print("Failed")
+//        }
+//    }
+    
+    fileprivate func save() {
+        if backgroundContext.hasChanges {
             do {
-                let result = try context.fetch(fetchRequest)
-                if result.count == 0 {
-                    print("No existen registros en la base de datos")
-                } else {
-                    for data in result as! [Task] {
-                        print("tarea id: \(data.value(forKey: "id")!)")
-                        print("nombre de la tarea: \(data.value(forKey: "name")!)")
-                        Tasks.append(data)
-                    }
-                }
+                try backgroundContext.save()
             } catch {
-                print("Failed")
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
-        
+        } else {
+            print("There are no changes to save!")
         }
-        return Tasks
-        
     }
     
-    func saveRecord(){
-       
-        if let context = appDelegate?.persistentContainer.viewContext{
-        
-            do{
-                try context.save()
-                print("Se han salvado los registros de manera exitosa")
-            } catch {
-                print("Algo salío mal al intantar guardar los datos")
-            }
-        }
-        
+    func addTask(_ id: Int64, _ name:String, _ descripcion: String, _ date: Date) {
+        let task = Task(entity: Task.entity(), insertInto: backgroundContext)
+        task.id = id
+        task.name = name
+        task.descripcion = descripcion
+        task.date = date as NSDate
+        save()
     }
     
-    func deleteRecord(id: Int64){
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
-        fetchRequest.predicate = NSPredicate(format: "id = %@", "\(id)")
-        
+    func fetchAllRecords() -> [Tarea]? {
+        if let records = fetchAllTasks(){
+            let tareas = records.map { (item) -> Tarea in
+                let tarea = Tarea(id: item.id, name: item.name!, descripcion: item.descripcion!, date: item.date! as Date)
+                return tarea
+            }
+            return tareas
+        } else {
+            return nil
+        }
+    }
+    
+    fileprivate func fetchAllTasks() -> [Task]? {
+        let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
+        return try! container.viewContext.fetch(fetchRequest)
+    }
+    
+    fileprivate func fetchRecord(id: Int64) -> Task? {
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        let predicate = NSPredicate(format: "id = $0", "\(id)")
+        fetchRequest.predicate = predicate
         do {
-            let result = try context.fetch(fetchRequest)
-            
-            if result.count != 0 {
-                let objectToDelete = result[0] as!  Task
-                context.delete(objectToDelete)
-                do {
-                    try context.save()
-                } catch {
-                    print("Error al salvar los cambios, Error: \(error)")
-                }
-            } else {
-                print("No existen registros con esa referencia!")
-            }
-           
+            let results = try backgroundContext.fetch(fetchRequest)
+            return results[0]
         } catch {
-            print("Failed do to: \(error)")
+            return nil
         }
-        
     }
     
-    func updateRecord(id: Int64, task:Tarea){
+    func deleteRecord(id: Int64) {
+        guard let recordToDelete = fetchRecord(id: id) else { return }
+        backgroundContext.delete(recordToDelete)
+        save()
+    }
+    
+    func updateRecord(id: Int64, task:Tarea) {
         print("updateRecord method called")
-  
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let context = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<Task>(entityName: "Task")
-        fetchRequest.predicate = NSPredicate(format: "id = %@", "\(id)")
-        
-        CoreData()
-        
+        let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
         do {
-            let results = try context.fetch(fetchRequest)
+            let results = try container.viewContext.fetch(fetchRequest)
             
-            if results.count != 0 {
+            if results.count > 0 {
                 let result = results[0]
                 result.name = task.name
                 result.descripcion = task.descripcion
-                result.date = task.date as NSDate?
-                do {
-                    try context.save()
-                } catch {
-                    print("Error al salvar los cambios, Error: \(error)")
-                }
+                result.date = task.date as! NSDate
+                save()
             } else {
                 print("No existen registros con esa referencia!")
             }
@@ -140,22 +130,22 @@ extension ViewController {
         
     }
     
-    func createTask(_ id:Int64, _ name: String, _ description:String, _ date: Date) -> Task{
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let context = appDelegate.persistentContainer.viewContext
-            
-            if let entity = NSEntityDescription.entity(forEntityName: "Task", in: context) {
-                let task = Task(entity: entity, insertInto: context)
-                
-                task.id = id
-                task.name = name
-                task.descripcion = description
-                task.date = date as? NSDate
-                
-                return task
-            }
-        }
-        return Task()
-    }
+//    func createTask(_ id:Int64, _ name: String, _ description:String, _ date: Date) -> Task{
+//        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+//            let context = appDelegate.persistentContainer.viewContext
+//
+//            if let entity = NSEntityDescription.entity(forEntityName: "Task", in: context) {
+//                let task = Task(entity: entity, insertInto: context)
+//
+//                task.id = id
+//                task.name = name
+//                task.descripcion = description
+//                task.date = date as? NSDate
+//
+//                return task
+//            }
+//        }
+//        return Task()
+//    }
     
 }
