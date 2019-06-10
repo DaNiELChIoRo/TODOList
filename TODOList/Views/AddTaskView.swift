@@ -57,7 +57,7 @@ class AddTaskView: UIView {
         let seconds = descompouser.component(.second, from: date)
         let timeToNextMinute = 60 - seconds
         print("seconds to next minute: \(timeToNextMinute)")
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(resetMinumDateOfDatePicker), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: TimeInterval(timeToNextMinute), target: self, selector: #selector(resetMinumDateOfDatePicker), userInfo: nil, repeats: false)
     }
     
     @objc func resetMinumDateOfDatePicker() {
