@@ -10,7 +10,7 @@ import UIKit
 
 extension UITextField {
     
-    func textFliedCreator(id:Int, text title:String, borderColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat, radius cornerRadius: CGFloat) -> UITextField {
+    func textFieldCreator(id:Int, text title:String, borderColor color: UIColor, textAlignment alignment: NSTextAlignment, fontSize: CGFloat, radius cornerRadius: CGFloat) -> UITextField {
         let attributedText = NSAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor: color])
         let textField = UITextField()
 //        textField.attributedPlaceholder = attributedText

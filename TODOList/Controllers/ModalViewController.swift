@@ -118,6 +118,13 @@ class ModalViewController: UIViewController {
     @objc func tapHandler() {
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            for v in self.view.subviews {
+                if (v.isKind(of: AddTaskView.self)) {
+                    let addtaskView = v as! AddTaskView
+                    addtaskView.dissmisKeyboard()
+                    v.removeFromSuperview()
+                }
+            }
             self.dismiss(animated: true)
         }, completion: nil)
     }

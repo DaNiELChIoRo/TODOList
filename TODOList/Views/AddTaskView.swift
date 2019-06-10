@@ -31,9 +31,9 @@ class AddTaskView: UIView {
     var taskNameTitle:UILabel? = UILabel().defaultLabelCreator(id: 001, text: "Tarea", textColor: .black, textAlignment: .center, fontSize: fontSize)
     var taskDetailTitle:UILabel? = UILabel().defaultLabelCreator(id: 003, text: "Descripción", textColor: .black, textAlignment: .center, fontSize: fontSize)
     var taskDateTitle:UILabel? = UILabel().defaultLabelCreator(id: 005, text: "Fecha de realización", textColor: .black, textAlignment: .center, fontSize: fontSize)
-    weak var taskNameInput:UITextField? = UITextField().textFliedCreator(id: 002, text: "aç", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
-    weak var taskDetailInput:UITextField? = UITextField().textFliedCreator(id: 004, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
-    weak var taskDateInput:UITextField? = UITextField().textFliedCreator(id: 006, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    weak var taskNameInput:UITextField? = UITextField().textFieldCreator(id: 002, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    weak var taskDetailInput:UITextField? = UITextField().textFieldCreator(id: 004, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
+    weak var taskDateInput:UITextField? = UITextField().textFieldCreator(id: 006, text: "", borderColor: .iosBlue, textAlignment: .center, fontSize: 18, radius: 8)
     
     var taskView:modalViewEnum?
     var taskId:Int64?
@@ -122,12 +122,14 @@ class AddTaskView: UIView {
     
     @objc func dissmisKeyboard() {
         endEditing(true)
+        stopTimer()
     }
     
     func viewCleaner() {
         taskNameInput?.text = ""
         taskDetailInput?.text = ""
         taskDateInput?.text = ""
+        dissmisKeyboard()
     }
     
     fileprivate func stopTimer() {
@@ -202,7 +204,6 @@ class AddTaskView: UIView {
     
     deinit {
         viewCleaner()
-        stopTimer()
     }
      
 }
