@@ -17,11 +17,11 @@ extension ViewController {
         let coreData = CoreData(container: self.container)
         tareas = coreData.fetchAllRecords()!
         tableView.register(CellView.self, forCellReuseIdentifier: "cellView")
-        recordChecker()
+        presentNoTaskViewVerifyer()
         
     }        
     
-    func recordChecker() {
+    func presentNoTaskViewVerifyer() {
         print("recordChecker function has been called!")
         if tareas.count > 0 {
             sortTasks()
@@ -69,7 +69,7 @@ extension ViewController {
             self.tareas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             UserNotificationService.shared.removeNotification(identifier: String(id))
-            self.recordChecker()
+            self.presentNoTaskViewVerifyer()
         }
         return [remove]
     }

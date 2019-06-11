@@ -11,10 +11,10 @@ import UIKit
 extension ViewController: taskEditor {
     
     func deleteTaskFromMemoryAndView(rowIndex: Int, id: Int64) {
-        print("taskEditor deleteTaskFromMemory Delegate fired from ViewController")        
+        print("taskEditor deleteTaskFromMemory Delegate fired from ViewController")
         coreData?.deleteRecord(id: id)
         removeRecordFromArray(rowIndex: rowIndex)
-        recordChecker()
+        presentNoTaskViewVerifyer()
         UserNotificationService.shared.removeNotification(identifier: String(id))
     }
     

@@ -55,7 +55,7 @@ class ViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        recordChecker()        
+        presentNoTaskViewVerifyer()        
     }
 
     fileprivate func setupView() {
@@ -121,6 +121,6 @@ extension ViewController: rowAdder {
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         coreData?.addTask(tarea.id!, tarea.name!, tarea.descripcion!, tarea.date!)
-        recordChecker()
+        presentNoTaskViewVerifyer()
     }
 }
