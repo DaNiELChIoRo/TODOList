@@ -45,23 +45,11 @@ class DetailViewController: UIViewController {
     var rowIndex:Int?
     var taskId:Int64?
     
-    weak var taskNameTitle:UILabel! {
-        get {
-            return  UILabel().labelCreator(id: 001, text: "Tarea:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
-        }
-    }
+    var taskNameTitle:UILabel! = UILabel().labelCreator(id: 001, text: "Tarea:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
     var taskNameLabel:UILabel? = UILabel().labelCreator(id: 002, text: "tarea", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
-    weak var taskDetailTitle:UILabel?{
-        get{
-            return UILabel().labelCreator(id: 003, text: "Descripción:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
-        }
-    }
+    var taskDetailTitle:UILabel? = UILabel().labelCreator(id: 003, text: "Descripción:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
     var taskDetailLabel:UILabel? = UILabel().labelCreator(id: 004, text: "descripción",  backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
-    weak var taskDateTitle:UILabel? {
-        get{
-            return UILabel().labelCreator(id: 005, text: "Fecha:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
-        }
-    }
+    var taskDateTitle:UILabel? = UILabel().labelCreator(id: 005, text: "Fecha:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
     var taskDateLabel:UILabel? = UILabel().labelCreator(id: 006, text: "fecha", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,7 +81,6 @@ class DetailViewController: UIViewController {
         view.AutoAnchors(id: 002, topView: 001, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
         view.addSubview(taskDetailTitle!)
         view.AutoAnchors(id: 003, topView: 002, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
-        print("detail number of lines: \(taskDetailLabel?.numberOfLines)")
         view.addSubview(taskDetailLabel!)
         view.AutoAnchors(id: 004, topView: 003, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
         view.addSubview(taskDateTitle!)
