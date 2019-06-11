@@ -23,7 +23,7 @@ extension DetailViewController: taskEditor {
         print("pushTaskToMemoryAndTable method from DetailViewController")
         
         taskNameLabel!.text = tarea.name
-        taskDetailLabel.text = tarea.descripcion
+        taskDetailLabel!.text = tarea.descripcion
         let date = dateFormatter.string(from: tarea.date! as Date)
         taskDateLabel!.text = date
         if let taskID = self.taskId {

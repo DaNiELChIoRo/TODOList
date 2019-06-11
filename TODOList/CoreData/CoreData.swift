@@ -79,26 +79,11 @@ class CoreData {
     
     func updateRecord(id: Int64, task:Tarea) {
         print("updateRecord method called")
-        
-        let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
-        do {
-            let results = try container.viewContext.fetch(fetchRequest)
-            
-            if results.count > 0 {
-                let result = results[0]
-                result.name = task.name
-                result.descripcion = task.descripcion
-                result.date = task.date as? NSDate
-                save()
-            } else {
-                print("No existen registros con esa referencia!")
-            }
-            
-        } catch {
-            print("Failed do to: \(error)")
-        }
-        
-        
+        guard let recordToUpdate = fetchRecord(id: id) else { return }
+        recordToUpdate.name = task.name
+        recordToUpdate.descripcion = task.descripcion
+        recordToUpdate.date = task.date as! NSDate
+        save()
     }
     
 }
