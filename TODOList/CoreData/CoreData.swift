@@ -88,7 +88,7 @@ class CoreData {
                 let result = results[0]
                 result.name = task.name
                 result.descripcion = task.descripcion
-                result.date = task.date as! NSDate
+                result.date = task.date as? NSDate
                 save()
             } else {
                 print("No existen registros con esa referencia!")
@@ -100,23 +100,5 @@ class CoreData {
         
         
     }
-    
-//    func createTask(_ id:Int64, _ name: String, _ description:String, _ date: Date) -> Task{
-//        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//            let context = appDelegate.persistentContainer.viewContext
-//
-//            if let entity = NSEntityDescription.entity(forEntityName: "Task", in: context) {
-//                let task = Task(entity: entity, insertInto: context)
-//
-//                task.id = id
-//                task.name = name
-//                task.descripcion = description
-//                task.date = date as? NSDate
-//
-//                return task
-//            }
-//        }
-//        return Task()
-//    }
     
 }

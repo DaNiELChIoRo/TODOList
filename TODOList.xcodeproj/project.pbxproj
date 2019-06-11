@@ -13,7 +13,6 @@
 		1A2B1AB522A71D3A0086FA45 /* UserNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B1AB422A71D3A0086FA45 /* UserNotificationService.swift */; };
 		1A35F34B229D873500E59BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F34A229D873500E59BB9 /* AppDelegate.swift */; };
 		1A35F34D229D873500E59BB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F34C229D873500E59BB9 /* ViewController.swift */; };
-		1A35F350229D873500E59BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A35F34E229D873500E59BB9 /* Main.storyboard */; };
 		1A35F353229D873500E59BB9 /* TODOList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A35F351229D873500E59BB9 /* TODOList.xcdatamodeld */; };
 		1A35F355229D873600E59BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A35F354229D873600E59BB9 /* Assets.xcassets */; };
 		1A35F358229D873600E59BB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A35F356229D873600E59BB9 /* LaunchScreen.storyboard */; };
@@ -27,9 +26,10 @@
 		1A8CE9E822A095DF003E3590 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */; };
 		1A8CE9E922A095DF003E3590 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */; };
 		1AC908B522AAE74200CE3DA5 /* UIDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC908B422AAE74200CE3DA5 /* UIDatePicker.swift */; };
+		1AD2F45022AFF2E10063DB9F /* ModalViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2F44F22AFF2E10063DB9F /* ModalViewExtensions.swift */; };
 		1AD5D26B22A18C0300536610 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5D26A22A18C0300536610 /* AddTaskView.swift */; };
 		1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE98D1E22A017AC00AFD6D6 /* CellView.swift */; };
-		1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */; };
+		1AEB4DBA229EC63900DA42B1 /* AddTaskViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DB9229EC63900DA42B1 /* AddTaskViewDelegate.swift */; };
 		1AEB4DBC229ED5F900DA42B1 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */; };
 		1AF309F222A9719B004B9CBA /* NoTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF309F122A9719B004B9CBA /* NoTasksView.swift */; };
 		A010DFA3229E13D6005BC780 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A010DFA2229E13D6005BC780 /* ModalViewController.swift */; };
@@ -61,7 +61,6 @@
 		1A35F347229D873500E59BB9 /* TODOList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A35F34A229D873500E59BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A35F34C229D873500E59BB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1A35F34F229D873500E59BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1A35F352229D873500E59BB9 /* TODOList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TODOList.xcdatamodel; sourceTree = "<group>"; };
 		1A35F354229D873600E59BB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A35F357229D873600E59BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -77,12 +76,13 @@
 		1A35F388229DA37C00E59BB9 /* Tarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarea.swift; sourceTree = "<group>"; };
 		1A35F38A229DAD9C00E59BB9 /* TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
 		1A35F38E229DDA4F00E59BB9 /* UITextFlied.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFlied.swift; sourceTree = "<group>"; };
-		1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "TODOList/Models/Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "TODOList/Models/Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1AC908B422AAE74200CE3DA5 /* UIDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDatePicker.swift; sourceTree = "<group>"; };
+		1AD2F44F22AFF2E10063DB9F /* ModalViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewExtensions.swift; sourceTree = "<group>"; };
 		1AD5D26A22A18C0300536610 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		1AE98D1E22A017AC00AFD6D6 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
-		1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegate.swift; sourceTree = "<group>"; };
+		1AEB4DB9229EC63900DA42B1 /* AddTaskViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewDelegate.swift; sourceTree = "<group>"; };
 		1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		1AF309F122A9719B004B9CBA /* NoTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTasksView.swift; sourceTree = "<group>"; };
 		A010DFA2229E13D6005BC780 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -117,8 +117,6 @@
 		1A35F33E229D873500E59BB9 = {
 			isa = PBXGroup;
 			children = (
-				1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */,
-				1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */,
 				1A35F349229D873500E59BB9 /* TODOList */,
 				1A35F361229D873600E59BB9 /* TODOListTests */,
 				1A35F36C229D873600E59BB9 /* TODOListUITests */,
@@ -139,13 +137,13 @@
 		1A35F349229D873500E59BB9 /* TODOList */ = {
 			isa = PBXGroup;
 			children = (
+				1AD2F45222AFF39E0063DB9F /* CoreData */,
 				1A35F387229DA37200E59BB9 /* Models */,
 				1A35F380229D910A00E59BB9 /* UIElements */,
 				1A35F37F229D8F1100E59BB9 /* Views */,
 				1A35F37C229D8E7700E59BB9 /* Services */,
 				1A35F37B229D8E6100E59BB9 /* Controllers */,
 				1A35F34A229D873500E59BB9 /* AppDelegate.swift */,
-				1A35F34E229D873500E59BB9 /* Main.storyboard */,
 				1A35F354229D873600E59BB9 /* Assets.xcassets */,
 				1A35F356229D873600E59BB9 /* LaunchScreen.storyboard */,
 				1A35F359229D873600E59BB9 /* Info.plist */,
@@ -175,7 +173,7 @@
 		1A35F37B229D8E6100E59BB9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A010DFA2229E13D6005BC780 /* ModalViewController.swift */,
+				1AD2F44E22AFF2C00063DB9F /* ModalView */,
 				1AA44EEA22AEA2CD0023BE30 /* ViewController */,
 				1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */,
 			);
@@ -187,8 +185,6 @@
 			children = (
 				1A2B1AB422A71D3A0086FA45 /* UserNotificationService.swift */,
 				1A2B1AB222A71D330086FA45 /* NotificationCategory.swift */,
-				1AEB4DB9229EC63900DA42B1 /* UITextFieldDelegate.swift */,
-				1A19D544229F2F9500FEA8CB /* CoreData.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -197,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				1AE98D1E22A017AC00AFD6D6 /* CellView.swift */,
-				1AD5D26A22A18C0300536610 /* AddTaskView.swift */,
+				1AD2F45122AFF3660063DB9F /* AddTaskView */,
 				1AF309F122A9719B004B9CBA /* NoTasksView.swift */,
 			);
 			path = Views;
@@ -231,6 +227,34 @@
 				1A35F38A229DAD9C00E59BB9 /* TableViewDelegate.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1AD2F44E22AFF2C00063DB9F /* ModalView */ = {
+			isa = PBXGroup;
+			children = (
+				A010DFA2229E13D6005BC780 /* ModalViewController.swift */,
+				1AD2F44F22AFF2E10063DB9F /* ModalViewExtensions.swift */,
+			);
+			path = ModalView;
+			sourceTree = "<group>";
+		};
+		1AD2F45122AFF3660063DB9F /* AddTaskView */ = {
+			isa = PBXGroup;
+			children = (
+				1AD5D26A22A18C0300536610 /* AddTaskView.swift */,
+				1AEB4DB9229EC63900DA42B1 /* AddTaskViewDelegate.swift */,
+			);
+			path = AddTaskView;
+			sourceTree = "<group>";
+		};
+		1AD2F45222AFF39E0063DB9F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1A8CE9E622A095DF003E3590 /* Task+CoreDataClass.swift */,
+				1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */,
+				1A19D544229F2F9500FEA8CB /* CoreData.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,7 +363,6 @@
 			files = (
 				1A35F358229D873600E59BB9 /* LaunchScreen.storyboard in Resources */,
 				1A35F355229D873600E59BB9 /* Assets.xcassets in Resources */,
-				1A35F350229D873500E59BB9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,11 +397,12 @@
 				A010DFA5229E23CA005BC780 /* UIColorExtension.swift in Sources */,
 				1A8CE9E822A095DF003E3590 /* Task+CoreDataClass.swift in Sources */,
 				1AC908B522AAE74200CE3DA5 /* UIDatePicker.swift in Sources */,
+				1AD2F45022AFF2E10063DB9F /* ModalViewExtensions.swift in Sources */,
 				1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */,
 				1AF309F222A9719B004B9CBA /* NoTasksView.swift in Sources */,
 				1A35F382229D911D00E59BB9 /* UILabel.swift in Sources */,
 				1A2B1AB322A71D330086FA45 /* NotificationCategory.swift in Sources */,
-				1AEB4DBA229EC63900DA42B1 /* UITextFieldDelegate.swift in Sources */,
+				1AEB4DBA229EC63900DA42B1 /* AddTaskViewDelegate.swift in Sources */,
 				1A35F38F229DDA4F00E59BB9 /* UITextFlied.swift in Sources */,
 				1A35F34D229D873500E59BB9 /* ViewController.swift in Sources */,
 				1A19D545229F2F9500FEA8CB /* CoreData.swift in Sources */,
@@ -421,14 +445,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1A35F34E229D873500E59BB9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1A35F34F229D873500E59BB9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1A35F356229D873600E59BB9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

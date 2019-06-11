@@ -57,7 +57,7 @@ class AddTaskView: UIView {
         datePicker?.minimumDate = Date()
         let date = dateFormatter.string(from: Date())
         if let dateText = taskDateInput?.text!{
-            if let datePickerDate = dateFormatter.date(from: dateText){
+            if let datePickerDate = dateFormatter.date(from: dateText) {
                 if datePickerDate < Date() {
                     taskDateInput?.text = date
                 }

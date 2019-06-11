@@ -22,7 +22,7 @@ class UserNotificationService: NSObject {
         //Creamos un arreglo con las caracteristicas que tendrán nuestras alertas
         let options: UNAuthorizationOptions = [.alert, .badge, .sound, .carPlay]
         userNotificationCenter.requestAuthorization(options: options) { (granted, error) in
-            if (error != nil){
+            if (error != nil) {
                 print(error ?? "Error in the authorization process")
             }
             else{
@@ -38,7 +38,7 @@ class UserNotificationService: NSObject {
         }
     }
     
-    func configure(){
+    func configure() {
         userNotificationCenter.delegate = self
     }
     

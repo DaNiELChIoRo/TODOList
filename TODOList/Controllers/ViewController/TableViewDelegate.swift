@@ -37,7 +37,7 @@ extension ViewController {
         if tareas.count > 0 {
             sortTasks()
             for v in (navigationController?.view!.subviews)! {
-                if(v.isKind(of: NoTasksView.self)){
+                if(v.isKind(of: NoTasksView.self)) {
                     navigationController?.view.viewWithTag(001)?.removeFromSuperview()
                 }
             }
@@ -46,11 +46,10 @@ extension ViewController {
         }
     }
     
-    func updateRecods(tarea: Tarea){
+    func updateRecods(tarea: Tarea) {
         print("Updating records")
         tareas.append(tarea)
-        print("Se ha añadido al arrelo la tarea: \(tareas[tareas.count-1])")
-        
+        print("Se ha añadido al arrelo la tarea: \(tareas[tareas.count-1])")        
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }

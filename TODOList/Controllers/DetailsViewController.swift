@@ -53,12 +53,12 @@ class DetailViewController: UIViewController {
     var rowIndex:Int?
     var taskId:Int64?
     
-    var taskNameTitle:UILabel = UILabel().labelCreator(id: 001, text: "Tarea:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
-    var taskNameLabel:UILabel = UILabel().labelCreator(id: 002, text: "tarea", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
-    var taskDetailTitle:UILabel  = UILabel().labelCreator(id: 003, text: "Descripción:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
+    weak var taskNameTitle:UILabel? = UILabel().labelCreator(id: 001, text: "Tarea:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
+    weak var taskNameLabel:UILabel? = UILabel().labelCreator(id: 002, text: "tarea", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
+    weak var taskDetailTitle:UILabel?  = UILabel().labelCreator(id: 003, text: "Descripción:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
     var taskDetailLabel:UILabel  = UILabel().labelCreator(id: 004, text: "descripción",  backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
-    var taskDateTitle:UILabel  = UILabel().labelCreator(id: 005, text: "Fecha:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
-    var taskDateLabel:UILabel  = UILabel().labelCreator(id: 006, text: "fecha", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
+    weak var taskDateTitle:UILabel?  = UILabel().labelCreator(id: 005, text: "Fecha:", backgroundColor: .white, textColor: .black, textStyle: .bold, textAlignment: .center, fontSize: fontSize)
+    weak var taskDateLabel:UILabel?  = UILabel().labelCreator(id: 006, text: "fecha", backgroundColor: .lightGray, textColor: .black, textAlignment: .center, fontSize: fontSize)
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -72,14 +72,14 @@ class DetailViewController: UIViewController {
         
     }
     
-    func viewDetails(){
+    func viewDetails() {
         guard let name = taskName, let detail = taskDetail, let date = taskDate  else { return }
-        taskNameLabel.text = name
+        taskNameLabel!.text = name
         taskDetailLabel.text = detail
-        taskDateLabel.text = date
+        taskDateLabel!.text = date
     }
     
-    func setupView(){
+    func setupView() {
         
         view.backgroundColor = UIColor.white
         
@@ -87,23 +87,23 @@ class DetailViewController: UIViewController {
         
         let heightPercentage:CGFloat = 0.06
         
-        view.addSubview(taskNameTitle)
+        view.addSubview(taskNameTitle!)
         view.topAutoAnchors(id: 001, heightPercentage: heightPercentage, sidePadding: 25, topPadding: 35)
-        view.addSubview(taskNameLabel)
+        view.addSubview(taskNameLabel!)
         view.AutoAnchors(id: 002, topView: 001, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
-        view.addSubview(taskDetailTitle)
+        view.addSubview(taskDetailTitle!)
         view.AutoAnchors(id: 003, topView: 002, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
         view.addSubview(taskDetailLabel)
         view.AutoAnchors(id: 004, topView: 003, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
-        view.addSubview(taskDateTitle)
+        view.addSubview(taskDateTitle!)
         view.AutoAnchors(id: 005, topView: 004, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
-        view.addSubview(taskDateLabel)
+        view.addSubview(taskDateLabel!)
         view.AutoAnchors(id: 006, topView: 005, heightPercentage: heightPercentage, sidePadding: 0, topPadding: 5)
         
     }
     
     
-    func setupNavBar(){
+    func setupNavBar() {
         
         let edit = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editBarButtonHandler))
         let trash = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(trashBarButtonHanlder))
@@ -112,7 +112,7 @@ class DetailViewController: UIViewController {
     }
     
     //MARK:- TASK DELETE
-    func taskDeleter(){
+    func taskDeleter() {
         if let id = self.taskId,
             let index = self.rowIndex {
                 taskEditorDelegate?.deleteTaskFromMemoryAndView(rowIndex: index, id: id)
@@ -161,10 +161,10 @@ extension DetailViewController: taskEditor {
     func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {
         print("pushTaskToMemoryAndTable method from DetailViewController")
         
-        taskNameLabel.text = tarea.name
+        taskNameLabel!.text = tarea.name
         taskDetailLabel.text = tarea.descripcion
         let date = dateFormatter.string(from: tarea.date! as Date)
-        taskDateLabel.text = date
+        taskDateLabel!.text = date
         if let taskID = self.taskId {
             taskEditorDelegate?.pushTaskToMemoryAndTable(tarea: tarea, id:taskID)
         }

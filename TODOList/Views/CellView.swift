@@ -30,7 +30,6 @@ class CellView: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupCell()
     }
     
@@ -38,15 +37,12 @@ class CellView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCell(){
-        
+    func setupCell() {
         addSubview(name)
         addSubview(date)
         addConstraints(self.LayoutWithVisualFormat(visualFormat: "H:|-16-[nameLabel]-20-[dateLabel]-16-|", alignment: .alignAllCenterY, view: ["nameLabel": name, "dateLabel": date]))
         addConstraints(self.LayoutWithVisualFormat(visualFormat: "V:|-[nameLabel]-|", alignment: .alignAllCenterY, view: ["nameLabel": name]))
-        addConstraints(self.LayoutWithVisualFormat(visualFormat: "V:|-[dateLabel]-|", alignment: .alignAllCenterY, view: ["dateLabel": date]))
-        
-        
+        addConstraints(self.LayoutWithVisualFormat(visualFormat: "V:|-[dateLabel]-|", alignment: .alignAllCenterY, view: ["dateLabel": date]))        
     }
     
 }

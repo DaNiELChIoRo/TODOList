@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     
-    func topViewAutoAnchors(vista: UIView, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat){
+    func topViewAutoAnchors(vista: UIView, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat) {
         NSLayoutConstraint.activate([
             (vista.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: self.frame.height*(topPadding/736))),
             (vista.centerXAnchor.constraint(equalTo: self.centerXAnchor)),
@@ -19,7 +19,7 @@ extension UIView {
             ])
     }
     
-    func centerViewAutoAnchors(vista: UIView, heightPercentage:CGFloat, sidePadding:CGFloat){        
+    func centerViewAutoAnchors(vista: UIView, heightPercentage:CGFloat, sidePadding:CGFloat) {
         NSLayoutConstraint.activate([
             (vista.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: self.frame.size.height * heightPercentage / 2)),
             (vista.centerXAnchor.constraint(equalTo: self.centerXAnchor)),
@@ -29,7 +29,7 @@ extension UIView {
             ])
     }
     
-    func topAutoAnchors(id:Int, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat){
+    func topAutoAnchors(id:Int, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat) {
         NSLayoutConstraint.activate([
             (self.viewWithTag(id)?.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: self.frame.height*(topPadding/736)))!,
             (self.viewWithTag(id)?.centerXAnchor.constraint(equalTo: self.centerXAnchor))!,
@@ -38,7 +38,7 @@ extension UIView {
             ])
     }
     
-    func AutoAnchors(id:Int, topView: Int, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat){
+    func AutoAnchors(id:Int, topView: Int, heightPercentage:CGFloat, sidePadding:CGFloat ,topPadding:CGFloat) {
         NSLayoutConstraint.activate([
             (self.viewWithTag(id)?.topAnchor.constraint(equalTo: (self.viewWithTag(topView)?.bottomAnchor)!, constant: self.frame.height*(topPadding/736)))!,
             (self.viewWithTag(id)?.centerXAnchor.constraint(equalTo: self.centerXAnchor))!,
@@ -48,7 +48,7 @@ extension UIView {
     }
     
     //Para vistas que no hayan sido creadas mediante metodos
-    func AutoAnchors(vista: UIView, topView:Int, heightPercentage:CGFloat, sidePadding:CGFloat){
+    func AutoAnchors(vista: UIView, topView:Int, heightPercentage:CGFloat, sidePadding:CGFloat) {
         NSLayoutConstraint.activate([
             (vista.topAnchor.constraint(equalTo: (self.viewWithTag(topView)?.bottomAnchor)!, constant: self.frame.size.height * heightPercentage / 2)),
             (vista.centerXAnchor.constraint(equalTo: self.centerXAnchor)),
@@ -59,7 +59,7 @@ extension UIView {
     }
     
     //Para las vistas que hayan sido creadas mediante metodos y tienen una vista 
-    func AutoAnchors(id: Int, topView:UIView, heightPercentage:CGFloat, sidePadding:CGFloat, topPadding:CGFloat){
+    func AutoAnchors(id: Int, topView:UIView, heightPercentage:CGFloat, sidePadding:CGFloat, topPadding:CGFloat) {
         NSLayoutConstraint.activate([
             (self.viewWithTag(id)?.topAnchor.constraint(equalTo: (topView.bottomAnchor), constant: self.frame.height*(topPadding/736)))!,
             (self.viewWithTag(id)?.centerXAnchor.constraint(equalTo: self.centerXAnchor))!,

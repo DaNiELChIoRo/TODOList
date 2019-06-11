@@ -17,7 +17,7 @@ struct Tarea {
     var descripcion: String?
     
     
-    init(id:Int64?, name: String, descripcion: String, date: Date){
+    init(id:Int64?, name: String, descripcion: String, date: Date) {
         self.id = id
         self.name = name
         self.descripcion = descripcion
