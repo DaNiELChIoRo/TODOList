@@ -27,6 +27,7 @@
 		1A8CE9E922A095DF003E3590 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */; };
 		1AC908B522AAE74200CE3DA5 /* UIDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC908B422AAE74200CE3DA5 /* UIDatePicker.swift */; };
 		1AD2F45022AFF2E10063DB9F /* ModalViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2F44F22AFF2E10063DB9F /* ModalViewExtensions.swift */; };
+		1AD2F45422AFFEC10063DB9F /* DetailViewTaskEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2F45322AFFEC10063DB9F /* DetailViewTaskEditor.swift */; };
 		1AD5D26B22A18C0300536610 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD5D26A22A18C0300536610 /* AddTaskView.swift */; };
 		1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE98D1E22A017AC00AFD6D6 /* CellView.swift */; };
 		1AEB4DBA229EC63900DA42B1 /* AddTaskViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEB4DB9229EC63900DA42B1 /* AddTaskViewDelegate.swift */; };
@@ -80,6 +81,7 @@
 		1A8CE9E722A095DF003E3590 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1AC908B422AAE74200CE3DA5 /* UIDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDatePicker.swift; sourceTree = "<group>"; };
 		1AD2F44F22AFF2E10063DB9F /* ModalViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewExtensions.swift; sourceTree = "<group>"; };
+		1AD2F45322AFFEC10063DB9F /* DetailViewTaskEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewTaskEditor.swift; sourceTree = "<group>"; };
 		1AD5D26A22A18C0300536610 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		1AE98D1E22A017AC00AFD6D6 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		1AEB4DB9229EC63900DA42B1 /* AddTaskViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewDelegate.swift; sourceTree = "<group>"; };
@@ -175,7 +177,7 @@
 			children = (
 				1AD2F44E22AFF2C00063DB9F /* ModalView */,
 				1AA44EEA22AEA2CD0023BE30 /* ViewController */,
-				1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */,
+				1AD2F45522AFFECB0063DB9F /* DetailsViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -255,6 +257,15 @@
 				1A19D544229F2F9500FEA8CB /* CoreData.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		1AD2F45522AFFECB0063DB9F /* DetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1AD2F45322AFFEC10063DB9F /* DetailViewTaskEditor.swift */,
+				1AEB4DBB229ED5F900DA42B1 /* DetailsViewController.swift */,
+			);
+			path = DetailsViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -400,6 +411,7 @@
 				1AD2F45022AFF2E10063DB9F /* ModalViewExtensions.swift in Sources */,
 				1AE98D1F22A017AC00AFD6D6 /* CellView.swift in Sources */,
 				1AF309F222A9719B004B9CBA /* NoTasksView.swift in Sources */,
+				1AD2F45422AFFEC10063DB9F /* DetailViewTaskEditor.swift in Sources */,
 				1A35F382229D911D00E59BB9 /* UILabel.swift in Sources */,
 				1A2B1AB322A71D330086FA45 /* NotificationCategory.swift in Sources */,
 				1AEB4DBA229EC63900DA42B1 /* AddTaskViewDelegate.swift in Sources */,
