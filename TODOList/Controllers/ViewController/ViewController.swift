@@ -95,7 +95,7 @@ class ViewController: UITableViewController {
 
 extension ViewController: rowAdder {
     
-    func sortTasks(){
+    func sortTasks() {
         print("the task are about to be sorted!")
         tareas = tareas.sorted { (Task, Task1) -> Bool in
             let date1 = Task.date! as Date

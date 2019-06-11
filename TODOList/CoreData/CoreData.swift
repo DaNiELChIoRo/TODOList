@@ -43,7 +43,7 @@ class CoreData {
     }
     
     func fetchAllRecords() -> [Tarea]? {
-        if let records = fetchAllTasks(){
+        if let records = fetchAllTasks() {
             let tareas = records.map { (item) -> Tarea in
                 let tarea = Tarea(id: item.id, name: item.name!, descripcion: item.descripcion!, date: item.date! as Date)
                 return tarea
