@@ -19,18 +19,7 @@ extension ViewController {
         tableView.register(CellView.self, forCellReuseIdentifier: "cellView")
         recordChecker()
         
-    }
-    
-    func addNoTaskView() {
-        print("Adding the NoTasksView!")
-        let size = UIScreen.main.bounds
-        let anotherBarHeight = UIApplication.shared.statusBarFrame.size.height
-        guard let barHeight = navigationController?.navigationBar.frame.height else { return }
-        vista = NoTasksView(frame: CGRect(x: 0, y: barHeight + anotherBarHeight, width: size.width, height: size.height))
-        vista?.tag = 001
-        guard vista != nil else { return }
-        navigationController?.view.addSubview(vista!)
-    }
+    }        
     
     func recordChecker() {
         print("recordChecker function has been called!")

@@ -48,7 +48,6 @@ class ViewController: UITableViewController {
         // Do any additional setup after loading the view.
         setupNavBar()
         setupView()
-//        CoreData()
         records()
         requestPermisions() 
         
@@ -71,7 +70,7 @@ class ViewController: UITableViewController {
     
     fileprivate func setupNavBar() {
         navigationItem.title = "TODO List"
-        let rightItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonHandler))
+        let rightItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTaskViewBarButtonHandler))
         navigationItem.rightBarButtonItem = rightItem
     }
     
@@ -82,13 +81,23 @@ class ViewController: UITableViewController {
         navigationController?.pushViewController(detailView, animated: true)
     }
     
-    @objc func rightBarButtonHandler() {
-        print("right action")
-        
+    @objc func addTaskViewBarButtonHandler() {
+        print("addTaskView BarButton action has been triggered")
         let addView = ModalViewController()
         addView.rowAdderDelegate = self
         addView.modalPresentationStyle = .overCurrentContext
         self.present(addView, animated: true)
+    }
+    
+    func addNoTaskView() {
+        print("Adding the NoTasksView!")
+        let size = UIScreen.main.bounds
+        let anotherBarHeight = UIApplication.shared.statusBarFrame.size.height
+        guard let barHeight = navigationController?.navigationBar.frame.height else { return }
+        vista = NoTasksView(frame: CGRect(x: 0, y: barHeight + anotherBarHeight, width: size.width, height: size.height))
+        vista?.tag = 001
+        guard vista != nil else { return }
+        navigationController?.view.addSubview(vista!)
     }
 
 }
@@ -108,51 +117,10 @@ extension ViewController: rowAdder {
     
     func addRow(tarea: Tarea) {
         print("rowAdder Delegate fired from ViewController")
-        
-        tareas.append(tarea) 
-        
+        tareas.append(tarea)
         let indexPath = IndexPath(row: tareas.count-1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
-        
         coreData?.addTask(tarea.id!, tarea.name!, tarea.descripcion!, tarea.date!)
-        
         recordChecker()
-        
     }
-}
-
-extension ViewController: taskEditor {
-    
-    func deleteTaskFromMemoryAndView(rowIndex: Int, id: Int64) {
-        print("taskEditor deleteTaskFromMemory Delegate fired from ViewController")
-        tareas.remove(at: rowIndex)
-        coreData?.deleteRecord(id: id)
-        let indexPath = IndexPath(row: rowIndex, section: 0)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-        recordChecker()        
-        UserNotificationService.shared.removeNotification(identifier: String(id))
-    }
-    
-    func pushTaskToMemoryAndTable(tarea: Tarea, id:Int64) {
-        print("taskEditor pushTaskToMemory Delegate fired from ViewController")
-        
-        coreData?.updateRecord(id: id, task: tarea)
-        sortTasks()
-        
-        var counter:Int = 0
-        for task in tareas{
-            if task.id == tarea.id {                
-                tareas[counter].name = tarea.name
-                tareas[counter].descripcion = tarea.descripcion
-                tareas[counter].date = tarea.date
-            }
-            counter += 1
-        }
-
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    
-    }
-    
 }
